@@ -1,0 +1,115 @@
+<div class="card p-5">
+  <!-- Header Section -->
+  <div class="flex justify-between items-center mb-5">
+    <h2 class="m-0 text-xl font-bold">Editar cliente</h2>
+    <div class="flex gap-2">
+      <p-button label="Guardar"  (onClick)="editClient()" icon="pi pi-plus" class="p-button-primary"></p-button>
+      <p-button label="Cancelar"  (onClick)="cancel()" icon="pi pi-times" severity="secondary"></p-button>
+
+    </div>
+  </div>
+
+   <!-- Tabs Navigation -->
+   <!-- <div class="border-b mb-4">
+    <ul class="flex">
+      <li *ngFor="let tab of tabs; let i = index" (click)="activeTab = i"
+          class="cursor-pointer px-4 py-2 border-b-2"
+          [class.border-black]="activeTab === i" [class.border-transparent]="activeTab !== i">
+        {{ tab.label }}
+      </li>
+    </ul>
+  </div> -->
+
+  <!-- Tabs Content -->
+  <!-- <div *ngIf="activeTab === 0"> -->
+    <form [formGroup]="clienteForm" class="grid grid-cols-2 gap-4">
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">N° Cliente</label>
+        <input pInputText  formControlName="numeroCliente" pSize="large"  placeholder="N° Cliente" class="w-full" />
+      </div>
+
+      <div class="flex items-center gap-2">
+        <p-checkbox formControlName="activo"></p-checkbox>
+        <label class="text-sm font-medium">Activo</label>
+      </div>
+
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Nombres</label>
+        <input pInputText formControlName="nombres" pSize="large" placeholder="Nombres" class="w-full" />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Correo</label>
+        <input pInputText formControlName="correo" placeholder="Correo" pSize="large" class="w-full" />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Tipo de documento </label>
+        <p-select formControlName="tipoDocumento" [options]="tiposDocumento" size="large"  placeholder="Tipo de documento" class="w-full"></p-select>
+      </div>
+
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Documento</label>
+        <input pInputText formControlName="documento" placeholder="Documento" pSize="large" class="w-full" />
+      </div>
+
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Dirección</label>
+        <input pInputText formControlName="direccion" placeholder="Dirección"  pSize="large"class="w-full" />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Teléfono 1</label>
+        <input pInputText formControlName="telefono1" placeholder="Teléfono 1"  pSize="large"class="w-full" />
+      </div>
+
+
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Departamento</label>
+        <p-select formControlName="departamento" [options]="departamentos" size="large" placeholder="Departamento" class="w-full"></p-select>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Teléfono 2</label>
+        <input pInputText formControlName="telefono2" size="large" placeholder="Teléfono 2" pSize="large" class="w-full" />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Provincia</label>
+        <p-select formControlName="provincia" [options]="provincias" size="large" placeholder="Provincia" class="w-full"></p-select>
+      </div>
+
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Tipo de cliente</label>
+        <p-select formControlName="tipoCliente" [options]="tiposCliente" size="large" placeholder="Tipo de cliente" class="w-full"></p-select>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Distrito</label>
+        <p-select formControlName="distrito" [options]="distritos" size="large" placeholder="Distrito" class="w-full"></p-select>
+      </div>
+
+    </form>
+  <!-- </div> -->
+<!--
+  <div *ngIf="activeTab === 1">
+    <p>Formulario de direcciones aquí...</p>
+  </div>
+
+  <div *ngIf="activeTab === 2">
+    <p>Formulario de consignatarios aquí...</p>
+  </div>
+
+  <div *ngIf="activeTab === 3">
+    <p>Información de auditoría aquí...</p>
+  </div> -->
+
+  <!-- Form Section -->
+
+</div>

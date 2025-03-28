@@ -1,0 +1,18 @@
+.layout-container {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 0;
+  transition: margin-left 0.3s;
+}
+
+/* Ajusta el contenido para que no quede detrás */
+.main-content {
+  margin-left: 20rem; /* 64 en Tailwind equivale a 16rem */
+  position: relative;
+  z-index: 1; /* Menor que el drawer para que no lo cubra */
+}

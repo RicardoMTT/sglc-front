@@ -1,0 +1,136 @@
+<div class="card">
+
+  <!-- Header Section -->
+  <div class="flex justify-between align-items-center mb-3">
+    <h2 class="m-0">Paquetes</h2>
+  </div>
+
+  <div class="flex justify-end align-items-center">
+    <div class="">
+      <p-menu #menu [model]="items" [popup]="true" />
+      <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedPackages || !selectedPackages.length"/>
+    </div>
+
+    <p-button label="Agregar" icon="pi pi-plus" (onClick)="createPackage()" styleClass="black"></p-button>
+
+  </div>
+
+  <p-confirmDialog></p-confirmDialog>
+
+  <p-table
+    #dt2
+    [value]="packages"
+    [(selection)]="selectedPackages"
+    dataKey="internNumber"
+    selectionMode="multiple"
+    [tableStyle]="{ 'min-width': '2rem' }"
+    [paginator]="true"
+    [rowHover]="true"
+    [rows]="20"
+    [rowsPerPageOptions]="[ 20, 40]"
+    [globalFilterFields]="['internNumber', 'tracking', 'sender', 'receiver','active']"
+  >
+
+    <ng-template #caption>
+      <div class="flex justify-between">
+        <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt2)" />
+
+      <div class="flex justify-end">
+        <p-iconField iconPosition="left">
+            <p-inputIcon>
+                <i class="pi pi-search"></i>
+            </p-inputIcon>
+            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Keyboard Search" />
+        </p-iconField>
+      </div>
+      </div>
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+          <th style="width: 4rem">
+              <p-tableHeaderCheckbox />
+          </th>
+          <th pSortableColumn="internNumber" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+                Nro. interno
+                <p-sortIcon field="internNumber" />
+                <p-columnFilter type="text" field="internNumber" display="menu" class="ml-auto" />
+            </div>
+          </th>
+          <th pSortableColumn="tracking" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+                Tracking
+                <p-sortIcon field="tracking" />
+                <p-columnFilter type="text" field="tracking" display="menu" class="ml-auto" />
+            </div>
+          </th>
+          <th pSortableColumn="sender" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+              Remitente
+              <p-sortIcon field="sender" />
+              <p-columnFilter type="text" field="sender" display="menu" class="ml-auto" />
+          </div>
+          </th>
+          <th pSortableColumn="receiver" style="min-width: 10rem">
+              <div class="flex justify-between items-center">
+                  Destinatario
+                  <p-sortIcon field="receiver" />
+                  <p-columnFilter type="date" field="receiver" display="menu" class="ml-auto" />
+              </div>
+          </th>
+          <th pSortableColumn="dateAndTime" style="min-width: 10rem">
+              <div class="flex justify-between items-center">
+                  Fecha y hora
+                  <p-sortIcon field="dateAndTime" />
+                  <p-columnFilter type="numeric" field="dateAndTime" display="menu" currency="USD" class="ml-auto" />
+              </div>
+          </th>
+          <th pSortableColumn="active" style="min-width: 10rem">
+            <div class="flex justify-between items-center">
+              Activo
+              <p-sortIcon field="active" />
+              <p-columnFilter type="text" field="active" display="menu" class="ml-auto" />
+          </div>
+          </th>
+          <th style="width: 4rem">
+            Acciones
+          </th>
+
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-package>
+        <tr>
+            <td>
+              <p-tableCheckbox [value]="package" />
+            </td>
+            <td>{{ package.internNumber }}</td>
+            <td>{{ package.tracking }}</td>
+            <td>{{ package.sender }}</td>
+            <td>{{ package.receiver }}</td>
+            <td>{{ package.dateAndTime }}</td>
+            <td>
+
+              <i
+                      class="pi"
+                      [ngClass]="{
+                          'text-green-500 pi-check-circle': package.active,
+                          'text-red-500 pi-times-circle': !package.active
+                      }"
+                  ></i>
+
+            </td>
+            <td>
+              <div class="flex">
+                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editPackage(package)" />
+                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deletePackage(package)" />
+
+              </div>
+            </td>
+        </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+

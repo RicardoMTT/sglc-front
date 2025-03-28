@@ -1,0 +1,95 @@
+<div class="card p-5">
+
+  <div class="flex justify-between items-center mb-5">
+
+    <h2 class="m-0 text-xl font-bold">Editar paquete</h2>
+
+    <div class="flex gap-2">
+      <p-button label="Guardar"  (onClick)="save()" icon="pi pi-plus" class="p-button-primary"></p-button>
+      <p-button label="Cancelar"  (onClick)="toBack()" icon="pi pi-times" severity="secondary"></p-button>
+    </div>
+
+  </div>
+
+  <form [formGroup]="packageForm" class="grid grid-cols-2 gap-4">
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">N° paquete</label>
+        <input pInputText  formControlName="packageNumber" pSize="large"  placeholder="N° Cliente" class="w-full" />
+      </div>
+
+      <div class="flex items-center gap-2">
+        <p-checkbox formControlName="active" size="large"></p-checkbox>
+        <label class="text-sm font-medium">Activo</label>
+      </div>
+
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Tracking</label>
+        <input pInputText formControlName="tracking" pSize="large" placeholder="Nombres" class="w-full" />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Fecha de compra</label>
+        <input pInputText formControlName="purchaseDate" placeholder="Correo" pSize="large" class="w-full" />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Almacen </label>
+        <p-select formControlName="store" size="large"  [options]="tiposDocumento"  placeholder="Tipo de documento" class="w-full"></p-select>
+      </div>
+
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">N° Warehouse</label>
+        <input pInputText formControlName="warehouse" placeholder="Documento" pSize="large" class="w-full" />
+      </div>
+
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Peso</label>
+        <input pInputText formControlName="weight" placeholder="Dirección"  pSize="large"class="w-full" />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Casillero Almacén</label>
+        <input pInputText formControlName="lockerStore" placeholder="Teléfono 1"  pSize="large"class="w-full" />
+      </div>
+
+
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Departamento destino</label>
+        <p-select formControlName="departmentDestination" size="large"  [options]="departamentos" placeholder="Departamento" class="w-full"></p-select>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Observaciones</label>
+        <input pInputText formControlName="observations" placeholder="Teléfono 2" pSize="large" class="w-full" />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Provincia destino</label>
+        <p-select formControlName="provinceDestination" [options]="provincias" size="large" placeholder="Provincia" class="w-full"></p-select>
+      </div>
+
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Nombre Almacenero</label>
+        <p-select formControlName="grocerName" [options]="tiposCliente" size="large" placeholder="Tipo de cliente" class="w-full"></p-select>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Distrito destino</label>
+        <p-select formControlName="districtDestination" [options]="distritos" size="large"  placeholder="Distrito" class="w-full"></p-select>
+      </div>
+
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">Nombre destinatario</label>
+        <input pInputText formControlName="receiverName" placeholder="Teléfono 2" pSize="large" class="w-full" />
+      </div>
+
+  </form>
+
+</div>
