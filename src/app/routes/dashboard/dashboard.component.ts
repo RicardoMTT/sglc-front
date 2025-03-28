@@ -2,17 +2,17 @@ import { Component, Renderer2, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { Drawer, DrawerModule } from 'primeng/drawer';
 import { CommonModule } from '@angular/common';
-import { AppTopbar } from './topbar/topbar.component';
-import { AppSidebar } from './sidebar/sidebar.component';
 import { filter, Subscription } from 'rxjs';
-import { LayoutService } from './services/layout.service';
+import { AppSidebar } from './components/sidebar/sidebar.component';
+import { LayoutService } from '../../core/services/layout.service';
+import { AppTopbar } from './components/topbar/topbar.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [CommonModule, AppTopbar, AppSidebar, RouterModule],
+  imports: [CommonModule, AppSidebar, RouterModule,AppTopbar],
 })
 export class DashboardComponent {
 
