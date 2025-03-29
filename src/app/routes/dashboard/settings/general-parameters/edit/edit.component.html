@@ -1,0 +1,56 @@
+<div class="card p-5">
+
+  <div class="flex justify-between items-center mb-5">
+
+    <h2 class="m-0 text-xl font-bold">Editar Parámetros Generales</h2>
+
+    <div class="flex gap-2">
+      <p-button label="Guardar"  (onClick)="save()" icon="pi pi-plus" class="p-button-primary"></p-button>
+      <p-button label="Cancelar"  (onClick)="toBack()" icon="pi pi-times" severity="secondary"></p-button>
+    </div>
+
+  </div>
+
+
+  <form [formGroup]="parameterForm" class="grid grid-cols-2 gap-4">
+
+
+    <div class="flex items-center gap-2">
+      <p-checkbox formControlName="active" size="large"></p-checkbox>
+      <label class="text-sm font-medium">Activo</label>
+    </div>
+    <div class="flex items-center gap-2">
+      <p-checkbox formControlName="applyAllCompanies" size="large"></p-checkbox>
+      <label class="text-sm font-medium">Aplica a todas las empresas</label>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Código Parámetro</label>
+      <input pInputText  formControlName="code" pSize="large"  placeholder="N° Cliente" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Nombre Parámetro</label>
+      <input pInputText  formControlName="name" pSize="large"  placeholder="N° Cliente" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Valor principal</label>
+      <input pInputText formControlName="value" pSize="large" placeholder="Nombres" class="w-full" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Valor 1</label>
+      <input pInputText formControlName="firstValue" placeholder="Correo" pSize="large" class="w-full" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Valor 2 </label>
+      <input pInputText formControlName="secondValue" placeholder="Correo" pSize="large" class="w-full" />
+    </div>
+
+  </form>
+
+</div>

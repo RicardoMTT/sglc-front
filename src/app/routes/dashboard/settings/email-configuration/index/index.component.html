@@ -1,0 +1,194 @@
+<div class="card">
+
+  <!-- Header Section -->
+  <div class="flex justify-between align-items-center mb-3">
+    <h2 class="m-0">Configuración Correos</h2>
+  </div>
+
+  <div class="flex justify-end align-items-center">
+    <div class="">
+      <p-menu #menu [model]="items" [popup]="true" />
+      <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedEmailConfiguration || !selectedEmailConfiguration.length"/>
+    </div>
+
+    <p-button label="Agregar" icon="pi pi-plus" (onClick)="createEmail()" styleClass="black"></p-button>
+
+  </div>
+
+  <p-confirmDialog></p-confirmDialog>
+
+  <p-table
+    #dt2
+    [value]="emailsConfiguration"
+    [(selection)]="selectedEmailConfiguration"
+    dataKey="id"
+    selectionMode="multiple"
+    [tableStyle]="{ 'min-width': '2rem' }"
+    [paginator]="true"
+    [rowHover]="true"
+    [rows]="20"
+    [rowsPerPageOptions]="[ 20, 40]"
+    [globalFilterFields]="['id', 'name', 'emailName', 'emailSubject', 'emailSigner','active']"
+  >
+
+    <ng-template #caption>
+
+
+      <div class="flex justify-end">
+        <p-iconField iconPosition="left">
+            <p-inputIcon>
+                <i class="pi pi-search"></i>
+            </p-inputIcon>
+            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Keyboard Search" />
+        </p-iconField>
+      </div>
+
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+          <th style="width: 4rem">
+              <p-tableHeaderCheckbox />
+          </th>
+          <th pSortableColumn="id" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+                Identificador
+                  <p-sortIcon field="id" />
+
+                <!-- <p-sortIcon field="clientNumber" />
+                <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
+            </div>
+          </th>
+          <th pSortableColumn="name" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+                Nombre Módulo
+                <p-sortIcon field="name" />
+                <!-- <p-sortIcon field="names" />
+                <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+            </div>
+          </th>
+          <th pSortableColumn="emailName" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+              Nombre Correo
+              <p-sortIcon field="emailName" />
+              <!-- <p-sortIcon field="names" />
+              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+          </div>
+          </th>
+          <th pSortableColumn="emailSubject" style="min-width: 10rem">
+              <div class="flex justify-between items-center">
+                  Asunto Correo
+                  <p-sortIcon field="emailSubject" />
+                  <!-- <p-sortIcon field="date" />
+                  <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
+              </div>
+          </th>
+          <th pSortableColumn="emailSigner" style="min-width: 10rem">
+              <div class="flex justify-between items-center">
+                  Firmante Correo
+                  <p-sortIcon field="emailSigner" />
+                  <!-- <p-sortIcon field="balance" />
+                  <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" /> -->
+              </div>
+          </th>
+          <th pSortableColumn="active" style="min-width: 10rem">
+            <div class="flex justify-between items-center">
+              Activo
+              <p-sortIcon field="active" />
+              <!-- <p-sortIcon field="names" />
+              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+          </div>
+          </th>
+          <th style="width: 4rem">
+            Acciones
+          </th>
+
+      </tr>
+
+      <tr>
+        <th>
+
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="id"
+                    placeholder="id "
+                    ariaLabel="Filter id"
+                ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="name"
+                    placeholder="Buscar por nombre"
+                    ariaLabel="Filter Name"
+                ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="emailName"
+                    placeholder="Buscar por nombre correo"
+                    ariaLabel="Filter emailName"
+                ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="emailSubject"
+                    placeholder="Buscar por asunto correo"
+                    ariaLabel="Filter emailSubject"
+                ></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="emailSigner"
+                    placeholder="Buscar por firmante correo"
+                    ariaLabel="Filter emailSigner"
+                ></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter type="boolean" field="active"></p-columnFilter>
+
+        </th>
+
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-email>
+        <tr>
+            <td>
+              <p-tableCheckbox [value]="email" />
+            </td>
+            <td>{{ email.id }}</td>
+            <td>{{ email.name }}</td>
+            <td>{{ email.emailName }}</td>
+            <td>{{ email.emailSubject }}</td>
+            <td>{{ email.emailSigner }}</td>
+            <td>
+
+              <i
+                      class="pi"
+                      [ngClass]="{
+                          'text-green-500 pi-check-circle': email.active,
+                          'text-red-500 pi-times-circle': !email.active
+                      }"
+                  ></i>
+
+            </td>
+            <td>
+              <div class="flex">
+                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editEmail(email)" />
+                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteEmail(email)" />
+
+              </div>
+            </td>
+        </tr>
+    </ng-template>
+  </p-table>
+
+</div>

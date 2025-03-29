@@ -1,0 +1,194 @@
+<div class="card">
+
+  <!-- Header Section -->
+  <div class="flex justify-between align-items-center mb-3">
+    <h2 class="m-0">Parámetros Generales</h2>
+  </div>
+
+  <div class="flex justify-end align-items-center">
+    <div class="">
+      <p-menu #menu [model]="items" [popup]="true" />
+      <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedParameters || !selectedParameters.length"/>
+    </div>
+
+    <p-button label="Agregar" icon="pi pi-plus" (onClick)="createParameter()" styleClass="black"></p-button>
+
+  </div>
+
+  <p-confirmDialog></p-confirmDialog>
+
+  <p-table
+    #dt2
+    [value]="parameters"
+    [(selection)]="selectedParameters"
+    dataKey="code"
+    selectionMode="multiple"
+    [tableStyle]="{ 'min-width': '2rem' }"
+    [paginator]="true"
+    [rowHover]="true"
+    [rows]="20"
+    [rowsPerPageOptions]="[ 20, 40]"
+    [globalFilterFields]="['code', 'name', 'value', 'firstValue', 'secondValue','active']"
+  >
+
+    <ng-template #caption>
+
+
+      <div class="flex justify-end">
+        <p-iconField iconPosition="left">
+            <p-inputIcon>
+                <i class="pi pi-search"></i>
+            </p-inputIcon>
+            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Keyboard Search" />
+        </p-iconField>
+      </div>
+
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+          <th style="width: 4rem">
+              <p-tableHeaderCheckbox />
+          </th>
+          <th pSortableColumn="code" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+                Código Parámetro
+                  <p-sortIcon field="code" />
+
+                <!-- <p-sortIcon field="clientNumber" />
+                <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
+            </div>
+          </th>
+          <th pSortableColumn="name" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+                Nombre Parámetro
+                <p-sortIcon field="name" />
+                <!-- <p-sortIcon field="names" />
+                <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+            </div>
+          </th>
+          <th pSortableColumn="value" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+              Valor principal
+              <p-sortIcon field="value" />
+              <!-- <p-sortIcon field="names" />
+              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+          </div>
+          </th>
+          <th pSortableColumn="firstValue" style="min-width: 10rem">
+              <div class="flex justify-between items-center">
+                  Valor 1
+                  <p-sortIcon field="firstValue" />
+                  <!-- <p-sortIcon field="date" />
+                  <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
+              </div>
+          </th>
+          <th pSortableColumn="secondValue" style="min-width: 10rem">
+              <div class="flex justify-between items-center">
+                  Valor 2
+                  <p-sortIcon field="secondValue" />
+                  <!-- <p-sortIcon field="balance" />
+                  <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" /> -->
+              </div>
+          </th>
+          <th pSortableColumn="active" style="min-width: 10rem">
+            <div class="flex justify-between items-center">
+              Activo
+              <p-sortIcon field="active" />
+              <!-- <p-sortIcon field="names" />
+              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+          </div>
+          </th>
+          <th style="width: 4rem">
+            Acciones
+          </th>
+
+      </tr>
+
+      <tr>
+        <th>
+
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="code"
+                    placeholder="code "
+                    ariaLabel="Filter code"
+                ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="name"
+                    placeholder="Buscar por nombre"
+                    ariaLabel="Filter Name"
+                ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="value"
+                    placeholder="Buscar por valor principal"
+                    ariaLabel="Filter value"
+                ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="firstValue"
+                    placeholder="Buscar por Valor 1"
+                    ariaLabel="Filter firstValue"
+                ></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="secondValue"
+                    placeholder="Buscar por Valor 2"
+                    ariaLabel="Filter secondValue"
+                ></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter type="boolean" field="active"></p-columnFilter>
+
+        </th>
+
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-parameter>
+        <tr>
+            <td>
+              <p-tableCheckbox [value]="parameter" />
+            </td>
+            <td>{{ parameter.code }}</td>
+            <td>{{ parameter.name }}</td>
+            <td>{{ parameter.value }}</td>
+            <td>{{ parameter.firstValue }}</td>
+            <td>{{ parameter.secondValue }}</td>
+            <td>
+
+              <i
+                      class="pi"
+                      [ngClass]="{
+                          'text-green-500 pi-check-circle': parameter.active,
+                          'text-red-500 pi-times-circle': !parameter.active
+                      }"
+                  ></i>
+
+            </td>
+            <td>
+              <div class="flex">
+                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editParameter(parameter)" />
+                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteParameter(parameter)" />
+
+              </div>
+            </td>
+        </tr>
+    </ng-template>
+  </p-table>
+
+</div>

@@ -57,8 +57,60 @@ export class AppMenu {
                   label: 'Módulos',
                   icon: 'pi pi-fw pi-check-square'
                 },
-            ]
-          },
+                {
+                  label: 'Perfil Módulos',
+                  icon: 'pi pi-fw pi-check-square'
+                },
+              ]
+            },
+            {
+              label: 'Configuraciones',
+              items: [
+                {
+                  label: 'Parámetros generales',
+                  icon: 'pi pi-fw pi-user',
+                  routerLink: ['/dashboard/settings/general-parameters']
+                },
+                {
+                  label: 'Empresas',
+                  icon: 'pi pi-fw pi-check-square',
+                  routerLink: ['/dashboard/seguridad/profiles']
+                },
+                {
+                  label: 'Países',
+                  icon: 'pi pi-fw pi-check-square'
+                },
+                {
+                  label: 'Ubicación geografica',
+                  icon: 'pi pi-fw pi-check-square'
+                },
+                {
+                  label: 'Numerador documentos',
+                  icon: 'pi pi-fw pi-check-square',
+                  routerLink: ['/dashboard/settings/documents-generator']
+                },
+              ]
+            },
+            {
+              label: 'Utilitarios',
+              items: [
+                {
+                  label: 'Configuración correos',
+                  icon: 'pi pi-fw pi-user',
+                  routerLink: ['/dashboard/settings/email-configuration']
+                },
+                {
+                  label: 'Calendario Actividades',
+                  icon: 'pi pi-fw pi-check-square',
+                  routerLink: ['/dashboard/seguridad/profiles']
+                },
+                {
+                  label: 'Auditorias',
+                  icon: 'pi pi-fw pi-check-square'
+                },
+
+              ]
+            },
         ];
     }
 }

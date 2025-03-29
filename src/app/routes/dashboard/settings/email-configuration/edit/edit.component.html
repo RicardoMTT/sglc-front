@@ -1,0 +1,56 @@
+<div class="card p-5">
+
+  <div class="flex justify-between items-center mb-5">
+
+    <h2 class="m-0 text-xl font-bold">Editar Configuracion Correo </h2>
+
+    <div class="flex gap-2">
+      <p-button label="Guardar"  (onClick)="save()" icon="pi pi-plus" class="p-button-primary"></p-button>
+      <p-button label="Cancelar"  (onClick)="toBack()" icon="pi pi-times" severity="secondary"></p-button>
+    </div>
+
+  </div>
+
+
+  <form [formGroup]="emailconfigurationForm" class="grid grid-cols-2 gap-4">
+
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Identificador</label>
+      <input pInputText  formControlName="id" pSize="large"  placeholder="N° Cliente" class="w-full" />
+    </div>
+
+
+    <div class="flex items-center gap-2">
+      <p-checkbox formControlName="active" size="large"></p-checkbox>
+      <label class="text-sm font-medium">Activo</label>
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Nombre </label>
+      <p-select formControlName="name" size="large"  [options]="optionsMenu" optionLabel="name" placeholder="Modulos" class="w-full"></p-select>
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Nombre Correo Electrónico</label>
+      <input pInputText  formControlName="email_name" pSize="large"  placeholder="Nombre correo electrónico" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Asunto Correo</label>
+      <input pInputText formControlName="email_subject" pSize="large" placeholder="Asunto Correo" class="w-full" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Firmante</label>
+      <input pInputText formControlName="email_signer" placeholder="Firmante" pSize="large" class="w-full" />
+    </div>
+
+
+  </form>
+
+</div>

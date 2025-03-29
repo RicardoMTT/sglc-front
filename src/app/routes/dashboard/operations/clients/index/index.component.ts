@@ -208,7 +208,6 @@ export class IndexComponent {
   ngOnInit() {}
 
   editClient(client: any) {
-    console.log('Editando cliente:', client);
     this.router.navigate(['dashboard/operaciones/clientes/edit/2']);
     // Lógica para editar cliente
   }
@@ -236,7 +235,6 @@ export class IndexComponent {
 
 
   applyFilterGlobal($event: any, stringVal: any) {
-    console.log(this.dt2);
     if (this.dt2) {
       this.dt2!.filterGlobal(
         ($event.target as HTMLInputElement).value,

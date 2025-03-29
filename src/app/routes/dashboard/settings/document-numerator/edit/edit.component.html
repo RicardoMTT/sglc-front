@@ -1,0 +1,41 @@
+<div class="card p-5">
+
+  <div class="flex justify-between items-center mb-5">
+
+    <h2 class="m-0 text-xl font-bold">Editar Numerador Documentos</h2>
+
+    <div class="flex gap-2">
+      <p-button label="Guardar"  (onClick)="save()" icon="pi pi-plus" class="p-button-primary"></p-button>
+      <p-button label="Cancelar"  (onClick)="toBack()" icon="pi pi-times" severity="secondary"></p-button>
+    </div>
+
+  </div>
+
+
+  <form [formGroup]="documentForm" class="grid grid-cols-2 gap-4">
+
+    <div class="flex items-center gap-2 col-span-2">
+      <p-checkbox formControlName="active" size="large"></p-checkbox>
+      <label class="text-sm font-medium">Activo</label>
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Tipo de documento </label>
+      <p-select formControlName="module_name" size="large"  [options]="modules" optionLabel="name" placeholder="Modulos" class="w-full"></p-select>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Prefijo</label>
+      <input pInputText  formControlName="prefix" pSize="large"  placeholder="prefijo" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Número</label>
+      <input pInputText  formControlName="number" pSize="large"  placeholder="Número" class="w-full" />
+    </div>
+
+  </form>
+
+</div>
