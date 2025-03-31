@@ -3,6 +3,9 @@ import { SettingsComponent } from './settings.component';
 import { GENERAL_PARAMETERS_ROUTES } from './general-parameters/general-parameters.routes';
 import { DOCUMENT_NUMERATOR_ROUTES } from './document-numerator/document-numerator.routes';
 import { EMAIL_CONFIGURATION_ROUTES } from './email-configuration/email-configuration.routes';
+import { GEOGRAPHIC_LOCATION_ROUTES } from './geographic-location/geographic-location.route';
+import { COMPANIES_ROUTES } from './companies/companies.routes';
+import { COUNTRIES_ROUTES } from './countries/countries.routes';
 
 export const SETTINGS_ROUTES: Routes = [
   {
@@ -17,6 +20,15 @@ export const SETTINGS_ROUTES: Routes = [
       },
       {
         path: 'email-configuration', children: EMAIL_CONFIGURATION_ROUTES
+      },
+      {
+        path: 'geographic-location', children: GEOGRAPHIC_LOCATION_ROUTES
+      },
+      {
+        path: 'companies', children: COMPANIES_ROUTES
+      },
+      {
+        path: 'countries', children: COUNTRIES_ROUTES
       }
     ]
    },

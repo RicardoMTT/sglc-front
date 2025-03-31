@@ -1,0 +1,194 @@
+<div class="card">
+
+  <!-- Header Section -->
+  <div class="flex justify-between align-items-center mb-3">
+    <h2 class="m-0">Empresas</h2>
+  </div>
+
+  <div class="flex justify-end align-items-center">
+    <div class="">
+      <p-menu #menu [model]="companies" [popup]="true" />
+      <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedCompanies || !selectedCompanies.length"/>
+    </div>
+
+    <p-button label="Agregar" icon="pi pi-plus" (onClick)="createCompany()" styleClass="black"></p-button>
+
+  </div>
+
+  <p-confirmDialog></p-confirmDialog>
+
+  <p-table
+    #dt2
+    [value]="companies"
+    [(selection)]="selectedCompanies"
+    dataKey="id"
+    selectionMode="multiple"
+    [tableStyle]="{ 'min-width': '2rem' }"
+    [paginator]="true"
+    [rowHover]="true"
+    [rows]="20"
+    [rowsPerPageOptions]="[ 20, 40]"
+    [globalFilterFields]="['code', 'company_name', 'email', 'company_address', 'company_type','active']"
+  >
+
+    <ng-template #caption>
+
+
+      <div class="flex justify-end">
+        <p-iconField iconPosition="left">
+            <p-inputIcon>
+                <i class="pi pi-search"></i>
+            </p-inputIcon>
+            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Keyboard Search" />
+        </p-iconField>
+      </div>
+
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+          <th style="width: 4rem">
+              <p-tableHeaderCheckbox />
+          </th>
+          <th pSortableColumn="code" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+                  Código
+                  <p-sortIcon field="code" />
+
+                <!-- <p-sortIcon field="clientNumber" />
+                <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
+            </div>
+          </th>
+          <th pSortableColumn="company_name" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+                Nombre Empresa
+                <p-sortIcon field="company_name" />
+                <!-- <p-sortIcon field="names" />
+                <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+            </div>
+          </th>
+          <th pSortableColumn="email" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+              Correo Electrónico
+              <p-sortIcon field="email" />
+              <!-- <p-sortIcon field="names" />
+              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+          </div>
+          </th>
+          <th pSortableColumn="company_address" style="min-width: 10rem">
+              <div class="flex justify-between items-center">
+                  Dirección Empresa
+                  <p-sortIcon field="company_address" />
+                  <!-- <p-sortIcon field="date" />
+                  <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
+              </div>
+          </th>
+          <th pSortableColumn="company_type" style="min-width: 10rem">
+              <div class="flex justify-between items-center">
+                  Tipo Empresa
+                  <p-sortIcon field="company_type" />
+                  <!-- <p-sortIcon field="balance" />
+                  <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" /> -->
+              </div>
+          </th>
+          <th pSortableColumn="active" style="min-width: 10rem">
+            <div class="flex justify-between items-center">
+              Activo
+              <p-sortIcon field="active" />
+              <!-- <p-sortIcon field="names" />
+              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+          </div>
+          </th>
+          <th style="width: 4rem">
+            Acciones
+          </th>
+
+      </tr>
+
+      <tr>
+        <th>
+
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="code"
+                    placeholder="Código"
+                    ariaLabel="Filter code"
+                ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="company_name"
+                    placeholder="Buscar por Nombre Empresa"
+                    ariaLabel="Filter company_name"
+                ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="email"
+                    placeholder="Buscar por Correo Electrónico"
+                    ariaLabel="Filter email"
+                ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="company_address"
+                    placeholder="Buscar por Dirección Empresa"
+                    ariaLabel="Filter company_address"
+                ></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="company_type"
+                    placeholder="Buscar por Tipo Empresa"
+                    ariaLabel="Filter company_type"
+                ></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter type="boolean" field="active"></p-columnFilter>
+
+        </th>
+
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-company>
+        <tr>
+            <td>
+              <p-tableCheckbox [value]="company" />
+            </td>
+            <td>{{ company.code }}</td>
+            <td>{{ company.company_name }}</td>
+            <td>{{ company.email }}</td>
+            <td>{{ company.company_address }}</td>
+            <td>{{ company.company_type }}</td>
+            <td>
+
+              <i
+                      class="pi"
+                      [ngClass]="{
+                          'text-green-500 pi-check-circle': company.active,
+                          'text-red-500 pi-times-circle': !company.active
+                      }"
+                  ></i>
+
+            </td>
+            <td>
+              <div class="flex">
+                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editCompany(company)" />
+                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteCompany(company)" />
+
+              </div>
+            </td>
+        </tr>
+    </ng-template>
+  </p-table>
+
+</div>

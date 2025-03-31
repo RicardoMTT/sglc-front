@@ -1,0 +1,194 @@
+<div class="card">
+
+  <!-- Header Section -->
+  <div class="flex justify-between align-items-center mb-3">
+    <h2 class="m-0">Ubicación Geografica</h2>
+  </div>
+
+  <div class="flex justify-end align-items-center">
+    <div class="">
+      <p-menu #menu [model]="elements" [popup]="true" />
+      <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedItems || !selectedItems.length"/>
+    </div>
+
+    <p-button label="Agregar" icon="pi pi-plus" (onClick)="createItem()" styleClass="black"></p-button>
+
+  </div>
+
+  <p-confirmDialog></p-confirmDialog>
+
+  <p-table
+    #dt2
+    [value]="elements"
+    [(selection)]="selectedItems"
+    dataKey="id"
+    selectionMode="multiple"
+    [tableStyle]="{ 'min-width': '2rem' }"
+    [paginator]="true"
+    [rowHover]="true"
+    [rows]="20"
+    [rowsPerPageOptions]="[ 20, 40]"
+    [globalFilterFields]="['id', 'department', 'province', 'district', 'creationDate','active']"
+  >
+
+    <ng-template #caption>
+
+
+      <div class="flex justify-end">
+        <p-iconField iconPosition="left">
+            <p-inputIcon>
+                <i class="pi pi-search"></i>
+            </p-inputIcon>
+            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Keyboard Search" />
+        </p-iconField>
+      </div>
+
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+          <th style="width: 4rem">
+              <p-tableHeaderCheckbox />
+          </th>
+          <th pSortableColumn="id" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+                ID
+                  <p-sortIcon field="id" />
+
+                <!-- <p-sortIcon field="clientNumber" />
+                <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
+            </div>
+          </th>
+          <th pSortableColumn="department" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+                Departamento
+                <p-sortIcon field="department" />
+                <!-- <p-sortIcon field="names" />
+                <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+            </div>
+          </th>
+          <th pSortableColumn="province" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+              Provincia
+              <p-sortIcon field="province" />
+              <!-- <p-sortIcon field="names" />
+              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+          </div>
+          </th>
+          <th pSortableColumn="district" style="min-width: 10rem">
+              <div class="flex justify-between items-center">
+                  Distrito
+                  <p-sortIcon field="district" />
+                  <!-- <p-sortIcon field="date" />
+                  <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
+              </div>
+          </th>
+          <th pSortableColumn="creationDate" style="min-width: 10rem">
+              <div class="flex justify-between items-center">
+                  Fecha de creación
+                  <p-sortIcon field="creationDate" />
+                  <!-- <p-sortIcon field="balance" />
+                  <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" /> -->
+              </div>
+          </th>
+          <th pSortableColumn="active" style="min-width: 10rem">
+            <div class="flex justify-between items-center">
+              Activo
+              <p-sortIcon field="active" />
+              <!-- <p-sortIcon field="names" />
+              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+          </div>
+          </th>
+          <th style="width: 4rem">
+            Acciones
+          </th>
+
+      </tr>
+
+      <tr>
+        <th>
+
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="id"
+                    placeholder="id "
+                    ariaLabel="Filter id"
+                ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="department"
+                    placeholder="Buscar por Departamento"
+                    ariaLabel="Filter department"
+                ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="province"
+                    placeholder="Buscar por provincia"
+                    ariaLabel="Filter province"
+                ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="district"
+                    placeholder="Buscar por distrito"
+                    ariaLabel="Filter district"
+                ></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="creationDate"
+                    placeholder="Buscar por fecha de creación"
+                    ariaLabel="Filter creationDate"
+                ></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter type="boolean" field="active"></p-columnFilter>
+
+        </th>
+
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-item>
+        <tr>
+            <td>
+              <p-tableCheckbox [value]="item" />
+            </td>
+            <td>{{ item.id }}</td>
+            <td>{{ item.department }}</td>
+            <td>{{ item.province }}</td>
+            <td>{{ item.district }}</td>
+            <td>{{ item.creationDate }}</td>
+            <td>
+
+              <i
+                      class="pi"
+                      [ngClass]="{
+                          'text-green-500 pi-check-circle': item.active,
+                          'text-red-500 pi-times-circle': !item.active
+                      }"
+                  ></i>
+
+            </td>
+            <td>
+              <div class="flex">
+                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editItem(item)" />
+                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteItem(item)" />
+
+              </div>
+            </td>
+        </tr>
+    </ng-template>
+  </p-table>
+
+</div>

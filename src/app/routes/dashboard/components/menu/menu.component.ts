@@ -74,15 +74,17 @@ export class AppMenu {
                 {
                   label: 'Empresas',
                   icon: 'pi pi-fw pi-check-square',
-                  routerLink: ['/dashboard/seguridad/profiles']
+                  routerLink: ['/dashboard/settings/companies']
                 },
                 {
                   label: 'Países',
-                  icon: 'pi pi-fw pi-check-square'
+                  icon: 'pi pi-fw pi-check-square',
+                  routerLink: ['/dashboard/settings/countries']
                 },
                 {
                   label: 'Ubicación geografica',
-                  icon: 'pi pi-fw pi-check-square'
+                  icon: 'pi pi-fw pi-check-square',
+                  routerLink: ['/dashboard/settings/geographic-location']
                 },
                 {
                   label: 'Numerador documentos',

@@ -1,0 +1,57 @@
+<div class="card p-5">
+
+  <div class="flex justify-between items-center mb-5">
+
+    <h2 class="m-0 text-xl font-bold">Editar Ubicación Geográfica</h2>
+
+    <div class="flex gap-2">
+      <p-button label="Guardar"  (onClick)="save()" icon="pi pi-plus" class="p-button-primary"></p-button>
+      <p-button label="Cancelar"  (onClick)="toBack()" icon="pi pi-times" severity="secondary"></p-button>
+    </div>
+
+  </div>
+
+
+  <form [formGroup]="geographicLocationForm" class="grid grid-cols-2 gap-4">
+
+
+    <div class="flex items-center col-span-2">
+      <p-checkbox formControlName="active" size="large"></p-checkbox>
+      <label class="text-sm font-medium">&nbsp;Activo</label>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Departamento</label>
+      <input pInputText  formControlName="department" pSize="large"  placeholder="Departamento" class="w-full" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Nuevo departamento</label>
+      <input pInputText  formControlName="newDepartment" pSize="large"  placeholder="Nuevo departamento" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Provincia</label>
+      <input pInputText  formControlName="province" pSize="large"  placeholder="Provincia" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Nueva provincia</label>
+      <input pInputText formControlName="newProvince" pSize="large" placeholder="Nueva provincia" class="w-full" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Distrito</label>
+      <input pInputText formControlName="district" placeholder="Distrito" pSize="large" class="w-full" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Nuevo distrito </label>
+      <input pInputText formControlName="newDistrict" placeholder="Nuevo distrito" pSize="large" class="w-full" />
+    </div>
+
+  </form>
+
+</div>

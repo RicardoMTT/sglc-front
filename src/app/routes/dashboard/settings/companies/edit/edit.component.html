@@ -1,0 +1,94 @@
+<div class="card p-5">
+
+  <div class="flex justify-between items-center mb-5">
+
+    <h2 class="m-0 text-xl font-bold">Registrar Compañia </h2>
+
+    <div class="flex gap-2">
+      <p-button label="Guardar"  (onClick)="save()" icon="pi pi-plus" class="p-button-primary"></p-button>
+      <p-button label="Cancelar"  (onClick)="toBack()" icon="pi pi-times" severity="secondary"></p-button>
+    </div>
+
+  </div>
+
+
+  <form [formGroup]="companyForm" class="grid grid-cols-2 gap-4">
+
+
+    <div class="flex items-center gap-2">
+      <p-checkbox formControlName="is_master_company" size="large"></p-checkbox>
+      <label class="text-sm font-medium">Empresa Master</label>
+    </div>
+
+
+    <div class="flex items-center gap-2">
+      <p-checkbox formControlName="active" size="large"></p-checkbox>
+      <label class="text-sm font-medium">Activo</label>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">N° Empresa</label>
+      <input pInputText  formControlName="number_company" pSize="large"  placeholder="N° Empresa" class="w-full" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Correo Operaciones</label>
+      <input pInputText  formControlName="email_company" pSize="large"  placeholder="Correo operaciones" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Nombre Empresa</label>
+      <input pInputText  formControlName="name_company" pSize="large"  placeholder="Nombre Empresa" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Correo Electrónico Administrativo</label>
+      <input pInputText formControlName="email_admin" pSize="large" placeholder="Correo Electrónico Administrativo" class="w-full" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">RUC</label>
+      <input pInputText formControlName="ruc" placeholder="RUC" pSize="large" class="w-full" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Dirección Principal </label>
+      <input pInputText formControlName="main_direction" placeholder="Dirección Principal" pSize="large" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Código Postal </label>
+      <input pInputText formControlName="postal_code" placeholder="Código Postal" pSize="large" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Tipo de empresa </label>
+      <input pInputText formControlName="company_type" placeholder="Tipo de empresa" pSize="large" class="w-full" />
+    </div>
+
+
+    <div class="flex items-center col-span-2">
+      <p-checkbox formControlName="have_agencies" size="large"></p-checkbox>
+      <label class="text-sm font-medium">&nbsp;Tiene agencias empresa</label>
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Logotipo Principal </label>
+      <input pInputText formControlName="main_logo" placeholder="Logotipo Principal" pSize="large" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Imagen Principal Acceso </label>
+      <input pInputText formControlName="access_main_image" placeholder="Imagen Principal Acceso" pSize="large" class="w-full" />
+    </div>
+
+
+  </form>
+
+</div>
