@@ -1,0 +1,74 @@
+<div class="card p-5">
+
+  <div class="flex justify-between items-center mb-5">
+
+    <h2 class="m-0 text-xl font-bold">Registrar Módulo</h2>
+
+    <div class="flex gap-2">
+      <p-button label="Guardar"  (onClick)="save()" icon="pi pi-plus" class="p-button-primary"></p-button>
+      <p-button label="Cancelar"  (onClick)="toBack()" icon="pi pi-times" severity="secondary"></p-button>
+    </div>
+
+  </div>
+
+
+  <form [formGroup]="moduleForm" class="grid grid-cols-2 gap-4">
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">N° Identificación</label>
+      <input pInputText  formControlName="identification_number" pSize="large"  class="w-full" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Nombre Módulo</label>
+      <input pInputText  formControlName="module_name" pSize="large"  class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Nombre Página</label>
+      <input pInputText formControlName="page_name" pSize="large" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Prefijo</label>
+      <input pInputText formControlName="prefix" pSize="large" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Módulo principal </label>
+      <p-select formControlName="main_module" [options]="optionsModule" optionLabel="name" size="large" placeholder="Selecciona una opción" class="w-full " />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Módulo padre</label>
+      <p-select formControlName="main_module" [options]="optionsModuleFather"  size="large"  optionLabel="name" placeholder="Selecciona una opción" class="w-full" />
+    </div>
+
+    <div class="flex items-center col-span-2">
+      <p-checkbox formControlName="active" size="large"></p-checkbox>
+      <label class="text-sm font-medium">Activo</label>
+    </div>
+
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Orden Módulo</label>
+      <input pInputText formControlName="order_module" pSize="large" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Icono Módulo</label>
+      <p-select formControlName="main_module" [options]="optionsIconModule"  size="large"  optionLabel="name" placeholder="Selecciona una opción" class="w-full" />
+    </div>
+
+
+
+  </form>
+
+</div>

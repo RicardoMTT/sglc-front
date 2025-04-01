@@ -209,7 +209,7 @@ export class IndexComponent {
   ngOnInit() {}
 
   editPackage(item: any) {
-    this.router.navigate(['dashboard/operaciones/paquetes/edit/2']);
+    this.router.navigate(['dashboard/operations/packages/edit/2']);
   }
 
   clear(table: Table) {
@@ -259,6 +259,6 @@ export class IndexComponent {
   }
 
   createPackage(){
-    this.router.navigate(['dashboard/operaciones/paquetes/create'])
+    this.router.navigate(['dashboard/operations/packages/create'])
   }
 }

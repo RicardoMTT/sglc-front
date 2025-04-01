@@ -12,8 +12,8 @@ export const DASHBOARD_ROUTES: Routes = [
     component: DashboardComponent,
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'operaciones', children: OPERATIONS_ROUTES },
-      { path: 'seguridad', children: SECURITY_ROUTES },
+      { path: 'operations', children: OPERATIONS_ROUTES },
+      { path: 'security', children: SECURITY_ROUTES },
       { path: 'settings', children: SETTINGS_ROUTES },
       { path: '**', redirectTo: 'home', pathMatch: 'full' }
     ]

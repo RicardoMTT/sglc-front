@@ -80,7 +80,7 @@ export class CreateComponent implements OnInit{
 
 
   toBack(){
-    this.router.navigate(['/dashboard/seguridad/users'])
+    this.router.navigate(['/dashboard/security/users'])
   }
 
   save(){

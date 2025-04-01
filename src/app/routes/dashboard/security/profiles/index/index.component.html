@@ -21,14 +21,14 @@
     #dt2
     [value]="profiles"
     [(selection)]="selectedProfiles"
-    dataKey="code"
+    dataKey="profile"
     selectionMode="multiple"
     [tableStyle]="{ 'min-width': '2rem' }"
     [paginator]="true"
     [rowHover]="true"
     [rows]="20"
     [rowsPerPageOptions]="[ 20, 40]"
-    [globalFilterFields]="['profile', 'description', 'observation']"
+    [globalFilterFields]="['profile', 'description', 'observation','active']"
   >
 
     <ng-template #caption>

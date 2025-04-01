@@ -89,7 +89,7 @@ export class EditComponent implements OnInit{
 
 
   toBack(){
-    this.router.navigate(['/dashboard/operaciones/paquetes'])
+    this.router.navigate(['/dashboard/operations/packages'])
   }
 
   save(){

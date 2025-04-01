@@ -1,17 +1,23 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService{
-  private apiUrl = 'http://localhost:3000/auth';
+  private apiUrl = 'https://signiabd.solarc.pe/api/Account';
   private http = inject(HttpClient);
 
 
   login(
-
+    username:string,password:string
   ){
-    return this.http.post(`${this.apiUrl}/login`, {});
+    const params = new HttpParams();
+    params.set('UserName',username).set('UserPass',password);
+    return this.http.get(`${this.apiUrl}/ValidarLogin`,{
+      params
+    });
   }
 }

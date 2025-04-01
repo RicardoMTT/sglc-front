@@ -28,8 +28,7 @@
     [rowHover]="true"
     [rows]="20"
     [rowsPerPageOptions]="[ 20, 40]"
-    [globalFilterFields]="['clientNumber', 'names', 'clientType', 'documentType', 'documentNumber','active']"
-    (selectionChange)="onSelectionChange($event)"
+    [globalFilterFields]="[ 'id','clientNumber', 'names', 'clientType', 'documentType', 'documentNumber','active']"
   >
 
     <ng-template #caption>

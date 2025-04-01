@@ -14,6 +14,7 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ApiService } from '../../../../../core/services/api.service';
 
 @Component({
   selector: 'app-index',
@@ -167,58 +168,69 @@ export class IndexComponent {
   ];
 
 
-  users = [
-    { code: 'USU00001', names: 'Roberto Carlos', lastName: 'Jan Guerra', user: 'rcarlosguerra', profile: 'Administrador', active: true },
-    { code: 'USU00002', names: 'María López', lastName: 'Gómez Torres', user: 'mlopezgomez', profile: 'Usuario', active: true },
-    { code: 'USU00003', names: 'Carlos García', lastName: 'Fernández Ruiz', user: 'cgarciafernandez', profile: 'Supervisor', active: false },
-    { code: 'USU00004', names: 'Ana Torres', lastName: 'Martínez Díaz', user: 'atorresmartinez', profile: 'Administrador', active: true },
-    { code: 'USU00005', names: 'Luis Fernández', lastName: 'Ramírez Vega', user: 'lfernandezramirez', profile: 'Usuario', active: false },
-    { code: 'USU00006', names: 'Sofía Martínez', lastName: 'Cruz Paredes', user: 'smartinezcruz', profile: 'Supervisor', active: true },
-    { code: 'USU00007', names: 'Pedro Castillo', lastName: 'Navarro Sánchez', user: 'pcastillonavarro', profile: 'Administrador', active: true },
-    { code: 'USU00008', names: 'Lucía Gómez', lastName: 'Hernández Vargas', user: 'lgomezhernandez', profile: 'Usuario', active: false },
-    { code: 'USU00009', names: 'Jorge Ramírez', lastName: 'Flores Castillo', user: 'jramirezflores', profile: 'Supervisor', active: true },
-    { code: 'USU00010', names: 'Elena Vargas', lastName: 'Morales Cruz', user: 'evargasmorales', profile: 'Administrador', active: true },
-    { code: 'USU00011', names: 'Miguel Rojas', lastName: 'Pérez Díaz', user: 'mrojasperez', profile: 'Usuario', active: false },
-    { code: 'USU00012', names: 'Carmen Díaz', lastName: 'Guerra López', user: 'cdiazguerra', profile: 'Supervisor', active: true },
-    { code: 'USU00013', names: 'Ricardo Sánchez', lastName: 'Vega Torres', user: 'rsanchezvega', profile: 'Administrador', active: true },
-    { code: 'USU00014', names: 'Valeria Morales', lastName: 'Cruz Ramírez', user: 'vmoralescruz', profile: 'Usuario', active: false },
-    { code: 'USU00015', names: 'Andrés Herrera', lastName: 'Navarro Díaz', user: 'aherreranavarro', profile: 'Supervisor', active: true },
-    { code: 'USU00016', names: 'Paula Cruz', lastName: 'Martínez Vega', user: 'pcruzmartinez', profile: 'Administrador', active: true },
-    { code: 'USU00017', names: 'Diego Navarro', lastName: 'Sánchez Guerra', user: 'dnavarrosanchez', profile: 'Usuario', active: false },
-    { code: 'USU00018', names: 'Gabriela Paredes', lastName: 'Hernández López', user: 'gparedeshernandez', profile: 'Supervisor', active: true },
-    { code: 'USU00019', names: 'Héctor Vega', lastName: 'Flores Castillo', user: 'hvegaflores', profile: 'Administrador', active: true },
-    { code: 'USU00020', names: 'Isabel Flores', lastName: 'Cruz Ramírez', user: 'iflorescruz', profile: 'Usuario', active: true },
-    { code: 'USU00021', names: 'Juan Guerra', lastName: 'Pérez Díaz', user: 'jguerraperez', profile: 'Supervisor', active: true },
-    { code: 'USU00022', names: 'María Sánchez', lastName: 'Vega Torres', user: 'msanchezvega', profile: 'Administrador', active: false },
-    { code: 'USU00023', names: 'Carlos Torres', lastName: 'Navarro Díaz', user: 'ctorresnavarro', profile: 'Usuario', active: true },
-    { code: 'USU00024', names: 'Ana López', lastName: 'Martínez Vega', user: 'alopezmartinez', profile: 'Supervisor', active: true },
-    { code: 'USU00025', names: 'Luis Ramírez', lastName: 'Sánchez Guerra', user: 'lramirezsanchez', profile: 'Administrador', active: false },
-    { code: 'USU00026', names: 'Sofía Vargas', lastName: 'Hernández López', user: 'svargashernandez', profile: 'Usuario', active: true },
-    { code: 'USU00027', names: 'Pedro Gómez', lastName: 'Flores Castillo', user: 'pgomezflores', profile: 'Supervisor', active: true },
-    { code: 'USU00028', names: 'Lucía Cruz', lastName: 'Cruz Ramírez', user: 'lcruzcruz', profile: 'Administrador', active: false },
-    { code: 'USU00029', names: 'Jorge Díaz', lastName: 'Pérez Díaz', user: 'jdiazperez', profile: 'Usuario', active: true },
-    { code: 'USU00030', names: 'Elena Morales', lastName: 'Vega Torres', user: 'emoralesvega', profile: 'Supervisor', active: true },
-  ];
-
-  selectedUsers: any = [];
+  modules = [
+  { code: '00001', module_name: 'CLIENTES', main_module: true, father_module: 'OPERACIONES', create_date: '22/05/2025', active: true },
+  { code: '00002', module_name: 'VENTAS', main_module: true, father_module: 'OPERACIONES', create_date: '23/05/2025', active: true },
+  { code: '00003', module_name: 'COMPRAS', main_module: true, father_module: 'OPERACIONES', create_date: '24/05/2025', active: false },
+  { code: '00004', module_name: 'INVENTARIO', main_module: true, father_module: 'LOGÍSTICA', create_date: '25/05/2025', active: true },
+  { code: '00005', module_name: 'FACTURACIÓN', main_module: true, father_module: 'FINANZAS', create_date: '26/05/2025', active: true },
+  { code: '00006', module_name: 'RECURSOS HUMANOS', main_module: true, father_module: 'ADMINISTRACIÓN', create_date: '27/05/2025', active: false },
+  { code: '00007', module_name: 'PRODUCCIÓN', main_module: true, father_module: 'OPERACIONES', create_date: '28/05/2025', active: true },
+  { code: '00008', module_name: 'MARKETING', main_module: true, father_module: 'COMUNICACIONES', create_date: '29/05/2025', active: true },
+  { code: '00009', module_name: 'SOPORTE', main_module: true, father_module: 'ATENCIÓN AL CLIENTE', create_date: '30/05/2025', active: false },
+  { code: '00010', module_name: 'PROYECTOS', main_module: true, father_module: 'PLANIFICACIÓN', create_date: '31/05/2025', active: true },
+  { code: '00011', module_name: 'CALIDAD', main_module: true, father_module: 'CONTROL', create_date: '01/06/2025', active: true },
+  { code: '00012', module_name: 'AUDITORÍA', main_module: true, father_module: 'FINANZAS', create_date: '02/06/2025', active: false },
+  { code: '00013', module_name: 'LOGÍSTICA', main_module: true, father_module: 'OPERACIONES', create_date: '03/06/2025', active: true },
+  { code: '00014', module_name: 'ALMACÉN', main_module: true, father_module: 'LOGÍSTICA', create_date: '04/06/2025', active: true },
+  { code: '00015', module_name: 'TRANSPORTE', main_module: true, father_module: 'LOGÍSTICA', create_date: '05/06/2025', active: false },
+  { code: '00016', module_name: 'SEGURIDAD', main_module: true, father_module: 'ADMINISTRACIÓN', create_date: '06/06/2025', active: true },
+  { code: '00017', module_name: 'INFRAESTRUCTURA', main_module: true, father_module: 'TECNOLOGÍA', create_date: '07/06/2025', active: true },
+  { code: '00018', module_name: 'DESARROLLO', main_module: true, father_module: 'TECNOLOGÍA', create_date: '08/06/2025', active: false },
+  { code: '00019', module_name: 'INVESTIGACIÓN', main_module: true, father_module: 'INNOVACIÓN', create_date: '09/06/2025', active: true },
+  { code: '00020', module_name: 'LEGAL', main_module: true, father_module: 'ADMINISTRACIÓN', create_date: '10/06/2025', active: true },
+  { code: '00021', module_name: 'RELACIONES PÚBLICAS', main_module: true, father_module: 'COMUNICACIONES', create_date: '11/06/2025', active: false },
+  { code: '00022', module_name: 'CAPACITACIÓN', main_module: true, father_module: 'RECURSOS HUMANOS', create_date: '12/06/2025', active: true },
+  { code: '00023', module_name: 'MANTENIMIENTO', main_module: true, father_module: 'INFRAESTRUCTURA', create_date: '13/06/2025', active: true },
+  { code: '00024', module_name: 'DISTRIBUCIÓN', main_module: true, father_module: 'LOGÍSTICA', create_date: '14/06/2025', active: false },
+  { code: '00025', module_name: 'ESTRATEGIA', main_module: true, father_module: 'PLANIFICACIÓN', create_date: '15/06/2025', active: true },
+  { code: '00026', module_name: 'ANÁLISIS', main_module: true, father_module: 'CONTROL', create_date: '16/06/2025', active: true },
+  { code: '00027', module_name: 'CONSULTORÍA', main_module: true, father_module: 'ADMINISTRACIÓN', create_date: '17/06/2025', active: false },
+  { code: '00028', module_name: 'RIESGOS', main_module: true, father_module: 'SEGURIDAD', create_date: '18/06/2025', active: true },
+  { code: '00029', module_name: 'INNOVACIÓN', main_module: true, father_module: 'PLANIFICACIÓN', create_date: '19/06/2025', active: true },
+  { code: '00030', module_name: 'FINANZAS', main_module: true, father_module: 'ADMINISTRACIÓN', create_date: '20/06/2025', active: true },
+];
+  selectedModules: any = [];
 
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private apiService: ApiService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.index();
+  }
 
-  editUser(item: any) {
-    this.router.navigate(['dashboard/security/users/edit/2']);
+
+  index(){
+    this.apiService.getModules().subscribe({
+      next: ((data:any) => {
+        console.log('data',data.data);
+        this.modules = data.data
+
+      })
+    })
+  }
+  editModule(item: any) {
+    this.router.navigate(['dashboard/security/modules/edit/2']);
   }
 
   clear(table: Table) {
     table.clear();
   }
 
-  deleteUser(item: any) {
+  deleteModule(item: any) {
     this.confirmationService.confirm({
       header: 'Confirmación',
       message: `¿Seguro que deseas eliminar a ${item.internNumber}?`,
@@ -261,6 +273,6 @@ export class IndexComponent {
   }
 
   createUser(){
-    this.router.navigate(['dashboard/security/users/create'])
+    this.router.navigate(['dashboard/security/modules/create'])
   }
 }

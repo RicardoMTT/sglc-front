@@ -75,7 +75,7 @@ export class EditComponent implements OnInit{
 
   cancel() {
     this.clienteForm.reset();
-    this.router.navigate(['/dashboard/operaciones/clientes'])
+    this.router.navigate(['/dashboard/operations/clients'])
 
   }
 

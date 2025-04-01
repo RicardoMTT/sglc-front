@@ -88,7 +88,7 @@ export class EditComponent implements OnInit{
 
 
   toBack(){
-    this.router.navigate(['/dashboard/seguridad/users'])
+    this.router.navigate(['/dashboard/security/users'])
   }
 
   save(){

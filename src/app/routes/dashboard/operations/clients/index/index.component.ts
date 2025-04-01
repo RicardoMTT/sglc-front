@@ -208,7 +208,7 @@ export class IndexComponent {
   ngOnInit() {}
 
   editClient(client: any) {
-    this.router.navigate(['dashboard/operaciones/clientes/edit/2']);
+    this.router.navigate(['dashboard/operations/clients/edit/2']);
     // Lógica para editar cliente
   }
   deleteClient(client: any) {
@@ -244,7 +244,7 @@ export class IndexComponent {
   }
 
   createClient() {
-    this.router.navigate(['/dashboard/operaciones/clientes/create']);
+    this.router.navigate(['/dashboard/operations/clients/create']);
   }
 
   actionOne(){
@@ -252,9 +252,7 @@ export class IndexComponent {
 
   }
 
-  onSelectionChange(event: any) {
-    console.log('Seleccionados:', event);
-  }
+
 
   actionTwo(){
     console.log('exportando...');

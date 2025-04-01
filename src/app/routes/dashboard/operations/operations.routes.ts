@@ -10,10 +10,10 @@ export const OPERATIONS_ROUTES: Routes = [
     component: OperationsComponent, // ✅ Sera el contenedor principal
     children:[
       {
-        path: 'clientes', children: CLIENTS_ROUTES
+        path: 'clients', children: CLIENTS_ROUTES
       },
       {
-        path: 'paquetes', children: PACKAGES_ROUTES
+        path: 'packages', children: PACKAGES_ROUTES
       },
     ]
    },

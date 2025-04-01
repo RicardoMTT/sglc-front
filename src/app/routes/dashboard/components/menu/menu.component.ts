@@ -31,12 +31,12 @@ export class AppMenu {
                 {
                   label: 'Paquetes',
                   icon: 'pi pi-fw pi-check-square',
-                  routerLink: ['/dashboard/operaciones/paquetes']
+                  routerLink: ['/dashboard/operations/packages']
                 },
                 {
                     label: 'Clientes',
                     icon: 'pi pi-fw pi-user',
-                    routerLink: ['/dashboard/operaciones/clientes']
+                    routerLink: ['/dashboard/operations/clients']
                 },
               ]
             },
@@ -46,16 +46,17 @@ export class AppMenu {
                 {
                   label: 'Usuarios',
                   icon: 'pi pi-fw pi-user',
-                  routerLink: ['/dashboard/seguridad/users']
+                  routerLink: ['/dashboard/security/users']
                 },
                 {
                   label: 'Perfiles',
                   icon: 'pi pi-fw pi-check-square',
-                  routerLink: ['/dashboard/seguridad/profiles']
+                  routerLink: ['/dashboard/security/profiles']
                 },
                 {
                   label: 'Módulos',
-                  icon: 'pi pi-fw pi-check-square'
+                  icon: 'pi pi-fw pi-check-square',
+                  routerLink: ['/dashboard/security/modules']
                 },
                 {
                   label: 'Perfil Módulos',
@@ -104,7 +105,7 @@ export class AppMenu {
                 {
                   label: 'Calendario Actividades',
                   icon: 'pi pi-fw pi-check-square',
-                  routerLink: ['/dashboard/seguridad/profiles']
+                  routerLink: ['/dashboard/security/profiles']
                 },
                 {
                   label: 'Auditorias',

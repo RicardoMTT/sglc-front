@@ -34,7 +34,6 @@ export class DashboardComponent {
       this.overlayMenuOpenSubscription = this.layoutService.overlayOpen$.subscribe(() => {
           if (!this.menuOutsideClickListener) {
               this.menuOutsideClickListener = this.renderer.listen('document', 'click', (event) => {
-                console.log('event',event);
                   /* Si dio click afuera del sidebar , se oculta */
                   if (this.isOutsideClicked(event)) {
                       this.hideMenu();

@@ -211,7 +211,7 @@ export class IndexComponent {
   ngOnInit() {}
 
   editProfile(item: any) {
-    this.router.navigate(['dashboard/seguridad/profiles/edit/2']);
+    this.router.navigate(['dashboard/security/profiles/edit/2']);
   }
 
   clear(table: Table) {
@@ -261,6 +261,6 @@ export class IndexComponent {
   }
 
   createUser(){
-    this.router.navigate(['dashboard/seguridad/profiles/create'])
+    this.router.navigate(['dashboard/security/profiles/create'])
   }
 }

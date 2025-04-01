@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,16 +12,21 @@ import { RouterModule } from '@angular/router';
 })
 export class LoginComponent implements OnInit{
   private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
   loginForm: FormGroup;
   showPassword = false;
 
   constructor() {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       password: ['', Validators.required],
       rememberMe: [false]
     });
   }
+
+
   ngOnInit(): void {
     this.loadCredentials();
   }
@@ -41,8 +47,11 @@ export class LoginComponent implements OnInit{
   onSubmit(): void {
     if (this.loginForm.invalid) return;
 
+
     if (this.loginForm.valid) {
       const { email, password, rememberMe } = this.loginForm.value;
+
+      if (this.loginForm.invalid) return;
 
       /**
        * Si el usuario marca "Recordarme", el email y la contraseña se guardan en localStorage.
@@ -56,17 +65,11 @@ export class LoginComponent implements OnInit{
         localStorage.removeItem('password');
       }
 
-      console.log('Iniciando sesión con:', email, password);
-      // Aquí iría la lógica para autenticar al usuario (API, JWT, etc.)
 
-      // if (this.loginForm.invalid) return;
-
-      // const { email, password } = this.loginForm.value;
-
-      // this.authService.login(email, password).subscribe({
-      //   next: () => this.router.navigate(['/dashboard']),
-      //   error: (err) => console.error('Error en login:', err),
-      // });
+      this.authService.login(email,password).subscribe({
+        next: () => this.router.navigate(['/dashboard']),
+        error: (err) => console.error('Error en login:', err),
+      });
     }
 
   }
