@@ -30,7 +30,7 @@ export class AppMenu {
               items: [
                 {
                   label: 'Paquetes',
-                  icon: 'pi pi-fw pi-check-square',
+                  icon: 'pi pi-fw pi-box',
                   routerLink: ['/dashboard/operations/packages']
                 },
                 {
@@ -50,17 +50,18 @@ export class AppMenu {
                 },
                 {
                   label: 'Perfiles',
-                  icon: 'pi pi-fw pi-check-square',
+                  icon: 'pi pi-fw pi-id-card',
                   routerLink: ['/dashboard/security/profiles']
                 },
                 {
                   label: 'Módulos',
-                  icon: 'pi pi-fw pi-check-square',
+                  icon: 'pi pi-fw pi-th-large',
                   routerLink: ['/dashboard/security/modules']
                 },
                 {
                   label: 'Perfil Módulos',
-                  icon: 'pi pi-fw pi-check-square'
+                  icon: 'pi pi-fw pi-check-square',
+                  routerLink: ['/dashboard/security/profiles-module']
                 },
               ]
             },
@@ -69,27 +70,27 @@ export class AppMenu {
               items: [
                 {
                   label: 'Parámetros generales',
-                  icon: 'pi pi-fw pi-user',
+                  icon: 'pi pi-fw pi-cog',
                   routerLink: ['/dashboard/settings/general-parameters']
                 },
                 {
                   label: 'Empresas',
-                  icon: 'pi pi-fw pi-check-square',
+                  icon: 'pi pi-fw pi-building',
                   routerLink: ['/dashboard/settings/companies']
                 },
                 {
                   label: 'Países',
-                  icon: 'pi pi-fw pi-check-square',
+                  icon: 'pi pi-fw pi-globe',
                   routerLink: ['/dashboard/settings/countries']
                 },
                 {
                   label: 'Ubicación geografica',
-                  icon: 'pi pi-fw pi-check-square',
+                  icon: 'pi pi-fw pi-map-marker',
                   routerLink: ['/dashboard/settings/geographic-location']
                 },
                 {
                   label: 'Numerador documentos',
-                  icon: 'pi pi-fw pi-check-square',
+                  icon: 'pi pi-fw pi-file',
                   routerLink: ['/dashboard/settings/documents-generator']
                 },
               ]
@@ -99,17 +100,18 @@ export class AppMenu {
               items: [
                 {
                   label: 'Configuración correos',
-                  icon: 'pi pi-fw pi-user',
+                  icon: 'pi pi-fw pi-envelope',
                   routerLink: ['/dashboard/settings/email-configuration']
                 },
                 {
                   label: 'Calendario Actividades',
-                  icon: 'pi pi-fw pi-check-square',
-                  routerLink: ['/dashboard/security/profiles']
+                  icon: 'pi pi-fw pi-calendar',
+                  routerLink: ['/dashboard/settings/activities-calendar']
                 },
                 {
                   label: 'Auditorias',
-                  icon: 'pi pi-fw pi-check-square'
+                  icon: 'pi pi-fw pi-search',
+                  routerLink: ['/dashboard/settings/audits']
                 },
 
               ]

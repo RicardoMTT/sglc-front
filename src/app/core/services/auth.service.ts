@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
+import { delay, of } from "rxjs";
 
 
 
@@ -14,10 +15,11 @@ export class AuthService{
   login(
     username:string,password:string
   ){
-    const params = new HttpParams();
-    params.set('UserName',username).set('UserPass',password);
-    return this.http.get(`${this.apiUrl}/ValidarLogin`,{
-      params
-    });
+    // const params = new HttpParams();
+    // params.set('UserName',username).set('UserPass',password);
+    // return this.http.get(`${this.apiUrl}/ValidarLogin`,{
+    //   params
+    // });
+    return of([]).pipe(delay(1500));
   }
 }

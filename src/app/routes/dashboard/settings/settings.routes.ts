@@ -6,6 +6,8 @@ import { EMAIL_CONFIGURATION_ROUTES } from './email-configuration/email-configur
 import { GEOGRAPHIC_LOCATION_ROUTES } from './geographic-location/geographic-location.route';
 import { COMPANIES_ROUTES } from './companies/companies.routes';
 import { COUNTRIES_ROUTES } from './countries/countries.routes';
+import { ACTIVITIES_ROUTES } from './activities-calendar/activities-calendar.routes';
+import { AUDITS_ROUTES } from './audit/audit.routes';
 
 export const SETTINGS_ROUTES: Routes = [
   {
@@ -29,6 +31,12 @@ export const SETTINGS_ROUTES: Routes = [
       },
       {
         path: 'countries', children: COUNTRIES_ROUTES
+      },
+      {
+        path: 'activities-calendar', children: ACTIVITIES_ROUTES
+      },
+      {
+        path: 'audits', children: AUDITS_ROUTES
       }
     ]
    },

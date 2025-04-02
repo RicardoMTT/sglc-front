@@ -2,13 +2,14 @@ import { Component, inject, OnInit, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [ReactiveFormsModule,RouterModule],
+  imports: [ReactiveFormsModule,RouterModule,CommonModule],
 })
 export class LoginComponent implements OnInit{
   private fb = inject(FormBuilder);
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit{
 
   loginForm: FormGroup;
   showPassword = false;
+  loading:boolean = false;
 
   constructor() {
     this.loginForm = this.fb.group({
@@ -45,6 +47,7 @@ export class LoginComponent implements OnInit{
   }
 
   onSubmit(): void {
+    this.loading = true;
     if (this.loginForm.invalid) return;
 
 
@@ -67,7 +70,10 @@ export class LoginComponent implements OnInit{
 
 
       this.authService.login(email,password).subscribe({
-        next: () => this.router.navigate(['/dashboard']),
+        next: () => {
+          this.loading = false;
+          this.router.navigate(['/dashboard']);
+        },
         error: (err) => console.error('Error en login:', err),
       });
     }
