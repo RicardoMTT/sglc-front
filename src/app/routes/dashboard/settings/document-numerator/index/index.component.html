@@ -5,7 +5,7 @@
     <h2 class="m-0">Numerador Documentos</h2>
   </div>
 
-  <div class="flex justify-end align-items-center">
+  <!-- <div class="flex justify-end align-items-center">
     <div class="">
       <p-menu #menu [model]="items" [popup]="true" />
       <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedDocuments || !selectedDocuments.length"/>
@@ -13,7 +13,7 @@
 
     <p-button label="Agregar" icon="pi pi-plus" (onClick)="createParameter()" styleClass="black"></p-button>
 
-  </div>
+  </div> -->
 
   <p-confirmDialog></p-confirmDialog>
 
@@ -21,14 +21,14 @@
     #dt2
     [value]="documents"
     [(selection)]="selectedDocuments"
-    dataKey="id"
+    dataKey="numeradoR_DOCUMENTO_ID"
     selectionMode="multiple"
     [tableStyle]="{ 'min-width': '2rem' }"
     [paginator]="true"
     [rowHover]="true"
-    [rows]="20"
-    [rowsPerPageOptions]="[ 20, 40]"
-    [globalFilterFields]="['id', 'prefix', 'number', 'moduleName', 'creationDate','active']"
+    [rows]="10"
+    [rowsPerPageOptions]="[ 10, 20]"
+    [globalFilterFields]="['numeradoR_DOCUMENTO_ID', 'prefijo', 'numero', 'nombrE_MODULO', 'fechA_CREACION','active']"
   >
 
     <ng-template #caption>
@@ -50,43 +50,43 @@
           <th style="width: 4rem">
               <p-tableHeaderCheckbox />
           </th>
-          <th pSortableColumn="id" style="min-width: 14rem">
+          <th pSortableColumn="numeradoR_DOCUMENTO_ID" style="min-width: 14rem">
             <div class="flex justify-between items-center">
                   ID
-                  <p-sortIcon field="id" />
+                  <p-sortIcon field="numeradoR_DOCUMENTO_ID" />
 
                 <!-- <p-sortIcon field="clientNumber" />
                 <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
             </div>
           </th>
-          <th pSortableColumn="prefix" style="min-width: 14rem">
+          <th pSortableColumn="prefijo" style="min-width: 14rem">
             <div class="flex justify-between items-center">
                 Prefijo
-                <p-sortIcon field="prefix" />
+                <p-sortIcon field="prefijo" />
                 <!-- <p-sortIcon field="names" />
                 <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
             </div>
           </th>
-          <th pSortableColumn="number" style="min-width: 14rem">
+          <th pSortableColumn="numero" style="min-width: 14rem">
             <div class="flex justify-between items-center">
               Número
-              <p-sortIcon field="number" />
+              <p-sortIcon field="numero" />
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
           </th>
-          <th pSortableColumn="moduleName" style="min-width: 10rem">
+          <th pSortableColumn="nombrE_MODULO" style="min-width: 10rem">
               <div class="flex justify-between items-center">
                   Nombre Módulo
-                  <p-sortIcon field="moduleName" />
+                  <p-sortIcon field="nombrE_MODULO" />
                   <!-- <p-sortIcon field="date" />
                   <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
               </div>
           </th>
-          <th pSortableColumn="creationDate" style="min-width: 10rem">
+          <th pSortableColumn="fechA_CREACION" style="min-width: 10rem">
               <div class="flex justify-between items-center">
                   Fecha Creación
-                  <p-sortIcon field="creationDate" />
+                  <p-sortIcon field="fechA_CREACION" />
                   <!-- <p-sortIcon field="balance" />
                   <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" /> -->
               </div>
@@ -112,42 +112,42 @@
         <th>
           <p-columnFilter
                     type="text"
-                    field="id"
-                    placeholder="id "
-                    ariaLabel="Filter id"
+                    field="numeradoR_DOCUMENTO_ID"
+                    placeholder="Id "
+                    ariaLabel="Filter numeradoR_DOCUMENTO_ID"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="prefix"
+                    field="prefijo"
                     placeholder="Buscar por prefijo"
-                    ariaLabel="Filter prefix"
+                    ariaLabel="Filter prefijo"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="number"
+                    field="numero"
                     placeholder="Buscar por Numero"
-                    ariaLabel="Filter number"
+                    ariaLabel="Filter numero"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="moduleName"
+                    field="nombrE_MODULO"
                     placeholder="Buscar por Nombre Módulo"
-                    ariaLabel="Filter moduleName"
+                    ariaLabel="Filter nombrE_MODULO"
                 ></p-columnFilter>
         </th>
 
         <th>
           <p-columnFilter
                     type="text"
-                    field="creationDate"
+                    field="fechA_CREACION"
                     placeholder="Buscar por fecha de Creación"
-                    ariaLabel="Filter creationDate"
+                    ariaLabel="Filter fechA_CREACION"
                 ></p-columnFilter>
         </th>
 
@@ -164,11 +164,11 @@
             <td>
               <p-tableCheckbox [value]="document" />
             </td>
-            <td>{{ document.id }}</td>
-            <td>{{ document.prefix }}</td>
-            <td>{{ document.number }}</td>
-            <td>{{ document.moduleName }}</td>
-            <td>{{ document.creationDate }}</td>
+            <td>{{ document.numeradoR_DOCUMENTO_ID }}</td>
+            <td>{{ document.prefijo }}</td>
+            <td>{{ document.numero }}</td>
+            <td>{{ document.nombrE_MODULO }}</td>
+            <td>{{ document.fechA_CREACION  | date: 'dd/MM/yyyy'}}</td>
             <td>
 
               <i
@@ -183,7 +183,7 @@
             <td>
               <div class="flex">
                 <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editDocument(document)" />
-                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteDocument(document)" />
+                <!-- <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteDocument(document)" /> -->
 
               </div>
             </td>

@@ -14,6 +14,7 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ApiService } from '../../../../../core/services/api.service';
 
 @Component({
   selector: 'app-index',
@@ -134,7 +135,6 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MultiSelectModule,
     SelectModule,
     RouterModule,
-    Menu,
     ToastModule,
     ConfirmDialogModule,
   ],
@@ -167,52 +167,35 @@ export class IndexComponent {
   ];
 
 
-  parameters = [
-    { code: '0001415013', name: 'Moneda', value: 'Sol', firstValue: 'S/', secondValue: '', active: true },
-    { code: '0002345013', name: 'Moneda', value: 'Dolar', firstValue: '$', secondValue: '', active: true },
-    { code: '0003415013', name: 'Moneda', value: 'Euro', firstValue: '€', secondValue: '', active: true },
-    { code: '0004415013', name: 'Moneda', value: 'Libra', firstValue: '£', secondValue: '', active: false },
-    { code: '0005415013', name: 'Moneda', value: 'Yen', firstValue: '¥', secondValue: '', active: true },
-    { code: '0006415013', name: 'Moneda', value: 'Franco Suizo', firstValue: 'CHF', secondValue: '', active: true },
-    { code: '0007415013', name: 'Dolar', value: 'Dólar Canadiense', firstValue: 'CAD', secondValue: '', active: false },
-    { code: '0008415013', name: 'Dolar', value: 'Peso Mexicano', firstValue: 'MXN', secondValue: '', active: true },
-    { code: '0009415013', name: 'Moneda', value: 'Real Brasileño', firstValue: 'R$', secondValue: '', active: true },
-    { code: '0010415013', name: 'Moneda', value: 'Peso Argentino', firstValue: 'ARS', secondValue: '', active: false },
-    { code: '0011415013', name: 'Moneda', value: 'Rublo', firstValue: '₽', secondValue: '', active: true },
-    { code: '0012415013', name: 'Moneda', value: 'Won', firstValue: '₩', secondValue: '', active: true },
-    { code: '0013415013', name: 'Moneda', value: 'Rupia India', firstValue: '₹', secondValue: '', active: false },
-    { code: '0014415013', name: 'Moneda', value: 'Dólar Australiano', firstValue: 'AUD', secondValue: '', active: true },
-    { code: '0015415013', name: 'Moneda', value: 'Dólar Neozelandés', firstValue: 'NZD', secondValue: '', active: true },
-    { code: '0016415013', name: 'Moneda', value: 'Yuan', firstValue: '¥', secondValue: '', active: false },
-    { code: '0017415013', name: 'Moneda', value: 'Corona Sueca', firstValue: 'SEK', secondValue: '', active: true },
-    { code: '0018415013', name: 'Moneda', value: 'Corona Noruega', firstValue: 'NOK', secondValue: '', active: true },
-    { code: '0019415013', name: 'Moneda', value: 'Corona Danesa', firstValue: 'DKK', secondValue: '', active: false },
-    { code: '0020415013', name: 'Moneda', value: 'Zloty Polaco', firstValue: 'PLN', secondValue: '', active: true },
-    { code: '0021415013', name: 'Moneda', value: 'Forinto Húngaro', firstValue: 'HUF', secondValue: '', active: true },
-    { code: '0022415013', name: 'Moneda', value: 'Shekel Israelí', firstValue: '₪', secondValue: '', active: false },
-    { code: '0023415013', name: 'Moneda', value: 'Dólar Singapurense', firstValue: 'SGD', secondValue: '', active: true },
-    { code: '0024415013', name: 'Moneda', value: 'Ringgit Malayo', firstValue: 'MYR', secondValue: '', active: true },
-    { code: '0025415013', name: 'Moneda', value: 'Baht Tailandés', firstValue: '฿', secondValue: '', active: false },
-    { code: '0026415013', name: 'Moneda', value: 'Peso Chileno', firstValue: 'CLP', secondValue: '', active: true },
-    { code: '0027415013', name: 'Moneda', value: 'Peso Colombiano', firstValue: 'COP', secondValue: '', active: true },
-    { code: '0028415013', name: 'Moneda', value: 'Peso Uruguayo', firstValue: 'UYU', secondValue: '', active: false },
-    { code: '0029415013', name: 'Moneda', value: 'Boliviano', firstValue: 'BOB', secondValue: '', active: true },
-    { code: '0030415013', name: 'Moneda', value: 'Guaraní', firstValue: 'PYG', secondValue: '', active: true },
-  ];
+  parameters = [];
 
   selectedParameters: any = [];
 
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private apiService: ApiService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.index();
+  }
+
+
+  index(){
+    this.apiService.getAllParameters().subscribe((res:any) => {
+      this.parameters = res.data;
+    },
+    (error:any) => {
+      console.log('error',error);
+    });
+  }
+
 
   editParameter(item: any) {
-    this.router.navigate(['dashboard/settings/general-parameters/edit/2']);
+    this.router.navigate([`dashboard/settings/general-parameters/edit/${item.parametro_Id}`]);
   }
+
 
   clear(table: Table) {
     table.clear();
@@ -241,7 +224,6 @@ export class IndexComponent {
 
 
   applyFilterGlobal($event: any, stringVal: any) {
-    console.log(this.dt);
     if (this.dt) {
       this.dt!.filterGlobal(
         ($event.target as HTMLInputElement).value,
@@ -260,7 +242,4 @@ export class IndexComponent {
 
   }
 
-  createParameter(){
-    this.router.navigate(['dashboard/settings/general-parameters/create'])
-  }
 }

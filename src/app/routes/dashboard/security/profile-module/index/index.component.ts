@@ -14,6 +14,7 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ApiService } from '../../../../../core/services/api.service';
 
 @Component({
   selector: 'app-index',
@@ -165,47 +166,31 @@ export class IndexComponent {
   ];
 
 
-  profilesModule = [
-    { code: 'PEM00001', profile: 'ADMINISTRADOR', module: 'CLIENTES', userCreation: 'Juan Perez', creationAt: '', active: true },
-    { code: 'PEM00002', profile: 'USUARIO', module: 'VENTAS', userCreation: 'Maria Lopez', creationAt: '', active: false },
-    { code: 'PEM00003', profile: 'SUPERVISOR', module: 'COMPRAS', userCreation: 'Carlos Garcia', creationAt: '', active: true },
-    { code: 'PEM00004', profile: 'GERENTE', module: 'INVENTARIO', userCreation: 'Ana Fernandez', creationAt: '', active: true },
-    { code: 'PEM00005', profile: 'ASISTENTE', module: 'FACTURACIÓN', userCreation: 'Luis Ramirez', creationAt: '', active: false },
-    { code: 'PEM00006', profile: 'COORDINADOR', module: 'RECURSOS HUMANOS', userCreation: 'Sofia Martinez', creationAt: '', active: true },
-    { code: 'PEM00007', profile: 'ADMINISTRADOR', module: 'PRODUCCIÓN', userCreation: 'Pedro Castillo', creationAt: '', active: true },
-    { code: 'PEM00008', profile: 'USUARIO', module: 'MARKETING', userCreation: 'Jorge Diaz', creationAt: '', active: false },
-    { code: 'PEM00009', profile: 'SUPERVISOR', module: 'SOPORTE', userCreation: 'Elena Vargas', creationAt: '', active: true },
-    { code: 'PEM00010', profile: 'GERENTE', module: 'PROYECTOS', userCreation: 'Miguel Rojas', creationAt: '', active: true },
-    { code: 'PEM00011', profile: 'ASISTENTE', module: 'CALIDAD', userCreation: 'Carmen Diaz', creationAt: '', active: false },
-    { code: 'PEM00012', profile: 'COORDINADOR', module: 'AUDITORÍA', userCreation: 'Ricardo Sanchez', creationAt: '', active: true },
-    { code: 'PEM00013', profile: 'ADMINISTRADOR', module: 'LOGÍSTICA', userCreation: 'Valeria Morales', creationAt: '', active: true },
-    { code: 'PEM00014', profile: 'USUARIO', module: 'ALMACÉN', userCreation: 'Andres Herrera', creationAt: '', active: false },
-    { code: 'PEM00015', profile: 'SUPERVISOR', module: 'TRANSPORTE', userCreation: 'Paula Cruz', creationAt: '', active: true },
-    { code: 'PEM00016', profile: 'GERENTE', module: 'SEGURIDAD', userCreation: 'Diego Navarro', creationAt: '', active: true },
-    { code: 'PEM00017', profile: 'ASISTENTE', module: 'INFRAESTRUCTURA', userCreation: 'Gabriela Paredes', creationAt: '', active: false },
-    { code: 'PEM00018', profile: 'COORDINADOR', module: 'DESARROLLO', userCreation: 'Hector Vega', creationAt: '', active: true },
-    { code: 'PEM00019', profile: 'ADMINISTRADOR', module: 'INVESTIGACIÓN', userCreation: 'Isabel Flores', creationAt: '', active: true },
-    { code: 'PEM00020', profile: 'USUARIO', module: 'LEGAL', userCreation: 'Juan Guerra', creationAt: '', active: false },
-    { code: 'PEM00021', profile: 'SUPERVISOR', module: 'RELACIONES PÚBLICAS', userCreation: 'Maria Sanchez', creationAt: '', active: true },
-    { code: 'PEM00022', profile: 'GERENTE', module: 'CAPACITACIÓN', userCreation: 'Carlos Torres', creationAt: '', active: true },
-    { code: 'PEM00023', profile: 'ASISTENTE', module: 'MANTENIMIENTO', userCreation: 'Ana Lopez', creationAt: '', active: false },
-    { code: 'PEM00024', profile: 'COORDINADOR', module: 'DISTRIBUCIÓN', userCreation: 'Luis Fernandez', creationAt: '', active: true },
-    { code: 'PEM00025', profile: 'ADMINISTRADOR', module: 'ESTRATEGIA', userCreation: 'Sofia Vargas', creationAt: '', active: true },
-    { code: 'PEM00026', profile: 'USUARIO', module: 'ANÁLISIS', userCreation: 'Pedro Gomez', creationAt: '', active: false },
-    { code: 'PEM00027', profile: 'SUPERVISOR', module: 'CONSULTORÍA', userCreation: 'Lucia Cruz', creationAt: '', active: true },
-    { code: 'PEM00028', profile: 'GERENTE', module: 'RIESGOS', userCreation: 'Jorge Diaz', creationAt: '', active: true },
-    { code: 'PEM00029', profile: 'ASISTENTE', module: 'INNOVACIÓN', userCreation: 'Elena Morales', creationAt: '', active: false },
-    { code: 'PEM00030', profile: 'COORDINADOR', module: 'FINANZAS', userCreation: 'Carmen Guerra', creationAt: '', active: true },
-  ];
+  profilesModule = [];
+
   selectedProfilesModule: any = [];
 
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
-  ) {}
+    private apiService: ApiService
+  ) {
 
-  ngOnInit() {}
+  }
+
+  ngOnInit() {
+    this.index();
+  }
+
+  index(){
+    this.apiService.getAllProfileModule().subscribe((res:any) => {
+      this.profilesModule = res.data;
+      console.log(this.profilesModule);
+    },
+    (error:any) => {
+      console.log('error',error);
+    });
+  }
 
   editProfile(item: any) {
     this.router.navigate(['dashboard/security/profiles-module/edit/2']);
@@ -218,7 +203,7 @@ export class IndexComponent {
   deleteProfile(item: any) {
     this.confirmationService.confirm({
       header: 'Confirmación',
-      message: `¿Seguro que deseas eliminar a ${item.internNumber}?`,
+      message: `¿Seguro que deseas eliminar este registro?`,
       icon: 'pi pi-exclamation-triangle',
       acceptButtonProps: {
         label: 'Sí, eliminar',
@@ -231,8 +216,20 @@ export class IndexComponent {
         severity: 'secondary',
       },
       accept: () => {
-        console.log('Paquete eliminado:', item.internNumber);
+        this.delete(item);
       },
+    });
+  }
+
+
+  delete(item:any){
+
+    this.apiService.deleteProfileModule(item).subscribe((res:any) => {
+      this.index();
+      this.profilesModule = res.data;
+    },
+    (error:any) => {
+      console.log('error',error);
     });
   }
 

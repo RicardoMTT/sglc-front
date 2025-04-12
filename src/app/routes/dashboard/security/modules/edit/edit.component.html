@@ -13,12 +13,18 @@
 
 
   <form [formGroup]="moduleForm" class="grid grid-cols-2 gap-4">
-
+<!--
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">N° Identificación</label>
       <input pInputText  formControlName="identification_number" pSize="large"  class="w-full" />
+    </div> -->
+
+    <div class="flex items-center col-span-2">
+      <p-checkbox formControlName="active" value="Activo" size="large"></p-checkbox>
+      <label class="text-sm font-medium">&nbsp;Activo</label>
     </div>
+
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Nombre Módulo</label>
@@ -46,15 +52,8 @@
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Módulo padre</label>
-      <p-select formControlName="main_module" [options]="optionsModuleFather"  size="large"  optionLabel="name" placeholder="Selecciona una opción" class="w-full" />
+      <p-select formControlName="father_module" [options]="parentModules"  size="large"  optionLabel="nombre_Modulo" placeholder="Selecciona una opción" class="w-full" />
     </div>
-
-    <div class="flex items-center col-span-2">
-      <p-checkbox formControlName="active" size="large"></p-checkbox>
-      <label class="text-sm font-medium">Activo</label>
-    </div>
-
-
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Orden Módulo</label>
@@ -62,10 +61,10 @@
     </div>
 
 
-    <div class="flex flex-col gap-2">
+    <!-- <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Icono Módulo</label>
       <p-select formControlName="main_module" [options]="optionsIconModule"  size="large"  optionLabel="name" placeholder="Selecciona una opción" class="w-full" />
-    </div>
+    </div> -->
 
 
 

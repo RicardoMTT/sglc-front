@@ -8,84 +8,44 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { Router } from '@angular/router';
 import { SelectModule } from 'primeng/select';
+import { ApiService } from '../../../../../core/services/api.service';
+import { PasswordModule } from 'primeng/password';
 
 
 @Component({
   selector: 'app-create',
   standalone: true,
   templateUrl: './create.component.html',
-  imports: [CommonModule,ButtonModule,ReactiveFormsModule,FormsModule,DropdownModule,InputTextModule,CheckboxModule,SelectModule]
+  imports: [CommonModule,ButtonModule,ReactiveFormsModule,FormsModule,DropdownModule
+    ,PasswordModule,InputTextModule,CheckboxModule,SelectModule]
 })
 export class CreateComponent implements OnInit{
 
-  clienteForm!: FormGroup;
+  userForm!: FormGroup;
 
-  tabs = [
-    { label: 'Información general' },
-    { label: 'Direcciones' },
-    { label: 'Consignatarios' },
-    { label: 'Datos de auditoría' }
-  ];
-
-  activeTab = 0;
-
-  tiposDocumento: any[] = [
-    { label: 'DNI', value: 'DNI' },
-    { label: 'Pasaporte', value: 'Pasaporte' },
-    { label: 'Carnet de extranjería', value: 'CE' },
-  ];
-
-  departamentos: any[] = [
-    { label: 'LIMA', value: 'LIMA' },
-    { label: 'AREQUIPA', value: 'AREQUIPA' },
-  ];
-  provincias: any[] = [
-    { label: 'LIMA', value: 'LIMA' },
-    { label: 'CALLAO', value: 'CALLAO' },
-  ];
-
-  distritos: any[] = [
-    { label: 'JESÚS MARÍA', value: 'JESÚS MARÍA' },
-    { label: 'MIRAFLORES', value: 'MIRAFLORES' },
-  ];
-
-  tiposCliente: any[] = [
-    { label: 'Nacional', value: 'NACIONAL' },
-    { label: 'Extranjero', value: 'EXTRANJERO' },
-  ];
-
-
-  constructor(private fb:FormBuilder,private router:Router){
+  constructor(private fb:FormBuilder,private router:Router,private apiService:ApiService){
 
   }
   ngOnInit(): void {
-    this.clienteForm = this.fb.group({
-      numeroCliente: [''],
-      activo: [true],
-      nombres: [''],
-
-      correo: [''],
-      tipoDocumento: ['DNI'],
-      documento: [''],
-      direccion: [''],
-      departamento: ['LIMA'],
-      provincia: ['LIMA'],
-      distrito: ['JESÚS MARÍA'],
-      telefono1: [''],
-      telefono2: [''],
-      tipoCliente: ['NACIONAL'],
+    this.userForm = this.fb.group({
+      activo: [null],
+      username: [''],
+      password: [''],
+      lastname: [''],
+      name: [''],
+      email: [''],
+      // created_at: [''],
+      // created_by: [''],
+      // user: [''],
+      // updated_at: [''],
     });
 
   }
 
-  guardarCliente() {
-    if (this.clienteForm.valid) {
-      console.log('Datos del cliente:', this.clienteForm.value);
-    }
-  }
+
 
   cancelar() {
-    this.clienteForm.reset();
+    this.userForm.reset();
   }
 
 
@@ -94,6 +54,42 @@ export class CreateComponent implements OnInit{
   }
 
   save(){
+
+    const {
+      name,
+      username,
+      password,
+      email,
+      activo,
+      lastname
+    }  = this.userForm.value;
+
+     const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    const body = {
+      userName: username,
+      email: email,
+      clave: password,
+      activo: activo? activo.length > 0 ? '1' : '0' : '0',
+      idPerfil: user.perfil_Id,
+      idEmpresa: user.empresa_Id,
+      usuario: name,
+      nombreUsuario:name,
+      apellidoUsuario:lastname,
+      terminal: "string",
+      fecha: new Date().toISOString(),
+    }
+
+    this.apiService.createUser(body).subscribe({
+      next: (res:any) => {
+        console.log('res',res);
+        this.router.navigate(['/dashboard/security/users']);
+      },
+      error: (error:any) => {
+        console.log('error',error);
+      },
+    });
+
 
   }
 

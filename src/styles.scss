@@ -11,6 +11,56 @@
 @plugin 'tailwindcss-primeui';
 @layer tailwind, primeng;
 
+:root {
+
+  --p-text-color: #343A40;//Texto principal
+  --p-button-primary-background :#030F50!important;//Botones de acción
+  // --p-surface-100: #F8F9FA!important;
+  // --p-slate-100: #F8F9FA!important;
+  --surface-ground: #F8F9FA;//Fondo secundario
+  --text-color: #030F50!important;
+  // --p-inputtext-focus-border-text:blue!important;
+  // --p-highlight-background:blue!important;
+  // --p-primary-50:blue!important;
+  // --p-emerald-50:blue!important;
+  --background-page-paginator-selected:#b7b7f3;
+}
+
+
+.p-paginator-page.p-paginator-page-selected{
+  background: var(--background-page-paginator-selected)!important;
+  color: #fff!important;
+}
+
+.p-select:not(.p-disabled).p-focus{
+  border: 1px solid rgb(159, 159, 236)!important;
+}
+
+.search-general:enabled:focus{
+  border: 1px solid rgb(159, 159, 236)!important;
+}
+
+.p-select-option.p-select-option-selected.p-focus{
+  background: rgb(159, 159, 236)!important;
+  color: white!important;
+}
+
+.p-select-option.p-select-option-selected.p-focus:hover{
+  background: rgb(159, 159, 236)!important;
+}
+.p-select-option.p-select-option-selected{
+  color: white!important;
+  background: rgb(159, 159, 236)!important;
+}
+.layout-menuitem-root-text{
+  font-size: 18px!important;
+  font-weight: 600!important;//Semi negrita
+}
+.layout-menuitem-text{
+  font-size: 14px!important;
+  font-weight: 400!important;//Regular
+}
+
 .black{
 
   color: white !important;
@@ -19,4 +69,17 @@
   margin-right: 8px;
 }
 
+.title{
+  font-size: 24px;
+  font-weight: bold;
+}
 
+
+.layout-menu ul a.active-route{
+  color: #7885c9!important;
+}
+
+
+.item-column{
+  color: var(--text-color) !important;
+}

@@ -5,15 +5,14 @@
     <h2 class="m-0">Parámetros Generales</h2>
   </div>
 
-  <div class="flex justify-end align-items-center">
+  <!-- <div class="flex justify-end align-items-center">
     <div class="">
       <p-menu #menu [model]="items" [popup]="true" />
       <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedParameters || !selectedParameters.length"/>
     </div>
 
-    <p-button label="Agregar" icon="pi pi-plus" (onClick)="createParameter()" styleClass="black"></p-button>
 
-  </div>
+  </div> -->
 
   <p-confirmDialog></p-confirmDialog>
 
@@ -21,14 +20,14 @@
     #dt2
     [value]="parameters"
     [(selection)]="selectedParameters"
-    dataKey="code"
+    dataKey="parametro_Id"
     selectionMode="multiple"
     [tableStyle]="{ 'min-width': '2rem' }"
     [paginator]="true"
     [rowHover]="true"
-    [rows]="20"
-    [rowsPerPageOptions]="[ 20, 40]"
-    [globalFilterFields]="['code', 'name', 'value', 'firstValue', 'secondValue','active']"
+    [rows]="10"
+    [rowsPerPageOptions]="[ 10, 20]"
+    [globalFilterFields]="['parametro_Id','codigo_Parametro', 'nombre_Parametro', 'valor_Principal','valor_Equivalente', 'valor_Minimo', 'valor_Maximo','activo']"
   >
 
     <ng-template #caption>
@@ -50,51 +49,73 @@
           <th style="width: 4rem">
               <p-tableHeaderCheckbox />
           </th>
-          <th pSortableColumn="code" style="min-width: 14rem">
+          <th pSortableColumn="parametro_Id" style="min-width: 14rem">
             <div class="flex justify-between items-center">
-                Código Parámetro
-                  <p-sortIcon field="code" />
+                Id Parámetro
+                  <p-sortIcon field="parametro_Id" />
 
                 <!-- <p-sortIcon field="clientNumber" />
                 <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
             </div>
           </th>
-          <th pSortableColumn="name" style="min-width: 14rem">
+
+          <th pSortableColumn="codigo_Parametro" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+                Código Parámetro
+                  <p-sortIcon field="codigo_Parametro" />
+
+                <!-- <p-sortIcon field="clientNumber" />
+                <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
+            </div>
+          </th>
+
+
+          <th pSortableColumn="nombre_Parametro" style="min-width: 14rem">
             <div class="flex justify-between items-center">
                 Nombre Parámetro
-                <p-sortIcon field="name" />
+                <p-sortIcon field="nombre_Parametro" />
                 <!-- <p-sortIcon field="names" />
                 <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
             </div>
           </th>
-          <th pSortableColumn="value" style="min-width: 14rem">
+          <th pSortableColumn="valor_Principal" style="min-width: 14rem">
             <div class="flex justify-between items-center">
               Valor principal
-              <p-sortIcon field="value" />
+              <p-sortIcon field="valor_Principal" />
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
           </th>
-          <th pSortableColumn="firstValue" style="min-width: 10rem">
+
+
+          <th pSortableColumn="valor_Equivalente" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+              Valor Equivalente
+              <p-sortIcon field="valor_Equivalente" />
+              <!-- <p-sortIcon field="names" />
+              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+          </div>
+          </th>
+          <th pSortableColumn="valor_Minimo" style="min-width: 10rem">
               <div class="flex justify-between items-center">
-                  Valor 1
-                  <p-sortIcon field="firstValue" />
+                  Valor Mínimo
+                  <p-sortIcon field="valor_Minimo" />
                   <!-- <p-sortIcon field="date" />
                   <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
               </div>
           </th>
-          <th pSortableColumn="secondValue" style="min-width: 10rem">
+          <th pSortableColumn="valor_Maximo" style="min-width: 10rem">
               <div class="flex justify-between items-center">
-                  Valor 2
-                  <p-sortIcon field="secondValue" />
+                  Valor Máximo
+                  <p-sortIcon field="valor_Maximo" />
                   <!-- <p-sortIcon field="balance" />
                   <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" /> -->
               </div>
           </th>
-          <th pSortableColumn="active" style="min-width: 10rem">
+          <th pSortableColumn="activo" style="min-width: 10rem">
             <div class="flex justify-between items-center">
               Activo
-              <p-sortIcon field="active" />
+              <p-sortIcon field="activo" />
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
@@ -112,48 +133,65 @@
         <th>
           <p-columnFilter
                     type="text"
-                    field="code"
-                    placeholder="code "
-                    ariaLabel="Filter code"
+                    field="parametro_Id"
+                    placeholder="parametro_Id "
+                    ariaLabel="Filter parametro_Id"
                 ></p-columnFilter>
         </th>
+
         <th>
           <p-columnFilter
                     type="text"
-                    field="name"
+                    field="codigo_Parametro"
+                    placeholder="codigo_Parametro "
+                    ariaLabel="Filter codigo_Parametro"
+                ></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="nombre_Parametro"
                     placeholder="Buscar por nombre"
-                    ariaLabel="Filter Name"
+                    ariaLabel="Filter nombre_Parametro"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="value"
+                    field="valor_Principal"
                     placeholder="Buscar por valor principal"
-                    ariaLabel="Filter value"
+                    ariaLabel="Filter valor_Principal"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="firstValue"
-                    placeholder="Buscar por Valor 1"
-                    ariaLabel="Filter firstValue"
+                    field="valor_Equivalente"
+                    placeholder="Buscar por valor equivalente"
+                    ariaLabel="Filter valor_Equivalente"
+                ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="valor_Minimo"
+                    placeholder="Buscar por Valor Mínimo"
+                    ariaLabel="Filter valor_Minimo"
                 ></p-columnFilter>
         </th>
 
         <th>
           <p-columnFilter
                     type="text"
-                    field="secondValue"
-                    placeholder="Buscar por Valor 2"
-                    ariaLabel="Filter secondValue"
+                    field="valor_Maximo"
+                    placeholder="Buscar por Valor Máximo"
+                    ariaLabel="Filter valor_Maximo"
                 ></p-columnFilter>
         </th>
 
         <th>
-          <p-columnFilter type="boolean" field="active"></p-columnFilter>
-
+          <p-columnFilter type="boolean" field="activo"></p-columnFilter>
         </th>
 
       </tr>
@@ -164,18 +202,20 @@
             <td>
               <p-tableCheckbox [value]="parameter" />
             </td>
-            <td>{{ parameter.code }}</td>
-            <td>{{ parameter.name }}</td>
-            <td>{{ parameter.value }}</td>
-            <td>{{ parameter.firstValue }}</td>
-            <td>{{ parameter.secondValue }}</td>
+            <td>{{ parameter.parametro_Id }}</td>
+            <td>{{ parameter.codigo_Parametro }}</td>
+            <td>{{ parameter.nombre_Parametro }}</td>
+            <td>{{ parameter.valor_Principal }}</td>
+            <td>{{ parameter.valor_Equivalente }}</td>
+            <td>{{ parameter.valor_Minimo }}</td>
+            <td>{{ parameter.valor_Maximo }}</td>
             <td>
 
               <i
                       class="pi"
                       [ngClass]="{
-                          'text-green-500 pi-check-circle': parameter.active,
-                          'text-red-500 pi-times-circle': !parameter.active
+                          'text-green-500 pi-check-circle': parameter.activo,
+                          'text-red-500 pi-times-circle': !parameter.activo
                       }"
                   ></i>
 

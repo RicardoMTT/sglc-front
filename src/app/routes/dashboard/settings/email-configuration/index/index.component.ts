@@ -14,6 +14,7 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ApiService } from '../../../../../core/services/api.service';
 
 @Component({
   selector: 'app-index',
@@ -167,77 +168,46 @@ export class IndexComponent {
   ];
 
 
-  emailsConfiguration = [
-    { id: 'CC000001', name: 'Paquetes', emailName: 'Notificacion 1', emailSubject: 'Recepcion registro paquete', emailSigner: 'Juan Perez', active: true },
-    { id: 'CL000321', name: 'Rojas Rivera Pedro martin', emailName: 'Vendedor', emailSubject: 'Recepcion paquete', emailSigner: 'Ricardo Torres', active: true },
-    { id: 'CC000002', name: 'Envios', emailName: 'Notificacion 2', emailSubject: 'Envio confirmado', emailSigner: 'Maria Lopez', active: true },
-    { id: 'CL000322', name: 'Gomez Fernandez Ana', emailName: 'Cliente', emailSubject: 'Envio recibido', emailSigner: 'Carlos Garcia', active: false },
-    { id: 'CC000003', name: 'Devoluciones', emailName: 'Notificacion 3', emailSubject: 'Devolucion procesada', emailSigner: 'Luis Fernandez', active: true },
-    { id: 'CL000323', name: 'Torres Ramirez Pedro', emailName: 'Proveedor', emailSubject: 'Devolucion aceptada', emailSigner: 'Ana Torres', active: true },
-    { id: 'CC000004', name: 'Facturas', emailName: 'Notificacion 4', emailSubject: 'Factura generada', emailSigner: 'Sofia Martinez', active: false },
-    { id: 'CL000324', name: 'Martinez Cruz Lucia', emailName: 'Comprador', emailSubject: 'Factura enviada', emailSigner: 'Pedro Castillo', active: true },
-    { id: 'CC000005', name: 'Pagos', emailName: 'Notificacion 5', emailSubject: 'Pago recibido', emailSigner: 'Jorge Ramirez', active: true },
-    { id: 'CL000325', name: 'Vargas Gomez Elena', emailName: 'Cliente', emailSubject: 'Pago confirmado', emailSigner: 'Miguel Rojas', active: false },
-    { id: 'CC000006', name: 'Pedidos', emailName: 'Notificacion 6', emailSubject: 'Pedido procesado', emailSigner: 'Carmen Diaz', active: true },
-    { id: 'CL000326', name: 'Sanchez Vega Ricardo', emailName: 'Proveedor', emailSubject: 'Pedido enviado', emailSigner: 'Valeria Morales', active: true },
-    { id: 'CC000007', name: 'Reclamos', emailName: 'Notificacion 7', emailSubject: 'Reclamo recibido', emailSigner: 'Andres Herrera', active: false },
-    { id: 'CL000327', name: 'Cruz Navarro Paula', emailName: 'Cliente', emailSubject: 'Reclamo en proceso', emailSigner: 'Diego Navarro', active: true },
-    { id: 'CC000008', name: 'Soporte', emailName: 'Notificacion 8', emailSubject: 'Soporte asignado', emailSigner: 'Gabriela Paredes', active: true },
-    { id: 'CL000328', name: 'Vega Flores Hector', emailName: 'Usuario', emailSubject: 'Soporte resuelto', emailSigner: 'Isabel Flores', active: true },
-    { id: 'CC000009', name: 'Actualizaciones', emailName: 'Notificacion 9', emailSubject: 'Actualizacion disponible', emailSigner: 'Juan Guerra', active: false },
-    { id: 'CL000329', name: 'Lopez Sanchez Maria', emailName: 'Cliente', emailSubject: 'Actualizacion aplicada', emailSigner: 'Carlos Torres', active: true },
-    { id: 'CC000010', name: 'Alertas', emailName: 'Notificacion 10', emailSubject: 'Alerta de seguridad', emailSigner: 'Ana Lopez', active: true },
-    { id: 'CL000330', name: 'Ramirez Herrera Luis', emailName: 'Usuario', emailSubject: 'Alerta resuelta', emailSigner: 'Sofia Vargas', active: false },
-    { id: 'CC000011', name: 'Promociones', emailName: 'Notificacion 11', emailSubject: 'Nueva promocion', emailSigner: 'Pedro Gomez', active: true },
-    { id: 'CL000331', name: 'Cruz Diaz Lucia', emailName: 'Cliente', emailSubject: 'Promocion aplicada', emailSigner: 'Jorge Diaz', active: true },
-    { id: 'CC000012', name: 'Encuestas', emailName: 'Notificacion 12', emailSubject: 'Encuesta disponible', emailSigner: 'Elena Morales', active: false },
-    { id: 'CL000332', name: 'Martinez Vega Ricardo', emailName: 'Usuario', emailSubject: 'Encuesta completada', emailSigner: 'Carmen Guerra', active: true },
-    { id: 'CC000013', name: 'Eventos', emailName: 'Notificacion 13', emailSubject: 'Evento programado', emailSigner: 'Luis Torres', active: true },
-    { id: 'CL000333', name: 'Navarro Sanchez Paula', emailName: 'Cliente', emailSubject: 'Evento confirmado', emailSigner: 'Gabriela Vega', active: true },
-    { id: 'CC000014', name: 'Noticias', emailName: 'Notificacion 14', emailSubject: 'Nueva noticia', emailSigner: 'Hector Perez', active: false },
-    { id: 'CL000334', name: 'Sanchez Guerra Diego', emailName: 'Usuario', emailSubject: 'Noticia leida', emailSigner: 'Isabel Torres', active: true },
-    { id: 'CC000015', name: 'Recordatorios', emailName: 'Notificacion 15', emailSubject: 'Recordatorio programado', emailSigner: 'Juan Perez', active: true },
-    { id: 'CL000335', name: 'Lopez Gomez Maria', emailName: 'Cliente', emailSubject: 'Recordatorio enviado', emailSigner: 'Carlos Garcia', active: true },
-  ];
+  emailsConfiguration:any = [];
 
   selectedEmailConfiguration: any = [];
 
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private apiService: ApiService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.index();
+  }
+
+  index(){
+    this.apiService.getEmails().subscribe({
+      next:(data:any) =>{
+       console.log('data',data);
+        this.emailsConfiguration = data.data;
+        const newElements = this.emailsConfiguration.map((item:any) => {
+          return {
+            ...item,
+            active: item.activo == "1" ? true : false
+          }
+        })
+        this.emailsConfiguration = newElements;
+      }
+    })
+  }
 
   editEmail(item: any) {
-    this.router.navigate(['dashboard/settings/email-configuration/edit/2']);
+    console.log(item);
+
+    this.router.navigate([`dashboard/settings/email-configuration/edit/${item.mail_Id}`]);
   }
 
   clear(table: Table) {
     table.clear();
   }
 
-  deleteEmail(item: any) {
-    this.confirmationService.confirm({
-      header: 'Confirmación',
-      message: `¿Seguro que deseas eliminar a ${item.internNumber}?`,
-      icon: 'pi pi-exclamation-triangle',
-      acceptButtonProps: {
-        label: 'Sí, eliminar',
-        icon: 'pi pi-check',
-        severity: 'danger',
-      },
-      rejectButtonProps: {
-        label: 'Cancelar',
-        icon: 'pi pi-times',
-        severity: 'secondary',
-      },
-      accept: () => {
-        console.log('Paquete eliminado:', item.internNumber);
-      },
-    });
-  }
 
 
   applyFilterGlobal($event: any, stringVal: any) {

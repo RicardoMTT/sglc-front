@@ -14,6 +14,7 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ApiService } from '../../../../../core/services/api.service';
 
 @Component({
   selector: 'app-index',
@@ -167,51 +168,30 @@ export class IndexComponent {
   ];
 
 
-  users = [
-    { code: 'USU00001', names: 'Roberto Carlos', lastName: 'Jan Guerra', user: 'rcarlosguerra', profile: 'Administrador', active: true },
-    { code: 'USU00002', names: 'María López', lastName: 'Gómez Torres', user: 'mlopezgomez', profile: 'Usuario', active: true },
-    { code: 'USU00003', names: 'Carlos García', lastName: 'Fernández Ruiz', user: 'cgarciafernandez', profile: 'Supervisor', active: false },
-    { code: 'USU00004', names: 'Ana Torres', lastName: 'Martínez Díaz', user: 'atorresmartinez', profile: 'Administrador', active: true },
-    { code: 'USU00005', names: 'Luis Fernández', lastName: 'Ramírez Vega', user: 'lfernandezramirez', profile: 'Usuario', active: false },
-    { code: 'USU00006', names: 'Sofía Martínez', lastName: 'Cruz Paredes', user: 'smartinezcruz', profile: 'Supervisor', active: true },
-    { code: 'USU00007', names: 'Pedro Castillo', lastName: 'Navarro Sánchez', user: 'pcastillonavarro', profile: 'Administrador', active: true },
-    { code: 'USU00008', names: 'Lucía Gómez', lastName: 'Hernández Vargas', user: 'lgomezhernandez', profile: 'Usuario', active: false },
-    { code: 'USU00009', names: 'Jorge Ramírez', lastName: 'Flores Castillo', user: 'jramirezflores', profile: 'Supervisor', active: true },
-    { code: 'USU00010', names: 'Elena Vargas', lastName: 'Morales Cruz', user: 'evargasmorales', profile: 'Administrador', active: true },
-    { code: 'USU00011', names: 'Miguel Rojas', lastName: 'Pérez Díaz', user: 'mrojasperez', profile: 'Usuario', active: false },
-    { code: 'USU00012', names: 'Carmen Díaz', lastName: 'Guerra López', user: 'cdiazguerra', profile: 'Supervisor', active: true },
-    { code: 'USU00013', names: 'Ricardo Sánchez', lastName: 'Vega Torres', user: 'rsanchezvega', profile: 'Administrador', active: true },
-    { code: 'USU00014', names: 'Valeria Morales', lastName: 'Cruz Ramírez', user: 'vmoralescruz', profile: 'Usuario', active: false },
-    { code: 'USU00015', names: 'Andrés Herrera', lastName: 'Navarro Díaz', user: 'aherreranavarro', profile: 'Supervisor', active: true },
-    { code: 'USU00016', names: 'Paula Cruz', lastName: 'Martínez Vega', user: 'pcruzmartinez', profile: 'Administrador', active: true },
-    { code: 'USU00017', names: 'Diego Navarro', lastName: 'Sánchez Guerra', user: 'dnavarrosanchez', profile: 'Usuario', active: false },
-    { code: 'USU00018', names: 'Gabriela Paredes', lastName: 'Hernández López', user: 'gparedeshernandez', profile: 'Supervisor', active: true },
-    { code: 'USU00019', names: 'Héctor Vega', lastName: 'Flores Castillo', user: 'hvegaflores', profile: 'Administrador', active: true },
-    { code: 'USU00020', names: 'Isabel Flores', lastName: 'Cruz Ramírez', user: 'iflorescruz', profile: 'Usuario', active: true },
-    { code: 'USU00021', names: 'Juan Guerra', lastName: 'Pérez Díaz', user: 'jguerraperez', profile: 'Supervisor', active: true },
-    { code: 'USU00022', names: 'María Sánchez', lastName: 'Vega Torres', user: 'msanchezvega', profile: 'Administrador', active: false },
-    { code: 'USU00023', names: 'Carlos Torres', lastName: 'Navarro Díaz', user: 'ctorresnavarro', profile: 'Usuario', active: true },
-    { code: 'USU00024', names: 'Ana López', lastName: 'Martínez Vega', user: 'alopezmartinez', profile: 'Supervisor', active: true },
-    { code: 'USU00025', names: 'Luis Ramírez', lastName: 'Sánchez Guerra', user: 'lramirezsanchez', profile: 'Administrador', active: false },
-    { code: 'USU00026', names: 'Sofía Vargas', lastName: 'Hernández López', user: 'svargashernandez', profile: 'Usuario', active: true },
-    { code: 'USU00027', names: 'Pedro Gómez', lastName: 'Flores Castillo', user: 'pgomezflores', profile: 'Supervisor', active: true },
-    { code: 'USU00028', names: 'Lucía Cruz', lastName: 'Cruz Ramírez', user: 'lcruzcruz', profile: 'Administrador', active: false },
-    { code: 'USU00029', names: 'Jorge Díaz', lastName: 'Pérez Díaz', user: 'jdiazperez', profile: 'Usuario', active: true },
-    { code: 'USU00030', names: 'Elena Morales', lastName: 'Vega Torres', user: 'emoralesvega', profile: 'Supervisor', active: true },
-  ];
+  users = [];
 
   selectedUsers: any = [];
 
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private apiService: ApiService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.index();
+  }
 
+  index(){
+    this.apiService.getAllUsers().subscribe((res:any) => {
+      this.users = res.data;
+    },
+    (error:any) => {
+      console.log('error',error);
+    });
+  }
   editUser(item: any) {
-    this.router.navigate(['dashboard/security/users/edit/2']);
+    this.router.navigate([`dashboard/security/users/edit/${item.usuario_Id}`]);
   }
 
   clear(table: Table) {
@@ -221,7 +201,7 @@ export class IndexComponent {
   deleteUser(item: any) {
     this.confirmationService.confirm({
       header: 'Confirmación',
-      message: `¿Seguro que deseas eliminar a ${item.internNumber}?`,
+      message: `¿Seguro que deseas eliminar a ${item.nombre_Usuario}?`,
       icon: 'pi pi-exclamation-triangle',
       acceptButtonProps: {
         label: 'Sí, eliminar',
@@ -234,7 +214,19 @@ export class IndexComponent {
         severity: 'secondary',
       },
       accept: () => {
-        console.log('Paquete eliminado:', item.internNumber);
+        this.delete(item);
+      },
+    });
+  }
+
+  delete(item:any){
+    this.apiService.deleteUser(item).subscribe({
+      next: (res:any) => {
+        console.log('res',res);
+        this.index();
+      },
+      error: (error:any) => {
+        console.log('error',error);
       },
     });
   }

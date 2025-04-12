@@ -113,6 +113,16 @@ export class AppMenu {
                   icon: 'pi pi-fw pi-search',
                   routerLink: ['/dashboard/settings/audits']
                 },
+                {
+                  label: 'Configuración Servidor SMTP',
+                  icon: 'pi pi-fw pi-search',
+                  routerLink: ['/dashboard/settings/smtp-server']
+                },
+                {
+                  label: 'Notificaciónes',
+                  icon: 'pi pi-fw pi-search',
+                  routerLink: ['/dashboard/settings/notifications']
+                },
 
               ]
             },

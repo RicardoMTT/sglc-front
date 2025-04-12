@@ -15,11 +15,27 @@ export class AuthService{
   login(
     username:string,password:string
   ){
-    // const params = new HttpParams();
-    // params.set('UserName',username).set('UserPass',password);
-    // return this.http.get(`${this.apiUrl}/ValidarLogin`,{
-    //   params
-    // });
-    return of([]).pipe(delay(1500));
+    const body = {
+      correo:username,
+      clave:password
+    }
+    return this.http.post(`${this.apiUrl}/ValidarLogin`,body);
+
+  }
+
+  register(
+    username:string,password:string,email:string
+  ){
+    const body = {
+      userName:username,
+      email,
+      clave:password,
+      activo:'0',
+      empresaId: 0,
+      idPerfil: 0
+    }
+
+    return this.http.post(`${this.apiUrl}/InsertarUsuarioExterno`,body);
+
   }
 }

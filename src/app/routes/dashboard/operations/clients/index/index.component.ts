@@ -14,6 +14,7 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ApiService } from '../../../../../core/services/api.service';
 
 @Component({
   selector: 'app-index',
@@ -164,74 +165,42 @@ export class IndexComponent {
     },
   ];
 
-  clients = [
-    { id: 1, clientNumber: 'CLT00001', names: 'Juan Pérez', clientType: 'Vendedor', documentType: 'DNI', documentNumber: '776949545', active: true },
-    { id: 2, clientNumber: 'CLT00002', names: 'María López', clientType: 'Comprador', documentType: 'DNI', documentNumber: '123456789', active: true },
-    { id: 3, clientNumber: 'CLT00003', names: 'Carlos García', clientType: 'Vendedor', documentType: 'RUC', documentNumber: '20123456789', active: false },
-    { id: 4, clientNumber: 'CLT00004', names: 'Ana Torres', clientType: 'Comprador', documentType: 'DNI', documentNumber: '987654321', active: true },
-    { id: 5, clientNumber: 'CLT00005', names: 'Luis Fernández', clientType: 'Vendedor', documentType: 'DNI', documentNumber: '456789123', active: false },
-    { id: 6, clientNumber: 'CLT00006', names: 'Sofía Martínez', clientType: 'Comprador', documentType: 'RUC', documentNumber: '20567891234', active: true },
-    { id: 7, clientNumber: 'CLT00007', names: 'Pedro Castillo', clientType: 'Vendedor', documentType: 'DNI', documentNumber: '321654987', active: true },
-    { id: 8, clientNumber: 'CLT00008', names: 'Lucía Gómez', clientType: 'Comprador', documentType: 'DNI', documentNumber: '654987321', active: false },
-    { id: 9, clientNumber: 'CLT00009', names: 'Jorge Ramírez', clientType: 'Vendedor', documentType: 'RUC', documentNumber: '20987654321', active: true },
-    { id: 10, clientNumber: 'CLT00010', names: 'Elena Vargas', clientType: 'Comprador', documentType: 'DNI', documentNumber: '789123456', active: true },
-    { id: 11, clientNumber: 'CLT00011', names: 'Miguel Rojas', clientType: 'Vendedor', documentType: 'DNI', documentNumber: '112233445', active: false },
-    { id: 12, clientNumber: 'CLT00012', names: 'Carmen Díaz', clientType: 'Comprador', documentType: 'RUC', documentNumber: '20111223344', active: true },
-    { id: 13, clientNumber: 'CLT00013', names: 'Ricardo Sánchez', clientType: 'Vendedor', documentType: 'DNI', documentNumber: '998877665', active: true },
-    { id: 14, clientNumber: 'CLT00014', names: 'Valeria Morales', clientType: 'Comprador', documentType: 'DNI', documentNumber: '776655443', active: false },
-    { id: 15, clientNumber: 'CLT00015', names: 'Andrés Herrera', clientType: 'Vendedor', documentType: 'RUC', documentNumber: '20776655443', active: true },
-    { id: 16, clientNumber: 'CLT00016', names: 'Paula Cruz', clientType: 'Comprador', documentType: 'DNI', documentNumber: '334455667', active: true },
-    { id: 17, clientNumber: 'CLT00017', names: 'Diego Navarro', clientType: 'Vendedor', documentType: 'DNI', documentNumber: '556677889', active: false },
-    { id: 18, clientNumber: 'CLT00018', names: 'Gabriela Paredes', clientType: 'Comprador', documentType: 'RUC', documentNumber: '20889977665', active: true },
-    { id: 19, clientNumber: 'CLT00019', names: 'Héctor Vega', clientType: 'Vendedor', documentType: 'DNI', documentNumber: '667788990', active: true },
-    { id: 20, clientNumber: 'CLT00020', names: 'Isabel Flores', clientType: 'Comprador', documentType: 'DNI', documentNumber: '445566778', active: true },
-    { id: 21, clientNumber: 'CLT00021', names: 'Juan Guerra', clientType: 'Vendedor', documentType: 'DNI', documentNumber: '123123123', active: true },
-    { id: 22, clientNumber: 'CLT00022', names: 'María Sánchez', clientType: 'Comprador', documentType: 'RUC', documentNumber: '20112312312', active: false },
-    { id: 23, clientNumber: 'CLT00023', names: 'Carlos Torres', clientType: 'Vendedor', documentType: 'DNI', documentNumber: '987987987', active: true },
-    { id: 24, clientNumber: 'CLT00024', names: 'Ana López', clientType: 'Comprador', documentType: 'DNI', documentNumber: '654654654', active: true },
-    { id: 25, clientNumber: 'CLT00025', names: 'Luis Ramírez', clientType: 'Vendedor', documentType: 'RUC', documentNumber: '20987654322', active: false },
-    { id: 26, clientNumber: 'CLT00026', names: 'Sofía Vargas', clientType: 'Comprador', documentType: 'DNI', documentNumber: '321321321', active: true },
-    { id: 27, clientNumber: 'CLT00027', names: 'Pedro Gómez', clientType: 'Vendedor', documentType: 'DNI', documentNumber: '456456456', active: true },
-    { id: 28, clientNumber: 'CLT00028', names: 'Lucía Cruz', clientType: 'Comprador', documentType: 'RUC', documentNumber: '20145645645', active: false },
-    { id: 29, clientNumber: 'CLT00029', names: 'Jorge Díaz', clientType: 'Vendedor', documentType: 'DNI', documentNumber: '789789789', active: true },
-    { id: 30, clientNumber: 'CLT00030', names: 'Elena Morales', clientType: 'Comprador', documentType: 'DNI', documentNumber: '123789456', active: true },
-  ];
+  clients:any[] = [];
 
   selectedClients: any = [];
 
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private apiService: ApiService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.index();
+  }
+
+  index(){
+    this.apiService.getClients().subscribe((res:any) => {
+      this.clients = res.data;
+      const newClients = this.clients.map((client:any) => {
+        return {
+          ...client,
+          active:client.activo == "1" ? true : false
+        }
+      });
+      this.clients = newClients;
+    },
+    (error:any) => {
+      console.log('error',error);
+    });
+
+  }
 
   editClient(client: any) {
     this.router.navigate(['dashboard/operations/clients/edit/2']);
     // Lógica para editar cliente
   }
-  deleteClient(client: any) {
-    this.confirmationService.confirm({
-      header: 'Confirmación',
-      message: `¿Seguro que deseas eliminar a ${client.names}?`,
-      icon: 'pi pi-exclamation-triangle',
-      acceptButtonProps: {
-        label: 'Sí, eliminar',
-        icon: 'pi pi-check',
-        severity: 'danger',
-      },
-      rejectButtonProps: {
-        label: 'Cancelar',
-        icon: 'pi pi-times',
-        severity: 'secondary',
-      },
-      accept: () => {
-        console.log('Cliente eliminado:', client);
-        // Lógica para eliminar cliente aquí
-      },
-    });
-  }
+
 
 
   applyFilterGlobal($event: any, stringVal: any) {

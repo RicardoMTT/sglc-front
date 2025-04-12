@@ -15,6 +15,8 @@ import { ButtonModule } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
+import { ApiService } from '../../../../../core/services/api.service';
+
 @Component({
   selector: 'app-index',
   standalone: true,
@@ -167,51 +169,37 @@ export class IndexComponent {
   ];
 
 
-  profiles = [
-    { profile: '00001', description: 'Administración', observation: 'Administrador de sistemas', active: true },
-    { profile: '00002', description: 'Operaciones', observation: 'Gestión de operaciones', active: true },
-    { profile: '00003', description: 'Soporte', observation: 'Soporte técnico y atención al cliente', active: false },
-    { profile: '00004', description: 'Ventas', observation: 'Gestión de ventas y clientes', active: true },
-    { profile: '00005', description: 'Recursos Humanos', observation: 'Gestión del personal', active: true },
-    { profile: '00006', description: 'Finanzas', observation: 'Gestión financiera y contabilidad', active: false },
-    { profile: '00007', description: 'Logística', observation: 'Gestión de inventarios y transporte', active: true },
-    { profile: '00008', description: 'Marketing', observation: 'Estrategias de marketing y publicidad', active: true },
-    { profile: '00009', description: 'Desarrollo', observation: 'Desarrollo de software y sistemas', active: false },
-    { profile: '00010', description: 'Atención al Cliente', observation: 'Soporte y atención al cliente', active: true },
-    { profile: '00011', description: 'Producción', observation: 'Gestión de procesos productivos', active: true },
-    { profile: '00012', description: 'Calidad', observation: 'Control de calidad y auditorías', active: false },
-    { profile: '00013', description: 'Compras', observation: 'Gestión de proveedores y compras', active: true },
-    { profile: '00014', description: 'Proyectos', observation: 'Gestión de proyectos y planificación', active: true },
-    { profile: '00015', description: 'Seguridad', observation: 'Gestión de seguridad y riesgos', active: false },
-    { profile: '00016', description: 'Infraestructura', observation: 'Gestión de infraestructura tecnológica', active: true },
-    { profile: '00017', description: 'Investigación', observation: 'Investigación y desarrollo', active: true },
-    { profile: '00018', description: 'Legal', observation: 'Asesoría legal y cumplimiento', active: false },
-    { profile: '00019', description: 'Auditoría', observation: 'Auditorías internas y externas', active: true },
-    { profile: '00020', description: 'Innovación', observation: 'Gestión de innovación y creatividad', active: true },
-    { profile: '00021', description: 'Planificación', observation: 'Planificación estratégica', active: true },
-    { profile: '00022', description: 'Relaciones Públicas', observation: 'Gestión de relaciones públicas', active: false },
-    { profile: '00023', description: 'Capacitación', observation: 'Capacitación y desarrollo del personal', active: true },
-    { profile: '00024', description: 'Mantenimiento', observation: 'Gestión de mantenimiento', active: true },
-    { profile: '00025', description: 'Almacén', observation: 'Gestión de almacenes y stock', active: false },
-    { profile: '00026', description: 'Distribución', observation: 'Gestión de distribución y entregas', active: true },
-    { profile: '00027', description: 'Estrategia', observation: 'Diseño de estrategias corporativas', active: true },
-    { profile: '00028', description: 'Análisis', observation: 'Análisis de datos y reportes', active: false },
-    { profile: '00029', description: 'Consultoría', observation: 'Consultoría interna y externa', active: true },
-    { profile: '00030', description: 'Gestión de Riesgos', observation: 'Identificación y mitigación de riesgos', active: true },
-  ];
+  profiles = []
 
   selectedProfiles: any = [];
 
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private apiService: ApiService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.index();
+  }
 
+
+  index(){
+    this.apiService.getAllProfile().subscribe({
+      next: (data:any) => {
+        console.log('data',data);
+        this.profiles = data.data;
+      },
+      error: (error) => {
+        console.log('error',error);
+
+      }
+    })
+  }
   editProfile(item: any) {
-    this.router.navigate(['dashboard/security/profiles/edit/2']);
+    console.log('item', item);
+
+    this.router.navigate([`dashboard/security/profiles/edit/${item.perfiL_ID}`]);
   }
 
   clear(table: Table) {
@@ -219,9 +207,10 @@ export class IndexComponent {
   }
 
   deleteProfile(item: any) {
+
     this.confirmationService.confirm({
       header: 'Confirmación',
-      message: `¿Seguro que deseas eliminar a ${item.internNumber}?`,
+      message: `¿Seguro que deseas eliminar a ${item.descripcion}?`,
       icon: 'pi pi-exclamation-triangle',
       acceptButtonProps: {
         label: 'Sí, eliminar',
@@ -234,11 +223,23 @@ export class IndexComponent {
         severity: 'secondary',
       },
       accept: () => {
-        console.log('Paquete eliminado:', item.internNumber);
+        this.delete(item);
       },
     });
   }
 
+
+  delete(item:any){
+
+    this.apiService.deleteProfile(item).subscribe({
+      next:(_) => {
+        this.index();
+      },
+      error: (_) => {
+
+      }
+    })
+  }
 
   applyFilterGlobal($event: any, stringVal: any) {
     console.log(this.dt);

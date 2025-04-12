@@ -15,87 +15,71 @@
   <form [formGroup]="userForm" class="grid grid-cols-2 gap-4">
 
 
-    <div class="flex items-center gap-2">
-      <p-checkbox formControlName="active" size="large"></p-checkbox>
+    <div class="flex items-center col-span-2">
+      <p-checkbox formControlName="active" value="true" size="large"></p-checkbox>
       <label class="text-sm font-medium">Activo</label>
     </div>
 
-    <br>
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Id usuario</label>
-      <input pInputText  formControlName="userId" pSize="large"  placeholder="N° Cliente" class="w-full" />
+      <input pInputText [readOnly]="true"  formControlName="userId" pSize="large"  class="w-full" />
     </div>
 
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Usuario</label>
-      <input pInputText  formControlName="user" pSize="large"  placeholder="N° Cliente" class="w-full" />
+      <input pInputText  formControlName="user" pSize="large"  class="w-full" />
     </div>
 
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Contraseña (*)</label>
-      <input pInputText formControlName="password" pSize="large" placeholder="Nombres" class="w-full" />
+      <input pInputText formControlName="password" pSize="large"  type="password" class="w-full" />
     </div>
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Apellidos</label>
-      <input pInputText formControlName="lastName" placeholder="Correo" pSize="large" class="w-full" />
+      <input pInputText formControlName="lastName"   pSize="large" class="w-full" />
     </div>
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Nombres (*) </label>
-      <p-select formControlName="names" size="large"  [options]="tiposDocumento"  placeholder="Tipo de documento" class="w-full"></p-select>
+      <input pInputText formControlName="names"   pSize="large" class="w-full" />
     </div>
 
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Correo electrónico (*)</label>
-      <input pInputText formControlName="email" placeholder="Documento" pSize="large" class="w-full" />
+      <input pInputText formControlName="email" pSize="large" class="w-full" />
     </div>
 
 
-    <div class="flex flex-col gap-2">
-      <label class="text-sm font-medium">Rol (*)</label>
-      <input pInputText formControlName="role" placeholder="Dirección"  pSize="large"class="w-full" />
-    </div>
 
-    <br>
-    <div>
-
-    </div>
-    <div>
-
-    </div>
-    <div>
+    <div class="col-span-2">
       <strong>Información auditoría</strong>
     </div>
-    <div>
 
-    </div>
-    <div>
 
-    </div>
 
-    <div></div>
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Usuario creación</label>
-      <input pInputText formControlName="create_user" placeholder="Teléfono 1"  pSize="large"class="w-full" />
+      <input pInputText formControlName="create_user"  pSize="large"class="w-full" />
     </div>
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Fecha creación</label>
-      <p-select formControlName="creation_date" size="large"  [options]="departamentos" placeholder="Departamento" class="w-full"></p-select>
+      <input pInputText formControlName="creation_date"  pSize="large"class="w-full" />
+
     </div>
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Usuario actualización</label>
-      <input pInputText formControlName="user_update" placeholder="Teléfono 2" pSize="large" class="w-full" />
+      <input pInputText formControlName="user_update" pSize="large" class="w-full" />
     </div>
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Fecha actualización</label>
-      <input pInputText formControlName="update_date" placeholder="Teléfono 2" pSize="large" class="w-full" />
+      <input pInputText formControlName="update_date"  pSize="large" class="w-full" />
     </div>
 
   </form>

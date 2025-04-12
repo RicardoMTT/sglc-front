@@ -14,16 +14,11 @@
 
   <form [formGroup]="documentForm" class="grid grid-cols-2 gap-4">
 
-    <div class="flex items-center gap-2 col-span-2">
-      <p-checkbox formControlName="active" size="large"></p-checkbox>
-      <label class="text-sm font-medium">Activo</label>
-    </div>
-
-
     <div class="flex flex-col gap-2">
-      <label class="text-sm font-medium">Tipo de documento </label>
-      <p-select formControlName="module_name" size="large"  [options]="modules" optionLabel="name" placeholder="Modulos" class="w-full"></p-select>
+      <label class="text-sm font-medium">Nombre del Módulo </label>
+      <p-select formControlName="module_name" optionLabel="nombre_Modulo" size="large"  [options]="newModules"  placeholder="Tipo de documento" class="w-full"></p-select>
     </div>
+
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Prefijo</label>

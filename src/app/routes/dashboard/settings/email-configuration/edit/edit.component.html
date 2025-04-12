@@ -2,7 +2,7 @@
 
   <div class="flex justify-between items-center mb-5">
 
-    <h2 class="m-0 text-xl font-bold">Editar Configuracion Correo </h2>
+    <h2 class="m-0 text-xl font-bold">Registrar Configuracion Correo </h2>
 
     <div class="flex gap-2">
       <p-button label="Guardar"  (onClick)="save()" icon="pi pi-plus" class="p-button-primary"></p-button>
@@ -18,19 +18,19 @@
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Identificador</label>
-      <input pInputText  formControlName="id" pSize="large"  placeholder="N° Cliente" class="w-full" />
+      <input pInputText  formControlName="id" [readOnly]="true" pSize="large"  placeholder="N° Cliente" class="w-full" />
     </div>
 
 
     <div class="flex items-center gap-2">
-      <p-checkbox formControlName="active" size="large"></p-checkbox>
+      <p-checkbox formControlName="active" value="true" size="large"></p-checkbox>
       <label class="text-sm font-medium">Activo</label>
     </div>
 
 
     <div class="flex flex-col gap-2">
-      <label class="text-sm font-medium">Nombre </label>
-      <p-select formControlName="name" size="large"  [options]="optionsMenu" optionLabel="name" placeholder="Modulos" class="w-full"></p-select>
+      <label class="text-sm font-medium">Nombre Módulo </label>
+      <p-select formControlName="module" size="large"  [options]="modules" optionLabel="nombre_Modulo" placeholder="Modulos" class="w-full"></p-select>
     </div>
 
 
@@ -50,6 +50,13 @@
       <input pInputText formControlName="email_signer" placeholder="Firmante" pSize="large" class="w-full" />
     </div>
 
+
+
+
+    <div class="flex flex-col col-span-2">
+      <label class="text-sm font-medium">Texto Correo</label>
+      <textarea rows="5" cols="30" pTextarea formControlName="email_text"></textarea>
+    </div>
 
   </form>
 

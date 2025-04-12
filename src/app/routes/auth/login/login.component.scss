@@ -2,7 +2,7 @@
 :host {
   display: block;
   height: 100vh;
-  width: 100vw;
+  // width: 100vw;
 }
 
 .split-screen-container {
@@ -167,6 +167,7 @@
 
   .login-box {
     width: 100%; // Cambiar el ancho a 100% en versión móvil
+    max-width: none;
   }
 
   .login-header {
@@ -178,7 +179,8 @@
   }
 
   .left-panel {
-    flex: 0 0 200px;
+    // flex: 0 0 200px;
+    display: none;
   }
 
   .right-panel {

@@ -8,6 +8,8 @@ import { COMPANIES_ROUTES } from './companies/companies.routes';
 import { COUNTRIES_ROUTES } from './countries/countries.routes';
 import { ACTIVITIES_ROUTES } from './activities-calendar/activities-calendar.routes';
 import { AUDITS_ROUTES } from './audit/audit.routes';
+import { SMTP_SERVER_ROUTES } from './smtp-server/smtp-server.routes';
+import { NOTIFICATIONS_ROUTES } from './notifications/notifications.routes';
 
 export const SETTINGS_ROUTES: Routes = [
   {
@@ -37,6 +39,12 @@ export const SETTINGS_ROUTES: Routes = [
       },
       {
         path: 'audits', children: AUDITS_ROUTES
+      },
+      {
+        path: 'smtp-server', children: SMTP_SERVER_ROUTES
+      },
+      {
+        path: 'notifications', children: NOTIFICATIONS_ROUTES
       }
     ]
    },

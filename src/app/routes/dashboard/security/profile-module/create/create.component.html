@@ -15,34 +15,24 @@
   <form [formGroup]="profileForm" class="grid grid-cols-2 gap-4">
 
 
-    <div class="flex flex-col gap-2">
-      <label class="text-sm font-medium">Perfil-Módulo</label>
-      <input pInputText  formControlName="profile_module" pSize="large"   class="w-full" />
+    <div class="flex flex-col col-span-2">
+      <label class="text-sm font-medium">Perfil </label>
+      <p-select formControlName="profile" size="large" optionLabel="descripcion"  [options]="profiles"  placeholder="Perfil" class="w-full"></p-select>
     </div>
 
+    <div *ngIf="profileForm.get('profile')?.value" class="flex">
 
-    <div class="flex flex-col gap-2">
-      <label class="text-sm font-medium">Nombre</label>
-      <input pInputText  formControlName="name" pSize="large"   class="w-full" />
+      <p-button label="Generar Perfil Módulo" severity="success" class="mr-2" (onClick)="generateProfileModule()"/>
+      <p-button label="Actualizar Perfil Módulo" severity="info" (onClick)="getTreeWithProfileModules()"/>
+
     </div>
 
+    <div *ngIf="newTree.length > 0" class="col-span-2">
 
-    <div class="flex flex-col gap-2">
-      <label class="text-sm font-medium">Perfil</label>
-      <input pInputText formControlName="profile" pSize="large"class="w-full" />
+      <p-tree [value]="newTree" selectionMode="checkbox" styleClass="w-full md:w-[30rem]" [(selection)]="selectedItems" />
+
     </div>
 
-
-    <div class="flex flex-col gap-2">
-      <label class="text-sm font-medium">Módulo</label>
-      <input pInputText formControlName="module" pSize="large"class="w-full" />
-    </div>
-
-
-    <div class="flex items-center gap-2">
-      <p-checkbox formControlName="active" size="large"></p-checkbox>
-      <label class="text-sm font-medium">Activo</label>
-    </div>
 
   </form>
 

@@ -5,18 +5,6 @@
     <h2 class="m-0">Países</h2>
   </div>
 
-  <div class="flex justify-end align-items-center">
-    <div class="">
-      <p-menu #menu [model]="countries" [popup]="true" />
-      <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedCountries || !selectedCountries.length"/>
-    </div>
-
-    <p-button label="Agregar" icon="pi pi-plus" (onClick)="createCountry()" styleClass="black"></p-button>
-
-  </div>
-
-  <p-confirmDialog></p-confirmDialog>
-
   <p-table
     #dt2
     [value]="countries"
@@ -26,9 +14,9 @@
     [tableStyle]="{ 'min-width': '2rem' }"
     [paginator]="true"
     [rowHover]="true"
-    [rows]="20"
-    [rowsPerPageOptions]="[ 20, 40]"
-    [globalFilterFields]="['id', 'country_name', 'created_by_user', 'creation_date', 'updated_at','active']"
+    [rows]="10"
+    [rowsPerPageOptions]="[ 10, 20]"
+    [globalFilterFields]="['pais_Id', 'nombre_Pais', 'usuario_Creacion','usuario_Actualizacion', 'fecha_Creacion', 'fecha_Actualizacion','active']"
   >
 
     <ng-template #caption>
@@ -50,43 +38,51 @@
           <th style="width: 4rem">
               <p-tableHeaderCheckbox />
           </th>
-          <th pSortableColumn="id" style="min-width: 14rem">
+          <th pSortableColumn="pais_Id" style="min-width: 14rem">
             <div class="flex justify-between items-center">
                   ID
-                  <p-sortIcon field="id" />
+                  <p-sortIcon field="pais_Id" />
 
                 <!-- <p-sortIcon field="clientNumber" />
                 <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
             </div>
           </th>
-          <th pSortableColumn="country_name" style="min-width: 14rem">
+          <th pSortableColumn="nombre_Pais" style="min-width: 14rem">
             <div class="flex justify-between items-center">
                 Nombre País
-                <p-sortIcon field="country_name" />
+                <p-sortIcon field="nombre_Pais" />
                 <!-- <p-sortIcon field="names" />
                 <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
             </div>
           </th>
-          <th pSortableColumn="created_by_user" style="min-width: 14rem">
+          <th pSortableColumn="usuario_Creacion" style="min-width: 14rem">
             <div class="flex justify-between items-center">
               Usuario Creación
-              <p-sortIcon field="created_by_user" />
+              <p-sortIcon field="usuario_Creacion" />
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
           </th>
-          <th pSortableColumn="creation_date" style="min-width: 10rem">
+          <th pSortableColumn="usuario_Actualizacion" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+              Usuario Actualización
+              <p-sortIcon field="usuario_Actualizacion" />
+              <!-- <p-sortIcon field="names" />
+              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+          </div>
+          </th>
+          <th pSortableColumn="fecha_Creacion" style="min-width: 10rem">
               <div class="flex justify-between items-center">
                   Fecha Creación
-                  <p-sortIcon field="creation_date" />
+                  <p-sortIcon field="fecha_Creacion" />
                   <!-- <p-sortIcon field="date" />
                   <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
               </div>
           </th>
-          <th pSortableColumn="updated_at" style="min-width: 10rem">
+          <th pSortableColumn="fecha_Actualizacion" style="min-width: 10rem">
               <div class="flex justify-between items-center">
                   Fecha Actualización
-                  <p-sortIcon field="updated_at" />
+                  <p-sortIcon field="fecha_Actualizacion" />
                   <!-- <p-sortIcon field="balance" />
                   <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" /> -->
               </div>
@@ -99,9 +95,7 @@
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
           </th>
-          <th style="width: 4rem">
-            Acciones
-          </th>
+
 
       </tr>
 
@@ -112,42 +106,51 @@
         <th>
           <p-columnFilter
                     type="text"
-                    field="id"
-                    placeholder="ID"
-                    ariaLabel="Filter id"
+                    field="pais_Id"
+                    placeholder="pais_Id"
+                    ariaLabel="Filter pais_Id"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="country_name"
+                    field="nombre_Pais"
                     placeholder="Buscar por Nombre País"
-                    ariaLabel="Filter country_name"
+                    ariaLabel="Filter nombre_Pais"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="created_by_user"
+                    field="usuario_Creacion"
                     placeholder="Buscar por Usuario Creación"
-                    ariaLabel="Filter created_by_user"
+                    ariaLabel="Filter usuario_Creacion"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="creation_date"
-                    placeholder="Buscar por Fecha Creación"
-                    ariaLabel="Filter creation_date"
+                    field="usuario_Actualizacion"
+                    placeholder="Buscar por Usuario Actualización"
+                    ariaLabel="Filter usuario_Actualizacion"
                 ></p-columnFilter>
         </th>
 
         <th>
           <p-columnFilter
                     type="text"
-                    field="updated_at"
+                    field="fecha_Creacion"
+                    placeholder="Buscar por Fecha Creación"
+                    ariaLabel="Filter fecha_Creacion"
+                ></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter
+                    type="text"
+                    field="fecha_Actualizacion"
                     placeholder="Buscar por Fecha Actualziación"
-                    ariaLabel="Filter updated_at"
+                    ariaLabel="Filter fecha_Actualizacion"
                 ></p-columnFilter>
         </th>
 
@@ -164,11 +167,12 @@
             <td>
               <p-tableCheckbox [value]="country" />
             </td>
-            <td>{{ country.id }}</td>
-            <td>{{ country.country_name }}</td>
-            <td>{{ country.created_by_user }}</td>
-            <td>{{ country.creation_date }}</td>
-            <td>{{ country.updated_at }}</td>
+            <td>{{ country.pais_Id }}</td>
+            <td>{{ country.nombre_Pais }}</td>
+            <td>{{ country.usuario_Creacion }}</td>
+            <td>{{ country.usuario_Actualizacion }} </td>
+            <td>{{ country.fecha_Creacion }}</td>
+            <td>{{ country.fecha_Actualizacion }}</td>
             <td>
 
               <i
@@ -180,13 +184,7 @@
                   ></i>
 
             </td>
-            <td>
-              <div class="flex">
-                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editCountry(country)" />
-                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteCountry(country)" />
 
-              </div>
-            </td>
         </tr>
     </ng-template>
   </p-table>

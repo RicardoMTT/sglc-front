@@ -14,6 +14,7 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ApiService } from '../../../../../core/services/api.service';
 
 @Component({
   selector: 'app-index',
@@ -134,7 +135,6 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MultiSelectModule,
     SelectModule,
     RouterModule,
-    Menu,
     ToastModule,
     ConfirmDialogModule,
   ],
@@ -181,10 +181,26 @@ export class IndexComponent {
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private apiService: ApiService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.index();
+  }
+
+  index(){
+    this.apiService.getAllUbigeo().subscribe({
+      next:(data:any) =>{
+        this.elements = data.data;
+        this.elements.map((element:any)=>{
+          return {
+            ...element,
+            active: element.activo == "1" ? true : false
+          }
+        })
+      }
+    })
+  }
 
   editItem(item: any) {
     this.router.navigate(['dashboard/settings/geographic-location/edit/2']);

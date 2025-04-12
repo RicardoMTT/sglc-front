@@ -70,11 +70,17 @@ export class LoginComponent implements OnInit{
 
 
       this.authService.login(email,password).subscribe({
-        next: () => {
+        next: (data:any) => {
+
+          localStorage.setItem('user',JSON.stringify(data.data));
           this.loading = false;
           this.router.navigate(['/dashboard']);
+
         },
-        error: (err) => console.error('Error en login:', err),
+        error: (err) => {
+          this.loading = false;
+          console.error('Error en login:', err)
+        },
       });
     }
 

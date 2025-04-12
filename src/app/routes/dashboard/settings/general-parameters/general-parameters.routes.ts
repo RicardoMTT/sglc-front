@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { GeneralParametersComponent } from './general-parameters.component';
 import { IndexComponent } from './index/index.component';
-import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 
 export const GENERAL_PARAMETERS_ROUTES: Routes = [
@@ -11,9 +10,6 @@ export const GENERAL_PARAMETERS_ROUTES: Routes = [
     children:[
       {
         path: '', component: IndexComponent
-      },
-      {
-        path: 'create', component: CreateComponent
       },
       {
         path: 'edit/:id', component: EditComponent

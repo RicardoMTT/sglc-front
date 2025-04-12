@@ -15,40 +15,48 @@
   <form [formGroup]="parameterForm" class="grid grid-cols-2 gap-4">
 
 
-    <div class="flex items-center gap-2">
-      <p-checkbox formControlName="active" size="large"></p-checkbox>
+    <div class="flex items-center col-span-2">
+      <p-checkbox formControlName="active" value="true" size="large"></p-checkbox>
       <label class="text-sm font-medium">Activo</label>
     </div>
-    <div class="flex items-center gap-2">
-      <p-checkbox formControlName="applyAllCompanies" size="large"></p-checkbox>
-      <label class="text-sm font-medium">Aplica a todas las empresas</label>
-    </div>
+
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Código Parámetro</label>
-      <input pInputText  formControlName="code" pSize="large"  placeholder="N° Cliente" class="w-full" />
+      <input pInputText  formControlName="code" pSize="large"   class="w-full" />
     </div>
 
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Nombre Parámetro</label>
-      <input pInputText  formControlName="name" pSize="large"  placeholder="N° Cliente" class="w-full" />
+      <input pInputText  formControlName="name" pSize="large"    class="w-full" />
     </div>
 
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Valor principal</label>
-      <input pInputText formControlName="value" pSize="large" placeholder="Nombres" class="w-full" />
+      <input pInputText formControlName="main_value" pSize="large"  class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Valor equivalente</label>
+      <input pInputText formControlName="equivalent_value" pSize="large"  class="w-full" />
     </div>
 
     <div class="flex flex-col gap-2">
-      <label class="text-sm font-medium">Valor 1</label>
-      <input pInputText formControlName="firstValue" placeholder="Correo" pSize="large" class="w-full" />
+      <label class="text-sm font-medium">Valor Mínimo</label>
+      <input pInputText formControlName="minValue" pSize="large" class="w-full" />
     </div>
 
     <div class="flex flex-col gap-2">
-      <label class="text-sm font-medium">Valor 2 </label>
-      <input pInputText formControlName="secondValue" placeholder="Correo" pSize="large" class="w-full" />
+      <label class="text-sm font-medium">Valor Máximo </label>
+      <input pInputText formControlName="maxValue" pSize="large" class="w-full" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Nombre abreviado </label>
+      <input pInputText formControlName="abreviated_name" pSize="large" class="w-full" />
     </div>
 
   </form>

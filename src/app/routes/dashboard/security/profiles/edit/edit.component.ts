@@ -6,8 +6,9 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SelectModule } from 'primeng/select';
+import { ApiService } from '../../../../../core/services/api.service';
 
 
 @Component({
@@ -54,25 +55,55 @@ export class EditComponent implements OnInit{
     { label: 'Extranjero', value: 'EXTRANJERO' },
   ];
 
+  profiles = [];
+  id: string;
+  profile: any;
 
-  constructor(private fb:FormBuilder,private router:Router){
+  constructor(private fb:FormBuilder,
+              private router:Router,
+              private apiService:ApiService,
+              private route:ActivatedRoute
+            ){
+              this.id = this.route.snapshot.paramMap.get('id')!;
+              this.createForm();
+  }
 
+  createForm(){
+    this.profileForm = this.fb.group({
+      description: [null],
+      observation: [null],
+      active: [null],
+    });
   }
   ngOnInit(): void {
-    this.profileForm = this.fb.group({
-      profile:['Administrador'],
-      description:['descripcion'],
-      observation:['observaciones'],
-      active:[true],
+    this.index();
+  }
+
+  index(){
+    this.apiService.getAllProfile().subscribe({
+      next: (data:any) => {
+        this.profiles = data.data;
+        this.profile = this.profiles.filter((item:any) => item.perfiL_ID == this.id)[0];
+        this.setForm();
+      },
+      error: (error) => {
+        console.log('error',error);
+
+      }
+    })
+  }
+
+  setForm(){
+
+    console.log(this.profile);
+
+    this.profileForm.patchValue({
+      description: this.profile.descripcion,
+      observation: this.profile.observacion,
+      active: this.profile.activo == '1' ? ["Activo"] : null,
     });
-
   }
 
-  guardarCliente() {
-    if (this.profileForm.valid) {
-      console.log('Datos del cliente:', this.profileForm.value);
-    }
-  }
 
   cancelar() {
     this.profileForm.reset();
@@ -80,10 +111,31 @@ export class EditComponent implements OnInit{
 
 
   toBack(){
-    this.router.navigate(['/dashboard/security/users'])
+    this.router.navigate(['/dashboard/security/profiles'])
   }
 
   save(){
+    const {description,observation,active} = this.profileForm.value;
+
+    const user = JSON.parse(localStorage.getItem('user')|| '{}');
+    const body = {
+      idPerfil: this.id,
+      descripcion: description,
+      observacion:observation,
+      empresaId: user?.empresa_Id,
+      activo: active ? active.length > 0 ? "1" :"0" :"0",
+    }
+
+
+    this.apiService.updateProfile(body).subscribe({
+      next: (_) => {
+        this.router.navigate(['/dashboard/security/profiles']);
+      },
+      error: (error:any) => {
+        console.log('error',error);
+      }
+    })
+
 
   }
 

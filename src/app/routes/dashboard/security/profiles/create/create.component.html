@@ -14,13 +14,6 @@
 
   <form [formGroup]="profileForm" class="grid grid-cols-2 gap-4">
 
-
-    <div class="flex flex-col gap-2">
-      <label class="text-sm font-medium">Perfil</label>
-      <input pInputText  formControlName="profile" pSize="large"  placeholder="Perfil" class="w-full" />
-    </div>
-
-
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Descripción</label>
       <input pInputText  formControlName="description" pSize="large"  placeholder="Descripción" class="w-full" />
@@ -34,7 +27,7 @@
 
 
     <div class="flex items-center gap-2">
-      <p-checkbox formControlName="active" size="large"></p-checkbox>
+      <p-checkbox formControlName="active" value="Activo"  size="large"></p-checkbox>
       <label class="text-sm font-medium">Activo</label>
     </div>
 

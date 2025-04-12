@@ -39,60 +39,90 @@ export class CreateComponent implements OnInit{
     }
   ]
 
+  loading: boolean = false;
+  parentModules = [];
 
-  optionsIconModule = [
-    {
-      id:1,
-      name:'LIMA'
-    }
-  ]
-  constructor(private fb:FormBuilder,private router:Router,private apiService:ApiService){
+  constructor(
+    private fb:FormBuilder,
+    private router:Router,
+    private apiService:ApiService){
 
   }
 
   ngOnInit(): void {
     this.moduleForm = this.fb.group({
-      active:[true],
-      identification_number:[''],
+      active:[null],
       module_name:[''],
       page_name:[''],
       prefix:[''],
       main_module:[true],
-      father_module:[''],
+      father_module:[{ value: ''}],
       order_module:[''],
       icon_module:[''],
-
     });
+
+    this.getParentModules();
+
+    // Escuchar cambios en el control "main_module"
+    this.moduleForm.get('main_module')?.valueChanges.subscribe((value) => {
+      const fatherModuleControl = this.moduleForm.get('father_module');
+      if (value.name === true || value.name === 'SI') {
+        fatherModuleControl?.disable(); // Deshabilitar si es "SI"
+        fatherModuleControl?.reset(); // Opcional: limpiar el valor
+      } else {
+        fatherModuleControl?.enable(); // Habilitar si no es "SI"
+      }
+    });
+
 
   }
 
+  getParentModules(){
+    this.apiService.getParentModules().subscribe({
+      next:(data:any) => {
+        console.log('data',data);
+        this.parentModules = data.data;
+      },
+      error:(error) => {
+        console.log('error',error);
+      }
+    })
+  }
+
   save() {
-    const {active,identification_number,module_name
+
+    this.loading = true;
+
+    const {active,module_name
       ,page_name,prefix,main_module,father_module,order_module,
-      icon_module
     } = this.moduleForm.value;
+
+    console.log(father_module);
+    console.log(active);
 
     const body = {
       modulo_Id: 0,
-      nombre_Modulo: "string",
-      modulo_Padre_Id: 0,
-      pagina_Modulo: "string",
-      modulo_Principal: "string",
-      prefijo_Modulo: "string",
-      orden_Modulo: 0,
-      activo: "string"
+      nombre_Modulo: module_name,
+      modulo_Padre_Id:main_module.name == "SI" ? "0": father_module.modulo_Id ,
+      pagina_Modulo: page_name,
+      modulo_Principal: main_module.name == "SI" ? "1" : "0",
+      prefijo_Modulo: prefix,
+      orden_Modulo: order_module,
+      activo: active == null ? "0" : "1"
     }
 
-    this.apiService.store(body).subscribe({
-      next: (data:any) => {
-        console.log('data',data);
 
+
+    this.apiService.store(body).subscribe({
+      next: (_) => {
+        this.loading = false;
+        this.router.navigate(['dashboard/security/modules'])
+      },
+      error: (error:any) => {
+        this.loading = false;
       }
     })
 
-    if (this.moduleForm.valid) {
-      console.log('Datos del cliente:', this.moduleForm.value);
-    }
   }
 
   cancelar() {

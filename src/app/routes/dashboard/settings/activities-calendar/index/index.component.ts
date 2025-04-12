@@ -12,8 +12,8 @@ import { ToastModule } from 'primeng/toast';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
-import { Menu } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ApiService } from '../../../../../core/services/api.service';
 
 @Component({
   selector: 'app-index',
@@ -142,48 +142,36 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 export class IndexComponent {
   @ViewChild('dt') dt: Table | undefined;
 
-  activities = [
-    { code: 'ALM00001', store_name: 'ALMACEN PRINCIPAL', address: 'San Isidro', department: 'LIMA', province: 'LIMA', district: 'SAN ISIDRO', exchange: true, active: true },
-    { code: 'ALM00002', store_name: 'ALMACEN SECUNDARIO', address: 'Miraflores', department: 'LIMA', province: 'LIMA', district: 'MIRAFLORES', exchange: false, active: true },
-    { code: 'ALM00003', store_name: 'ALMACEN CENTRAL', address: 'Barranco', department: 'LIMA', province: 'LIMA', district: 'BARRANCO', exchange: true, active: false },
-    { code: 'ALM00004', store_name: 'ALMACEN NORTE', address: 'Comas', department: 'LIMA', province: 'LIMA', district: 'COMAS', exchange: false, active: true },
-    { code: 'ALM00005', store_name: 'ALMACEN SUR', address: 'Chorrillos', department: 'LIMA', province: 'LIMA', district: 'CHORRILLOS', exchange: true, active: true },
-    { code: 'ALM00006', store_name: 'ALMACEN ESTE', address: 'Ate', department: 'LIMA', province: 'LIMA', district: 'ATE', exchange: false, active: false },
-    { code: 'ALM00007', store_name: 'ALMACEN LICITACIÓN', address: 'Jesus Maria', department: 'LIMA', province: 'LIMA', district: 'SURCO', exchange: true, active: true },
-    { code: 'ALM00008', store_name: 'ALMACEN TEMPORAL', address: 'La Molina', department: 'LIMA', province: 'LIMA', district: 'LA MOLINA', exchange: true, active: false },
-    { code: 'ALM00009', store_name: 'ALMACEN DE EXPORTACIÓN', address: 'Callao', department: 'CALLAO', province: 'CALLAO', district: 'CALLAO', exchange: true, active: true },
-    { code: 'ALM00010', store_name: 'ALMACEN DE IMPORTACIÓN', address: 'San Miguel', department: 'LIMA', province: 'LIMA', district: 'SAN MIGUEL', exchange: false, active: true },
-    { code: 'ALM00011', store_name: 'ALMACEN DE REPUESTOS', address: 'Rímac', department: 'LIMA', province: 'LIMA', district: 'RÍMAC', exchange: true, active: false },
-    { code: 'ALM00012', store_name: 'ALMACEN DE INSUMOS', address: 'Villa El Salvador', department: 'LIMA', province: 'LIMA', district: 'VILLA EL SALVADOR', exchange: false, active: true },
-    { code: 'ALM00013', store_name: 'ALMACEN DE PRODUCTOS TERMINADOS', address: 'Surquillo', department: 'LIMA', province: 'LIMA', district: 'SURQUILLO', exchange: true, active: true },
-    { code: 'ALM00014', store_name: 'ALMACEN DE MATERIA PRIMA', address: 'Independencia', department: 'LIMA', province: 'LIMA', district: 'INDEPENDENCIA', exchange: false, active: false },
-    { code: 'ALM00015', store_name: 'ALMACEN DE HERRAMIENTAS', address: 'San Juan de Lurigancho', department: 'LIMA', province: 'LIMA', district: 'SAN JUAN DE LURIGANCHO', exchange: true, active: true },
-    { code: 'ALM00016', store_name: 'ALMACEN DE EQUIPOS', address: 'Pueblo Libre', department: 'LIMA', province: 'LIMA', district: 'PUEBLO LIBRE', exchange: false, active: true },
-    { code: 'ALM00017', store_name: 'ALMACEN DE DOCUMENTOS', address: 'Magdalena', department: 'LIMA', province: 'LIMA', district: 'MAGDALENA', exchange: true, active: false },
-    { code: 'ALM00018', store_name: 'ALMACEN DE ARCHIVOS', address: 'Lince', department: 'LIMA', province: 'LIMA', district: 'LINCE', exchange: true, active: true },
-    { code: 'ALM00019', store_name: 'ALMACEN DE MUEBLES', address: 'San Borja', department: 'LIMA', province: 'LIMA', district: 'SAN BORJA', exchange: false, active: true },
-    { code: 'ALM00020', store_name: 'ALMACEN DE VEHÍCULOS', address: 'Villa María del Triunfo', department: 'LIMA', province: 'LIMA', district: 'VILLA MARÍA DEL TRIUNFO', exchange: true, active: false },
-    { code: 'ALM00021', store_name: 'ALMACEN DE ELECTRÓNICOS', address: 'Santa Anita', department: 'LIMA', province: 'LIMA', district: 'SANTA ANITA', exchange: false, active: true },
-    { code: 'ALM00022', store_name: 'ALMACEN DE ALIMENTOS', address: 'Cieneguilla', department: 'LIMA', province: 'LIMA', district: 'CIENEGUILLA', exchange: true, active: true },
-    { code: 'ALM00023', store_name: 'ALMACEN DE BEBIDAS', address: 'Chaclacayo', department: 'LIMA', province: 'LIMA', district: 'CHACLACAYO', exchange: false, active: false },
-    { code: 'ALM00024', store_name: 'ALMACEN DE TEXTILES', address: 'Pachacámac', department: 'LIMA', province: 'LIMA', district: 'PACHACÁMAC', exchange: true, active: true },
-    { code: 'ALM00025', store_name: 'ALMACEN DE CALZADO', address: 'Lurín', department: 'LIMA', province: 'LIMA', district: 'LURÍN', exchange: false, active: true },
-    { code: 'ALM00026', store_name: 'ALMACEN DE JUGUETES', address: 'Ancón', department: 'LIMA', province: 'LIMA', district: 'ANCÓN', exchange: true, active: false },
-    { code: 'ALM00027', store_name: 'ALMACEN DE PAPELERÍA', address: 'Punta Hermosa', department: 'LIMA', province: 'LIMA', district: 'PUNTA HERMOSA', exchange: true, active: true },
-    { code: 'ALM00028', store_name: 'ALMACEN DE MEDICAMENTOS', address: 'Punta Negra', department: 'LIMA', province: 'LIMA', district: 'PUNTA NEGRA', exchange: false, active: true },
-    { code: 'ALM00029', store_name: 'ALMACEN DE COSMÉTICOS', address: 'San Bartolo', department: 'LIMA', province: 'LIMA', district: 'SAN BARTOLO', exchange: true, active: false },
-    { code: 'ALM00030', store_name: 'ALMACEN DE JOYERÍA', address: 'Santa María del Mar', department: 'LIMA', province: 'LIMA', district: 'SANTA MARÍA DEL MAR', exchange: true, active: true },
-  ];
+  activities:any[] = [];
   selectedActivities: any = [];
 
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private apiService: ApiService
+
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.index();
+  }
 
+
+  index(){
+    this.apiService.getAllActivitiesCalendar().subscribe({
+      next:(data:any) =>{
+       console.log('data',data);
+        this.activities = data.data;
+        const newActivities = this.activities.map((item:any) => {
+          return {
+            ...item,
+            active: item.activo == "1" ? true : false
+          }
+        });
+        this.activities = newActivities;
+      }
+    })
+  }
   editActivity(item: any) {
     this.router.navigate(['dashboard/settings/activities-calendar/edit/2']);
   }

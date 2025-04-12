@@ -6,10 +6,10 @@
   </div>
 
   <div class="flex justify-end align-items-center">
-    <div class="">
+    <!-- <div class="">
       <p-menu #menu [model]="items" [popup]="true" />
       <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedProfiles || !selectedProfiles.length"/>
-    </div>
+    </div> -->
 
     <p-button label="Agregar" icon="pi pi-plus" (onClick)="createUser()" styleClass="black"></p-button>
 
@@ -21,14 +21,14 @@
     #dt2
     [value]="profiles"
     [(selection)]="selectedProfiles"
-    dataKey="profile"
+    dataKey="perfiL_ID"
     selectionMode="multiple"
     [tableStyle]="{ 'min-width': '2rem' }"
     [paginator]="true"
     [rowHover]="true"
-    [rows]="20"
-    [rowsPerPageOptions]="[ 20, 40]"
-    [globalFilterFields]="['profile', 'description', 'observation','active']"
+    [rows]="10"
+    [rowsPerPageOptions]="[ 10, 20]"
+    [globalFilterFields]="['perfiL_ID', 'descripcion', 'observacion','active']"
   >
 
     <ng-template #caption>
@@ -50,27 +50,27 @@
           <th style="width: 4rem">
               <p-tableHeaderCheckbox />
           </th>
-          <th pSortableColumn="profile" style="min-width: 14rem">
+          <th pSortableColumn="perfiL_ID" style="min-width: 14rem">
             <div class="flex justify-between items-center">
                 Perfil
-                  <p-sortIcon field="profile" />
+                  <p-sortIcon field="perfiL_ID" />
 
                 <!-- <p-sortIcon field="clientNumber" />
                 <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
             </div>
           </th>
-          <th pSortableColumn="description" style="min-width: 14rem">
+          <th pSortableColumn="descripcion" style="min-width: 14rem">
             <div class="flex justify-between items-center">
                 Descripción
-                <p-sortIcon field="description" />
+                <p-sortIcon field="descripcion" />
                 <!-- <p-sortIcon field="names" />
                 <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
             </div>
           </th>
-          <th pSortableColumn="observation" style="min-width: 14rem">
+          <th pSortableColumn="observacion" style="min-width: 14rem">
             <div class="flex justify-between items-center">
               Observación
-              <p-sortIcon field="observation" />
+              <p-sortIcon field="observacion" />
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
@@ -96,25 +96,25 @@
         <th>
           <p-columnFilter
                     type="text"
-                    field="profile"
+                    field="perfiL_ID"
                     placeholder="Perfil"
-                    ariaLabel="Filter profile"
+                    ariaLabel="Filter perfiL_ID"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="description"
+                    field="descripcion"
                     placeholder="Buscar por descripción"
-                    ariaLabel="Filter description"
+                    ariaLabel="Filter descripcion"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="observation"
+                    field="observacion"
                     placeholder="Buscar por observación"
-                    ariaLabel="Filter observation"
+                    ariaLabel="Filter observacion"
                 ></p-columnFilter>
         </th>
 
@@ -132,16 +132,16 @@
             <td>
               <p-tableCheckbox [value]="profile" />
             </td>
-            <td>{{ profile.profile }}</td>
-            <td>{{ profile.description }}</td>
-            <td>{{ profile.observation }}</td>
+            <td>{{ profile.perfiL_ID }}</td>
+            <td>{{ profile.descripcion }}</td>
+            <td>{{ profile.observacion }}</td>
             <td>
 
               <i
-                      class="pi"
+                      class="pi text-green-500 pi-check-circle"
                       [ngClass]="{
-                          'text-green-500 pi-check-circle': profile.active,
-                          'text-red-500 pi-times-circle': !profile.active
+                          'text-green-500 pi-check-circle': profile.activo == '1',
+                          'text-red-500 pi-times-circle': profile.activo == '0'
                       }"
                   ></i>
 

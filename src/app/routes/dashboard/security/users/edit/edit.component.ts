@@ -6,8 +6,9 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SelectModule } from 'primeng/select';
+import { ApiService } from '../../../../../core/services/api.service';
 
 
 @Component({
@@ -19,67 +20,63 @@ import { SelectModule } from 'primeng/select';
 export class EditComponent implements OnInit{
 
   userForm!: FormGroup;
+  users = [];
+  id: string;
+  user: any;
 
-  tabs = [
-    { label: 'Información general' },
-    { label: 'Direcciones' },
-    { label: 'Consignatarios' },
-    { label: 'Datos de auditoría' }
-  ];
-
-  activeTab = 0;
-
-  tiposDocumento: any[] = [
-    { label: 'DNI', value: 'DNI' },
-    { label: 'Pasaporte', value: 'Pasaporte' },
-    { label: 'Carnet de extranjería', value: 'CE' },
-  ];
-
-  departamentos: any[] = [
-    { label: 'LIMA', value: 'LIMA' },
-    { label: 'AREQUIPA', value: 'AREQUIPA' },
-  ];
-  provincias: any[] = [
-    { label: 'LIMA', value: 'LIMA' },
-    { label: 'CALLAO', value: 'CALLAO' },
-  ];
-
-  distritos: any[] = [
-    { label: 'JESÚS MARÍA', value: 'JESÚS MARÍA' },
-    { label: 'MIRAFLORES', value: 'MIRAFLORES' },
-  ];
-
-  tiposCliente: any[] = [
-    { label: 'Nacional', value: 'NACIONAL' },
-    { label: 'Extranjero', value: 'EXTRANJERO' },
-  ];
-
-
-  constructor(private fb:FormBuilder,private router:Router){
-
+  constructor(
+    private fb:FormBuilder,
+    private router:Router,
+    private apiService:ApiService,
+    private route:ActivatedRoute
+  ){
+    this.id = this.route.snapshot.paramMap.get('id')!;
   }
+
   ngOnInit(): void {
+
+    this.index();
+
     this.userForm = this.fb.group({
-      active: [true],
-      userId: ['123'],
-      user: ['rtest12'],
-      password: ['DNI'],
+      active: [null],
+      userId: [''],
+      user: [''],
+      password: [''],
       lastName: [''],
       names: [''],
-      email: ['test@gmail.com'],
-      role: ['Administrador'],
-      create_user: ['ricardo'],
-      creation_date: ['2020/03/06'],
-      user_update: ['ricardo'],
-      update_date: ['2025/05/04'],
+      email: [''],
+      create_user: [''],
+      creation_date: [''],
+      user_update: [''],
+      update_date: [''],
     });
 
   }
 
-  guardarCliente() {
-    if (this.userForm.valid) {
-      console.log('Datos del cliente:', this.userForm.value);
-    }
+  index(){
+    this.apiService.getAllUsers().subscribe((res:any) => {
+      this.users = res.data;
+      this.user = this.users.filter((user:any) => user.usuario_Id == this.id)[0];
+
+      console.log(this.user);
+      this.userForm.patchValue({
+        active: this.user.activo == "1" ? ["true"] : null,
+        userId: this.user.usuario_Id,
+        user: this.user.nombre_Usuario,
+        password: this.user.clave,
+        lastName: this.user.apellido_Usuario,
+        names: this.user.nombre_Usuario,
+        email:this.user.email,
+        create_user: this.user.usuario_Creacion,
+        creation_date: this.user.fecha_Creacion,
+        user_update: this.user.usuario_Actualizacion,
+        update_date: this.user.fecha_Actualizacion
+      })
+
+    },
+    (error:any) => {
+      console.log('error',error);
+    });
   }
 
   cancelar() {
@@ -92,6 +89,40 @@ export class EditComponent implements OnInit{
   }
 
   save(){
+
+    const {
+      active,
+      user,
+      password,
+      lastName,
+      names,
+      email
+    } = this.userForm.value;
+
+    const userLS = JSON.parse(localStorage.getItem('user')|| '{}');
+
+    const body = {
+      idUsuario: this.id,
+      idEmpresa: userLS.empresa_Id,
+      userName: names,
+      email: email,
+      clave: password,
+      activo: active ? active.length > 0 ? "1" : "0" : "0",
+      idPerfil: userLS.perfil_Id,
+      nombreUsuario: names,
+      apellidosUsuario: lastName,
+      usuario: user,
+      terminal: "",
+      fecha: new Date().toISOString()
+    }
+
+    console.log(body);
+
+    this.apiService.updateUser(body).subscribe({
+      next: (_) => {
+        this.router.navigate(['/dashboard/security/users'])
+      }
+    })
 
   }
 

@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { Router } from '@angular/router';
 import { SelectModule } from 'primeng/select';
+import { ApiService } from '../../../../../core/services/api.service';
 
 
 @Component({
@@ -55,15 +56,18 @@ export class CreateComponent implements OnInit{
   ];
 
 
-  constructor(private fb:FormBuilder,private router:Router){
+  constructor(private fb:FormBuilder,private router:Router,
+    private apiService:ApiService
+  ){
 
   }
   ngOnInit(): void {
+    console.log(JSON.parse(localStorage.getItem('user')|| '{}'));
+
     this.profileForm = this.fb.group({
-      profile:[''],
       description:[''],
       observation:[''],
-      active:[true],
+      active:[null],
     });
 
   }
@@ -80,10 +84,33 @@ export class CreateComponent implements OnInit{
 
 
   toBack(){
-    this.router.navigate(['/dashboard/security/users'])
+    this.router.navigate(['/dashboard/security/profiles'])
   }
 
   save(){
+
+    const {description,observation,active} = this.profileForm.value;
+    const user = JSON.parse(localStorage.getItem('user')|| '{}');
+
+    const body = {
+      descripcion: description,
+      empresa_Id: user.empresa_Id,
+      observacion: observation,
+      activo: active ? "1" :"0",
+      userCrea: user?.userName,
+      terminalCrea: "123123.23232",
+      fechaCrea: new Date().toISOString()
+    }
+
+    this.apiService.createProfile(body).subscribe({
+      next: (data) => {
+        console.log('data',data);
+        this.router.navigate(['/dashboard/security/profiles']);
+      },
+      error: (error) => {
+        console.log('error',error);
+      }
+    })
 
   }
 

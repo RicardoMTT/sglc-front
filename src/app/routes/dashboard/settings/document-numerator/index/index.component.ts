@@ -14,6 +14,7 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ApiService } from '../../../../../core/services/api.service';
 
 @Component({
   selector: 'app-index',
@@ -134,7 +135,6 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MultiSelectModule,
     SelectModule,
     RouterModule,
-    Menu,
     ToastModule,
     ConfirmDialogModule,
   ],
@@ -167,51 +167,38 @@ export class IndexComponent {
   ];
 
 
-  documents = [
-    { id: '0001415013', prefix: 'Moneda', number: 'Sol', moduleName: 'S/', creationDate: '', active: true },
-    { id: '0002345013', prefix: 'Moneda', number: 'Dólar', moduleName: '$', creationDate: '', active: true },
-    { id: '0003415013', prefix: 'Moneda', number: 'Euro', moduleName: '€', creationDate: '', active: true },
-    { id: '0004415013', prefix: 'Moneda', number: 'Libra', moduleName: '£', creationDate: '', active: false },
-    { id: '0005415013', prefix: 'Moneda', number: 'Yen', moduleName: '¥', creationDate: '', active: true },
-    { id: '0006415013', prefix: 'Moneda', number: 'Franco Suizo', moduleName: 'CHF', creationDate: '', active: true },
-    { id: '0007415013', prefix: 'Moneda', number: 'Dólar Canadiense', moduleName: 'CAD', creationDate: '', active: false },
-    { id: '0008415013', prefix: 'Moneda', number: 'Peso Mexicano', moduleName: 'MXN', creationDate: '', active: true },
-    { id: '0009415013', prefix: 'Moneda', number: 'Real Brasileño', moduleName: 'R$', creationDate: '', active: true },
-    { id: '0010415013', prefix: 'Moneda', number: 'Peso Argentino', moduleName: 'ARS', creationDate: '', active: false },
-    { id: '0011415013', prefix: 'Moneda', number: 'Rublo', moduleName: '₽', creationDate: '', active: true },
-    { id: '0012415013', prefix: 'Moneda', number: 'Won', moduleName: '₩', creationDate: '', active: true },
-    { id: '0013415013', prefix: 'Moneda', number: 'Rupia India', moduleName: '₹', creationDate: '', active: false },
-    { id: '0014415013', prefix: 'Moneda', number: 'Dólar Australiano', moduleName: 'AUD', creationDate: '', active: true },
-    { id: '0015415013', prefix: 'Moneda', number: 'Dólar Neozelandés', moduleName: 'NZD', creationDate: '', active: true },
-    { id: '0016415013', prefix: 'Moneda', number: 'Yuan', moduleName: '¥', creationDate: '', active: false },
-    { id: '0017415013', prefix: 'Moneda', number: 'Corona Sueca', moduleName: 'SEK', creationDate: '', active: true },
-    { id: '0018415013', prefix: 'Moneda', number: 'Corona Noruega', moduleName: 'NOK', creationDate: '', active: true },
-    { id: '0019415013', prefix: 'Moneda', number: 'Corona Danesa', moduleName: 'DKK', creationDate: '', active: false },
-    { id: '0020415013', prefix: 'Moneda', number: 'Zloty Polaco', moduleName: 'PLN', creationDate: '', active: true },
-    { id: '0021415013', prefix: 'Moneda', number: 'Forinto Húngaro', moduleName: 'HUF', creationDate: '', active: true },
-    { id: '0022415013', prefix: 'Moneda', number: 'Shekel Israelí', moduleName: '₪', creationDate: '', active: false },
-    { id: '0023415013', prefix: 'Moneda', number: 'Dólar Singapurense', moduleName: 'SGD', creationDate: '', active: true },
-    { id: '0024415013', prefix: 'Moneda', number: 'Ringgit Malayo', moduleName: 'MYR', creationDate: '', active: true },
-    { id: '0025415013', prefix: 'Moneda', number: 'Baht Tailandés', moduleName: '฿', creationDate: '', active: false },
-    { id: '0026415013', prefix: 'Moneda', number: 'Peso Chileno', moduleName: 'CLP', creationDate: '', active: true },
-    { id: '0027415013', prefix: 'Moneda', number: 'Peso Colombiano', moduleName: 'COP', creationDate: '', active: true },
-    { id: '0028415013', prefix: 'Moneda', number: 'Peso Uruguayo', moduleName: 'UYU', creationDate: '', active: false },
-    { id: '0029415013', prefix: 'Moneda', number: 'Boliviano', moduleName: 'BOB', creationDate: '', active: true },
-    { id: '0030415013', prefix: 'Moneda', number: 'Guaraní', moduleName: 'PYG', creationDate: '', active: true },
-  ];
+  documents:any = [];
 
   selectedDocuments: any = [];
 
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private apiService: ApiService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.index();
+  }
+
+  index(){
+    this.apiService.getAllNumerator().subscribe({
+      next: (data:any) => {
+        this.documents = data.data;
+        const newDocuments = this.documents.map((document:any) => {
+          return {
+            ...document,
+            active:document.activo == "1" ? true : false
+          }
+        });
+
+        this.documents = newDocuments;
+      }
+    })
+  }
 
   editDocument(item: any) {
-    this.router.navigate(['dashboard/settings/documents-generator/edit/2']);
+    this.router.navigate([`dashboard/settings/documents-generator/edit/${item.numeradoR_DOCUMENTO_ID}`]);
   }
 
   clear(table: Table) {

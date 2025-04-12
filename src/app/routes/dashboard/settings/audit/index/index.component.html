@@ -5,30 +5,30 @@
     <h2 class="m-0">Auditoria</h2>
   </div>
 
-  <div class="flex justify-end align-items-center">
-    <div class="">
+  <!-- <div class="flex justify-end align-items-center"> -->
+    <!-- <div class=""> -->
       <!-- <p-menu #menu [model]="" [popup]="true" /> -->
       <!-- <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedActivities || !selectedActivities.length"/> -->
-    </div>
+    <!-- </div> -->
 
-    <p-button label="Agregar" icon="pi pi-plus" (onClick)="createAudit()" styleClass="black"></p-button>
+    <!-- <p-button label="Agregar" icon="pi pi-plus" (onClick)="createAudit()" styleClass="black"></p-button> -->
 
-  </div>
+  <!-- </div> -->
 
-  <p-confirmDialog></p-confirmDialog>
+  <!-- <p-confirmDialog></p-confirmDialog> -->
 
   <p-table
     #dt2
     [value]="audits"
     [(selection)]="selectedAudits"
-    dataKey="identification_number"
+    dataKey="auditoria_Id"
     selectionMode="multiple"
     [tableStyle]="{ 'min-width': '2rem' }"
     [paginator]="true"
     [rowHover]="true"
-    [rows]="20"
-    [rowsPerPageOptions]="[ 20, 40]"
-    [globalFilterFields]="['identification_number', 'username', 'terminal', 'module','active']"
+    [rows]="10"
+    [rowsPerPageOptions]="[ 10, 20]"
+    [globalFilterFields]="['auditoria_Id', 'nombre_Usuario', 'nombre_Modulo', 'fecha_Creacion','terminal_Creacion']"
   >
 
     <ng-template #caption>
@@ -50,73 +50,47 @@
           <th style="width: 4rem">
               <p-tableHeaderCheckbox />
           </th>
-          <th pSortableColumn="identification_number" style="min-width: 14rem">
+          <th pSortableColumn="auditoria_Id" style="min-width: 14rem">
             <div class="flex justify-between items-center">
                   Nro. Identificador
-                  <p-sortIcon field="identification_number" />
+                  <p-sortIcon field="auditoria_Id" />
 
                 <!-- <p-sortIcon field="clientNumber" />
                 <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
             </div>
           </th>
-          <th pSortableColumn="username" style="min-width: 14rem">
+          <th pSortableColumn="nombre_Usuario" style="min-width: 14rem">
             <div class="flex justify-between items-center">
                 Nombre de usuario
-                <p-sortIcon field="username" />
+                <p-sortIcon field="nombre_Usuario" />
                 <!-- <p-sortIcon field="names" />
                 <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
             </div>
           </th>
-          <th pSortableColumn="datetime_entry" style="min-width: 14rem">
+          <th pSortableColumn="nombre_Modulo" style="min-width: 14rem">
             <div class="flex justify-between items-center">
-              Fecha Hora Ingreso
-              <p-sortIcon field="datetime_entry" />
+              Nombre Módulo
+              <p-sortIcon field="nombre_Modulo" />
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
           </th>
-          <th pSortableColumn="datetime_departure" style="min-width: 10rem">
+          <th pSortableColumn="fecha_Creacion" style="min-width: 10rem">
               <div class="flex justify-between items-center">
-                  Fecha Hora Salida
-                  <p-sortIcon field="datetime_departure" />
+                  Fecha
+                  <p-sortIcon field="fecha_Creacion" />
                   <!-- <p-sortIcon field="date" />
                   <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
               </div>
           </th>
-          <th pSortableColumn="terminal" style="min-width: 10rem">
+          <th pSortableColumn="terminal_Creacion" style="min-width: 10rem">
             <div class="flex justify-between items-center">
-                Terminal
-                <p-sortIcon field="terminal" />
+                Terminal Creacion
+                <p-sortIcon field="terminal_Creacion" />
                 <!-- <p-sortIcon field="balance" />
                 <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" /> -->
             </div>
         </th>
-        <th pSortableColumn="module" style="min-width: 10rem">
-          <div class="flex justify-between items-center">
-              Módulo
-              <p-sortIcon field="module" />
-              <!-- <p-sortIcon field="balance" />
-              <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" /> -->
-          </div>
-          </th>
-          <th pSortableColumn="exchange" style="min-width: 10rem">
-            <div class="flex justify-between items-center">
-              Canje
-              <p-sortIcon field="exchange" />
-              <!-- <p-sortIcon field="names" />
-              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
-          </div>
-          <th pSortableColumn="active" style="min-width: 10rem">
-            <div class="flex justify-between items-center">
-              Activo
-              <p-sortIcon field="active" />
-              <!-- <p-sortIcon field="names" />
-              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
-          </div>
-          </th>
-          <th style="width: 4rem">
-            Acciones
-          </th>
 
       </tr>
 
@@ -127,61 +101,45 @@
         <th>
           <p-columnFilter
                     type="text"
-                    field="identification_number"
+                    field="auditoria_Id"
                     placeholder="Nro. identificación"
-                    ariaLabel="Filter identification_number"
+                    ariaLabel="Filter auditoria_Id"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="username"
+                    field="nombre_Usuario"
                     placeholder="Buscar por nombre de usuario"
-                    ariaLabel="Filter username"
+                    ariaLabel="Filter nombre_Usuario"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="datetime_entry"
-                    placeholder="Buscar por Fecha de entrada"
-                    ariaLabel="Filter datetime_entry"
+                    field="nombre_Modulo"
+                    placeholder="Buscar por nombre de Módulo"
+                    ariaLabel="Filter nombre_Modulo"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="datetime_departure"
-                    placeholder="Buscar por Fecha de salida"
-                    ariaLabel="Filter datetime_departure"
+                    field="fecha_Creacion"
+                    placeholder="Buscar por Fecha "
+                    ariaLabel="Filter fecha_Creacion"
                 ></p-columnFilter>
         </th>
 
         <th>
           <p-columnFilter
                     type="text"
-                    field="terminal"
-                    placeholder="Buscar por Terminal"
-                    ariaLabel="Filter terminal"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="module"
-                    placeholder="Buscar por Módulo"
-                    ariaLabel="Filter module"
+                    field="terminal_Creacion"
+                    placeholder="Buscar por terminal_Creacion"
+                    ariaLabel="Filter terminal_Creacion"
                 ></p-columnFilter>
         </th>
 
-
-        <th>
-          <p-columnFilter type="boolean" field="exchange"></p-columnFilter>
-        </th>
-
-        <th>
-          <p-columnFilter type="boolean" field="active"></p-columnFilter>
-        </th>
 
       </tr>
     </ng-template>
@@ -191,44 +149,11 @@
             <td>
               <p-tableCheckbox [value]="audit" />
             </td>
-            <td>{{ audit.identification_number }}</td>
-            <td>{{ audit.username }}</td>
-            <td>{{ audit.datetime_entry }}</td>
-            <td>{{ audit.datetime_departure }}</td>
-            <td>{{ audit.terminal }}</td>
-            <td>{{ audit.module }}</td>
-
-            <td>
-
-              <i
-                      class="pi"
-                      [ngClass]="{
-                          'text-green-500 pi-check-circle': audit.exchange,
-                          'text-red-500 pi-times-circle': !audit.exchange
-                      }"
-                  ></i>
-
-            </td>
-
-
-            <td>
-
-              <i
-                      class="pi"
-                      [ngClass]="{
-                          'text-green-500 pi-check-circle': audit.active,
-                          'text-red-500 pi-times-circle': !audit.active
-                      }"
-                  ></i>
-
-            </td>
-            <td>
-              <div class="flex">
-                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editAudit(audit)" />
-                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteAudit(audit)" />
-
-              </div>
-            </td>
+            <td>{{ audit.auditoria_Id }}</td>
+            <td>{{ audit.nombre_Usuario }}</td>
+            <td>{{ audit.nombre_Modulo }}</td>
+            <td>{{ audit.fecha_Creacion }}</td>
+            <td>{{ audit.terminal_Creacion }}</td>
         </tr>
     </ng-template>
   </p-table>

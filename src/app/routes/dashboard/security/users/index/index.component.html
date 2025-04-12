@@ -1,47 +1,56 @@
 <div class="card">
 
   <!-- Header Section -->
-  <div class="flex justify-between align-items-center mb-3">
-    <h2 class="m-0">Usuarios</h2>
-  </div>
+  <!-- <div class="flex justify-between align-items-center mb-3"> -->
+    <!-- <h2 class="m-0 title">Usuarios</h2>
+    <p-button label="Agregar" icon="pi pi-plus" (onClick)="createUser()" styleClass="black"></p-button> -->
+  <!-- </div> -->
 
-  <div class="flex justify-end align-items-center">
-    <div class="">
+  <!-- <div class="flex justify-end align-items-center"> -->
+    <!-- <div class="">
       <p-menu #menu [model]="items" [popup]="true" />
       <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedUsers || !selectedUsers.length"/>
-    </div>
+    </div> -->
 
-    <p-button label="Agregar" icon="pi pi-plus" (onClick)="createUser()" styleClass="black"></p-button>
+    <!-- <p-button label="Agregar" icon="pi pi-plus" (onClick)="createUser()" styleClass="black"></p-button> -->
 
-  </div>
+  <!-- </div> -->
 
-  <p-confirmDialog></p-confirmDialog>
+  <!-- <p-confirmDialog></p-confirmDialog> -->
 
   <p-table
     #dt2
     [value]="users"
     [(selection)]="selectedUsers"
-    dataKey="code"
+    dataKey="usuario_Id"
     selectionMode="multiple"
     [tableStyle]="{ 'min-width': '2rem' }"
     [paginator]="true"
     [rowHover]="true"
-    [rows]="20"
-    [rowsPerPageOptions]="[ 20, 40]"
-    [globalFilterFields]="['code', 'names', 'lastName', 'user', 'profile','active']"
+    [rows]="10"
+    [rowsPerPageOptions]="[10,20]"
+    [globalFilterFields]="['usuario_Id', 'nombre_Usuario', 'lastName', 'username', 'descripcion','active']"
   >
 
     <ng-template #caption>
 
 
-      <div class="flex justify-end">
+      <div class="flex justify-between items-center">
+
+        <h2 class="m-0 title">Usuarios</h2>
+
         <p-iconField iconPosition="left">
-            <p-inputIcon>
-                <i class="pi pi-search"></i>
-            </p-inputIcon>
-            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Keyboard Search" />
+              <p-inputIcon>
+                  <i class="pi pi-search"></i>
+              </p-inputIcon>
+              <input class="search-general" pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar" />
         </p-iconField>
+
+        <p-button label="Agregar" icon="pi pi-plus" (onClick)="createUser()" styleClass="black"></p-button>
+
       </div>
+
+      <br>
 
     </ng-template>
 
@@ -50,77 +59,84 @@
           <th style="width: 4rem">
               <p-tableHeaderCheckbox />
           </th>
-          <th pSortableColumn="code" style="min-width: 14rem">
-            <div class="flex justify-between items-center">
-                Código
-                  <p-sortIcon field="code" />
+          <th pSortableColumn="usuario_Id" style="width: 5rem">
+            <div class="flex items-center item-column">
+              Código
+              <p-sortIcon field="usuario_Id" class="ml-1" />
+              <p-columnFilter type="text" field="usuario_Id" display="menu" />
 
-                <!-- <p-sortIcon field="clientNumber" />
-                <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
             </div>
           </th>
-          <th pSortableColumn="names" style="min-width: 14rem">
-            <div class="flex justify-between items-center">
+          <th pSortableColumn="nombre_Usuario" style="min-width: 9rem">
+            <div class="flex justify-between items-center item-column">
                 Nombres
-                <p-sortIcon field="names" />
-                <!-- <p-sortIcon field="names" />
-                <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+                <p-sortIcon field="nombre_Usuario" class="ml-1" />
+
+                <p-columnFilter type="text" field="nombre_Usuario" display="menu" />
+
+                <!-- <p-sortIcon field="nombre_Usuario" />
+                <p-columnFilter type="text" field="nombre_Usuario" display="menu" class="ml-auto" /> -->
             </div>
           </th>
-          <th pSortableColumn="lastName" style="min-width: 14rem">
-            <div class="flex justify-between items-center">
+          <th pSortableColumn="lastName" style="min-width: 9rem">
+            <div class="flex justify-between items-center item-column">
+
               Apellidos
-              <p-sortIcon field="lastName" />
-              <!-- <p-sortIcon field="names" />
-              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+              <p-sortIcon field="lastName" class="ml-1" />
+              <p-columnFilter type="text" field="lastName" display="menu" />
+              <!-- <p-sortIcon field="nombre_Usuario" />
+              <p-columnFilter type="text" field="nombre_Usuario" display="menu" class="ml-auto" /> -->
           </div>
           </th>
-          <th pSortableColumn="user" style="min-width: 10rem">
-              <div class="flex justify-between items-center">
+          <th pSortableColumn="username" style="min-width: 9rem">
+              <div class="flex justify-between items-center item-column">
                   Usuario
-                  <p-sortIcon field="user" />
+                  <p-sortIcon field="username" class="ml-1" />
+
+                  <p-columnFilter type="text" field="username" display="menu" />
                   <!-- <p-sortIcon field="date" />
                   <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
               </div>
           </th>
-          <th pSortableColumn="profile" style="min-width: 10rem">
-              <div class="flex justify-between items-center">
+          <th pSortableColumn="descripcion" style="min-width: 5rem">
+              <div class="flex justify-between items-center item-column">
                   Perfil
-                  <p-sortIcon field="profile" />
+                  <p-sortIcon field="descripcion" class="ml-1" />
+                  <p-columnFilter type="text" field="descripcion" display="menu" />
                   <!-- <p-sortIcon field="balance" />
                   <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" /> -->
               </div>
           </th>
-          <th pSortableColumn="active" style="min-width: 10rem">
-            <div class="flex justify-between items-center">
+          <th pSortableColumn="active" style="width: 3rem">
+            <div class="flex justify-between items-center item-column">
               Activo
-              <p-sortIcon field="active" />
-              <!-- <p-sortIcon field="names" />
-              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+              <p-columnFilter type="text" field="active" display="menu" />
+              <!-- <p-sortIcon field="nombre_Usuario" />
+              <p-columnFilter type="text" field="nombre_Usuario" display="menu" class="ml-auto" /> -->
           </div>
           </th>
-          <th style="width: 4rem">
+          <th style="width: 4rem" class="item-column">
             Acciones
           </th>
 
       </tr>
 
-      <tr>
+      <!-- <tr>
         <th>
 
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="code"
+                    field="usuario_Id"
                     placeholder="Codigo "
-                    ariaLabel="Filter code"
+                    ariaLabel="Filter usuario_Id"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="names"
+                    field="nombre_Usuario"
                     placeholder="Buscar por nombre"
                     ariaLabel="Filter Name"
                 ></p-columnFilter>
@@ -136,18 +152,18 @@
         <th>
           <p-columnFilter
                     type="text"
-                    field="user"
+                    field="username"
                     placeholder="Buscar por usuario"
-                    ariaLabel="Filter user"
+                    ariaLabel="Filter username"
                 ></p-columnFilter>
         </th>
 
         <th>
           <p-columnFilter
                     type="text"
-                    field="profile"
+                    field="descripcion"
                     placeholder="Buscar por perfil"
-                    ariaLabel="Filter profile"
+                    ariaLabel="Filter descripcion"
                 ></p-columnFilter>
         </th>
 
@@ -156,7 +172,7 @@
 
         </th>
 
-      </tr>
+      </tr> -->
     </ng-template>
 
     <ng-template #body let-user>
@@ -164,18 +180,18 @@
             <td>
               <p-tableCheckbox [value]="user" />
             </td>
-            <td>{{ user.code }}</td>
-            <td>{{ user.names }}</td>
-            <td>{{ user.lastName }}</td>
-            <td>{{ user.user }}</td>
-            <td>{{ user.profile }}</td>
+            <td>{{ user.usuario_Id }}</td>
+            <td>{{ user.nombre_Usuario }}</td>
+            <td>{{ user.apellido_Usuario }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.descripcion }}</td>
             <td>
 
               <i
                       class="pi"
                       [ngClass]="{
-                          'text-green-500 pi-check-circle': user.active,
-                          'text-red-500 pi-times-circle': !user.active
+                          'text-green-500 pi-check-circle': user.activo == '1' ,
+                          'text-red-500 pi-times-circle': user.activo == '0'
                       }"
                   ></i>
 

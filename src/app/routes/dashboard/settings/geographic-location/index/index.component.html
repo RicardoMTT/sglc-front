@@ -5,7 +5,7 @@
     <h2 class="m-0">Ubicación Geografica</h2>
   </div>
 
-  <div class="flex justify-end align-items-center">
+  <!-- <div class="flex justify-end align-items-center">
     <div class="">
       <p-menu #menu [model]="elements" [popup]="true" />
       <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedItems || !selectedItems.length"/>
@@ -15,20 +15,20 @@
 
   </div>
 
-  <p-confirmDialog></p-confirmDialog>
+  <p-confirmDialog></p-confirmDialog> -->
 
   <p-table
     #dt2
     [value]="elements"
     [(selection)]="selectedItems"
-    dataKey="id"
+    dataKey="cod_Provincia"
     selectionMode="multiple"
     [tableStyle]="{ 'min-width': '2rem' }"
     [paginator]="true"
     [rowHover]="true"
-    [rows]="20"
-    [rowsPerPageOptions]="[ 20, 40]"
-    [globalFilterFields]="['id', 'department', 'province', 'district', 'creationDate','active']"
+    [rows]="10"
+    [rowsPerPageOptions]="[ 10, 20]"
+    [globalFilterFields]="['cod_Provincia', 'departamento', 'provincia', 'distrito']"
   >
 
     <ng-template #caption>
@@ -50,58 +50,40 @@
           <th style="width: 4rem">
               <p-tableHeaderCheckbox />
           </th>
-          <th pSortableColumn="id" style="min-width: 14rem">
+          <th pSortableColumn="cod_Provincia" style="min-width: 14rem">
             <div class="flex justify-between items-center">
                 ID
-                  <p-sortIcon field="id" />
+                  <p-sortIcon field="cod_Provincia" />
 
                 <!-- <p-sortIcon field="clientNumber" />
                 <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
             </div>
           </th>
-          <th pSortableColumn="department" style="min-width: 14rem">
+          <th pSortableColumn="departamento" style="min-width: 14rem">
             <div class="flex justify-between items-center">
                 Departamento
-                <p-sortIcon field="department" />
+                <p-sortIcon field="departamento" />
                 <!-- <p-sortIcon field="names" />
                 <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
             </div>
           </th>
-          <th pSortableColumn="province" style="min-width: 14rem">
+          <th pSortableColumn="provincia" style="min-width: 14rem">
             <div class="flex justify-between items-center">
               Provincia
-              <p-sortIcon field="province" />
+              <p-sortIcon field="provincia" />
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
           </th>
-          <th pSortableColumn="district" style="min-width: 10rem">
+          <th pSortableColumn="distrito" style="min-width: 10rem">
               <div class="flex justify-between items-center">
                   Distrito
-                  <p-sortIcon field="district" />
+                  <p-sortIcon field="distrito" />
                   <!-- <p-sortIcon field="date" />
                   <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
               </div>
           </th>
-          <th pSortableColumn="creationDate" style="min-width: 10rem">
-              <div class="flex justify-between items-center">
-                  Fecha de creación
-                  <p-sortIcon field="creationDate" />
-                  <!-- <p-sortIcon field="balance" />
-                  <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" /> -->
-              </div>
-          </th>
-          <th pSortableColumn="active" style="min-width: 10rem">
-            <div class="flex justify-between items-center">
-              Activo
-              <p-sortIcon field="active" />
-              <!-- <p-sortIcon field="names" />
-              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
-          </div>
-          </th>
-          <th style="width: 4rem">
-            Acciones
-          </th>
+
 
       </tr>
 
@@ -112,48 +94,34 @@
         <th>
           <p-columnFilter
                     type="text"
-                    field="id"
-                    placeholder="id "
-                    ariaLabel="Filter id"
+                    field="cod_Provincia"
+                    placeholder="cod_Provincia "
+                    ariaLabel="Filter cod_Provincia"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="department"
+                    field="departamento"
                     placeholder="Buscar por Departamento"
-                    ariaLabel="Filter department"
+                    ariaLabel="Filter departamento"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="province"
+                    field="provincia"
                     placeholder="Buscar por provincia"
-                    ariaLabel="Filter province"
+                    ariaLabel="Filter provincia"
                 ></p-columnFilter>
         </th>
         <th>
           <p-columnFilter
                     type="text"
-                    field="district"
+                    field="distrito"
                     placeholder="Buscar por distrito"
-                    ariaLabel="Filter district"
+                    ariaLabel="Filter distrito"
                 ></p-columnFilter>
-        </th>
-
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="creationDate"
-                    placeholder="Buscar por fecha de creación"
-                    ariaLabel="Filter creationDate"
-                ></p-columnFilter>
-        </th>
-
-        <th>
-          <p-columnFilter type="boolean" field="active"></p-columnFilter>
-
         </th>
 
       </tr>
@@ -164,29 +132,11 @@
             <td>
               <p-tableCheckbox [value]="item" />
             </td>
-            <td>{{ item.id }}</td>
-            <td>{{ item.department }}</td>
-            <td>{{ item.province }}</td>
-            <td>{{ item.district }}</td>
-            <td>{{ item.creationDate }}</td>
-            <td>
+            <td>{{ item.cod_Provincia }}</td>
+            <td>{{ item.departamento }}</td>
+            <td>{{ item.provincia}}</td>
+            <td>{{ item.distrito}}</td>
 
-              <i
-                      class="pi"
-                      [ngClass]="{
-                          'text-green-500 pi-check-circle': item.active,
-                          'text-red-500 pi-times-circle': !item.active
-                      }"
-                  ></i>
-
-            </td>
-            <td>
-              <div class="flex">
-                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editItem(item)" />
-                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteItem(item)" />
-
-              </div>
-            </td>
         </tr>
     </ng-template>
   </p-table>

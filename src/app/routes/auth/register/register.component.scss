@@ -3,7 +3,7 @@
 .split-screen-container {
   display: flex;
   height: 100vh;
-  max-width: 100vw;
+  // max-width: 100vw;
 }
 
 /* Left Panel Styles */
@@ -165,6 +165,7 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .register-box {
+    max-width: none;
     width: 100%; // Cambiar el ancho a 100% en versión móvil
   }
 
@@ -177,7 +178,8 @@
   }
 
   .left-panel {
-    flex: 0 0 200px;
+    display: none;
+    // flex: 0 0 200px;
   }
 
   .right-panel {
