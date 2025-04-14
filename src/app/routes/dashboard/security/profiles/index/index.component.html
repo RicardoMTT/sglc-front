@@ -1,21 +1,21 @@
 <div class="card">
 
   <!-- Header Section -->
-  <div class="flex justify-between align-items-center mb-3">
+  <!-- <div class="flex justify-between align-items-center mb-3">
     <h2 class="m-0">Perfiles</h2>
-  </div>
+  </div> -->
 
-  <div class="flex justify-end align-items-center">
+  <!-- <div class="flex justify-end align-items-center"> -->
     <!-- <div class="">
       <p-menu #menu [model]="items" [popup]="true" />
       <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedProfiles || !selectedProfiles.length"/>
     </div> -->
-
+<!--
     <p-button label="Agregar" icon="pi pi-plus" (onClick)="createUser()" styleClass="black"></p-button>
 
   </div>
 
-  <p-confirmDialog></p-confirmDialog>
+  <p-confirmDialog></p-confirmDialog> -->
 
   <p-table
     #dt2
@@ -34,13 +34,19 @@
     <ng-template #caption>
 
 
-      <div class="flex justify-end">
+      <div class="flex justify-between items-center">
+
+        <h2 class="m-0">Perfiles</h2>
+
         <p-iconField iconPosition="left">
             <p-inputIcon>
                 <i class="pi pi-search"></i>
             </p-inputIcon>
-            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Keyboard Search" />
+            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar" />
         </p-iconField>
+
+        <p-button label="Agregar" icon="pi pi-plus" (onClick)="createUser()" styleClass="black"></p-button>
+
       </div>
 
     </ng-template>
@@ -50,10 +56,11 @@
           <th style="width: 4rem">
               <p-tableHeaderCheckbox />
           </th>
-          <th pSortableColumn="perfiL_ID" style="min-width: 14rem">
+          <th pSortableColumn="perfiL_ID" style="min-width: 3rem">
             <div class="flex justify-between items-center">
-                Perfil
+                Id
                   <p-sortIcon field="perfiL_ID" />
+                  <p-columnFilter type="text" field="perfiL_ID" display="menu" />
 
                 <!-- <p-sortIcon field="clientNumber" />
                 <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
@@ -63,6 +70,8 @@
             <div class="flex justify-between items-center">
                 Descripción
                 <p-sortIcon field="descripcion" />
+                <p-columnFilter type="text" field="descripcion" display="menu" />
+
                 <!-- <p-sortIcon field="names" />
                 <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
             </div>
@@ -71,60 +80,28 @@
             <div class="flex justify-between items-center">
               Observación
               <p-sortIcon field="observacion" />
+              <p-columnFilter type="text" field="observacion" display="menu" />
+
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
           </th>
-          <th pSortableColumn="active" style="min-width: 10rem">
+          <th pSortableColumn="active" style="width: 3rem">
             <div class="flex justify-between items-center">
               Activo
               <p-sortIcon field="active" />
+              <p-columnFilter type="text" field="active" display="menu" />
+
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
           </th>
-          <th style="width: 4rem">
+          <th style="min-width: 2rem">
             Acciones
           </th>
 
       </tr>
 
-      <tr>
-        <th>
-
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="perfiL_ID"
-                    placeholder="Perfil"
-                    ariaLabel="Filter perfiL_ID"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="descripcion"
-                    placeholder="Buscar por descripción"
-                    ariaLabel="Filter descripcion"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="observacion"
-                    placeholder="Buscar por observación"
-                    ariaLabel="Filter observacion"
-                ></p-columnFilter>
-        </th>
-
-
-        <th>
-          <p-columnFilter type="boolean" field="active"></p-columnFilter>
-
-        </th>
-
-      </tr>
     </ng-template>
 
     <ng-template #body let-profile>

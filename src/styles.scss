@@ -83,3 +83,10 @@
 .item-column{
   color: var(--text-color) !important;
 }
+
+.disabled-field {
+  background-color: #f8f3f3!important;
+  color: #a1a1a1!important;
+  cursor: not-allowed!important;
+  border-color: #dcdcdc!important;
+}

@@ -1,9 +1,9 @@
 <div class="card">
 
   <!-- Header Section -->
-  <div class="flex justify-between align-items-center mb-3">
+  <!-- <div class="flex justify-between align-items-center mb-3">
     <h2 class="m-0">Empresas</h2>
-  </div>
+  </div> -->
 <!--
   <div class="flex justify-end align-items-center">
     <div class="">
@@ -15,7 +15,7 @@
 
   </div> -->
 
-  <p-confirmDialog></p-confirmDialog>
+  <!-- <p-confirmDialog></p-confirmDialog> -->
 
   <p-table
     #dt2
@@ -34,12 +34,14 @@
     <ng-template #caption>
 
 
-      <div class="flex justify-end">
+      <div class="flex justify-between items-center">
+        <h2 class="m-0">Empresas</h2>
+
         <p-iconField iconPosition="left">
             <p-inputIcon>
                 <i class="pi pi-search"></i>
             </p-inputIcon>
-            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Keyboard Search" />
+            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar" />
         </p-iconField>
       </div>
 
@@ -50,10 +52,11 @@
           <th style="width: 4rem">
               <p-tableHeaderCheckbox />
           </th>
-          <th pSortableColumn="empresa_Id" style="min-width: 14rem">
+          <th pSortableColumn="empresa_Id" style="width: 4rem">
             <div class="flex justify-between items-center">
-                  ID Empresa
+                  Id
                   <p-sortIcon field="empresa_Id" />
+                  <p-columnFilter type="text" field="empresa_Id" display="menu" />
 
                 <!-- <p-sortIcon field="clientNumber" />
                 <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
@@ -65,6 +68,7 @@
             <div class="flex justify-between items-center">
                   RUC Empresa
                   <p-sortIcon field="ruc_Empresa" />
+                  <p-columnFilter type="text" field="ruc_Empresa" display="menu" />
 
                 <!-- <p-sortIcon field="clientNumber" />
                 <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
@@ -74,6 +78,7 @@
             <div class="flex justify-between items-center">
                 Nombre Empresa
                 <p-sortIcon field="nombre_Empresa" />
+                <p-columnFilter type="text" field="nombre_Empresa" display="menu" />
                 <!-- <p-sortIcon field="names" />
                 <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
             </div>
@@ -82,70 +87,12 @@
             <div class="flex justify-between items-center">
               Correo Electrónico
               <p-sortIcon field="correo_Electronico" />
+              <p-columnFilter type="text" field="correo_Electronico" display="menu" />
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
-          </div>
-          </th>
-          <th pSortableColumn="direccion_Empresa" style="min-width: 10rem">
-            <div class="flex justify-between items-center">
-                Dirección Empresa
-                <p-sortIcon field="direccion_Empresa" />
-                <!-- <p-sortIcon field="date" />
-                <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
             </div>
           </th>
 
-          <th pSortableColumn="departamento" style="min-width: 10rem">
-            <div class="flex justify-between items-center">
-                Departamento
-                <p-sortIcon field="departamento" />
-                <!-- <p-sortIcon field="date" />
-                <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
-            </div>
-          </th>
-          <th pSortableColumn="provincia" style="min-width: 10rem">
-            <div class="flex justify-between items-center">
-                Provincia
-                <p-sortIcon field="provincia" />
-                <!-- <p-sortIcon field="date" />
-                <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
-            </div>
-          </th>
-
-          <th pSortableColumn="distrito" style="min-width: 10rem">
-            <div class="flex justify-between items-center">
-                Distrito
-                <p-sortIcon field="distrito" />
-                <!-- <p-sortIcon field="date" />
-                <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
-            </div>
-          </th>
-
-          <th pSortableColumn="telefono_Uno" style="min-width: 10rem">
-            <div class="flex justify-between items-center">
-                Teléfono uno
-                <p-sortIcon field="telefono_Uno" />
-                <!-- <p-sortIcon field="date" />
-                <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
-            </div>
-          </th>
-          <th pSortableColumn="telefono_Dos" style="min-width: 10rem">
-            <div class="flex justify-between items-center">
-                Teléfono dos
-                <p-sortIcon field="telefono_Dos" />
-                <!-- <p-sortIcon field="date" />
-                <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
-            </div>
-          </th>
-
-          <th pSortableColumn="tipo_Empresa" style="min-width: 10rem">
-              <div class="flex justify-between items-center">
-                  Tipo Empresa
-                  <p-sortIcon field="tipo_Empresa" />
-                  <!-- <p-sortIcon field="balance" />
-                  <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" /> -->
-              </div>
-          </th>
           <th pSortableColumn="active" style="min-width: 10rem">
             <div class="flex justify-between items-center">
               active
@@ -160,112 +107,6 @@
 
       </tr>
 
-      <tr>
-        <th>
-
-        </th>
-
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="empresa_Id"
-                    placeholder="Id"
-                    ariaLabel="Filter empresa_Id"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="ruc_Empresa"
-                    placeholder="RUC"
-                    ariaLabel="Filter ruc_Empresa"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="nombre_Empresa"
-                    placeholder="Buscar por Nombre Empresa"
-                    ariaLabel="Filter nombre_Empresa"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="correo_Electronico"
-                    placeholder="Buscar por Correo Electrónico"
-                    ariaLabel="Filter correo_Electronico"
-                ></p-columnFilter>
-        </th>
-
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="direccion_Empresa"
-                    placeholder="Buscar por Dirección Empresa"
-                    ariaLabel="Filter direccion_Empresa"
-                ></p-columnFilter>
-        </th>
-
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="departamento"
-                    placeholder="Buscar por Departamento"
-                    ariaLabel="Filter departamento"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="provincia"
-                    placeholder="Buscar por Provincia"
-                    ariaLabel="Filter provincia"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="distrito"
-                    placeholder="Buscar por Distrito"
-                    ariaLabel="Filter distrito"
-                ></p-columnFilter>
-        </th>
-
-
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="telefono_Uno"
-                    placeholder="Buscar por Teléfono Uno"
-                    ariaLabel="Filter telefono_Uno"
-                ></p-columnFilter>
-        </th>
-
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="telefono_Dos"
-                    placeholder="Buscar por teléfono dos"
-                    ariaLabel="Filter telefono_Dos"
-                ></p-columnFilter>
-        </th>
-
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="tipo_Empresa"
-                    placeholder="Buscar por Tipo Empresa"
-                    ariaLabel="Filter tipo_Empresa"
-                ></p-columnFilter>
-        </th>
-
-        <th>
-          <p-columnFilter type="boolean" field="active"></p-columnFilter>
-
-        </th>
-
-      </tr>
     </ng-template>
 
     <ng-template #body let-company>
@@ -279,13 +120,6 @@
             <td>{{ company.ruc_Empresa }}</td>
             <td>{{ company.nombre_Empresa }}</td>
             <td>{{ company.correo_Electronico }}</td>
-            <td>{{ company.direccion_Empresa }}</td>
-            <td>{{ company.departamento }}</td>
-            <td>{{ company.provincia }}</td>
-            <td>{{ company.distrito }}</td>
-            <td>{{ company.telefono_Uno }}</td>
-            <td>{{ company.telefono_Dos }}</td>
-            <td>{{ company.tipo_Empresa }}</td>
             <td>
 
               <i

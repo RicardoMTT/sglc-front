@@ -92,15 +92,21 @@ export class CreateComponent implements OnInit{
     const {description,observation,active} = this.profileForm.value;
     const user = JSON.parse(localStorage.getItem('user')|| '{}');
 
+    console.log(active);
+
     const body = {
       descripcion: description,
       empresa_Id: user.empresa_Id,
       observacion: observation,
-      activo: active ? "1" :"0",
+      activo: active.length > 0 ? "1" :"0",
       userCrea: user?.userName,
-      terminalCrea: "123123.23232",
+      terminalCrea: "PC-INTERNA",
       fechaCrea: new Date().toISOString()
     }
+
+    console.log(body);
+
+    return;
 
     this.apiService.createProfile(body).subscribe({
       next: (data) => {

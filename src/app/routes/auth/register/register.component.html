@@ -61,7 +61,8 @@
               class="password-toggle"
               (click)="togglePasswordVisibility()"
             >
-              <span class="eye-icon">{{ showPassword ? '👁️' : '👁️' }}</span>
+              <i class="pi" [ngClass]="showPassword ? 'pi-eye-slash' : 'pi-eye'"></i>
+
             </button>
           </div>
           <p class="validation-input">
@@ -73,7 +74,7 @@
           <label for="password">Repetir Contraseña (*)</label>
           <div class="password-input">
             <input
-              [type]="showPassword ? 'text' : 'password'"
+              [type]="showPasswordConfirm ? 'text' : 'password'"
               id="confirmPassword"
               formControlName="confirmPassword"
               placeholder="confirmPassword"
@@ -82,9 +83,10 @@
             <button
               type="button"
               class="password-toggle"
-              (click)="togglePasswordVisibility()"
+              (click)="togglePasswordVisibilityConfirm()"
             >
-              <span class="eye-icon">{{ showPassword ? '👁️' : '👁️' }}</span>
+              <i class="pi" [ngClass]="showPasswordConfirm ? 'pi-eye-slash' : 'pi-eye'"></i>
+
             </button>
           </div>
         </div>

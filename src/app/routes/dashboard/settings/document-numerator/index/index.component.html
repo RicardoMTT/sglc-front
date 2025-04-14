@@ -1,9 +1,9 @@
 <div class="card">
 
   <!-- Header Section -->
-  <div class="flex justify-between align-items-center mb-3">
+  <!-- <div class="flex justify-between align-items-center mb-3">
     <h2 class="m-0">Numerador Documentos</h2>
-  </div>
+  </div> -->
 
   <!-- <div class="flex justify-end align-items-center">
     <div class="">
@@ -34,12 +34,14 @@
     <ng-template #caption>
 
 
-      <div class="flex justify-end">
+      <div class="flex justify-between items-center">
+        <h2 class="m-0">Numerador Documentos</h2>
+
         <p-iconField iconPosition="left">
             <p-inputIcon>
                 <i class="pi pi-search"></i>
             </p-inputIcon>
-            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Keyboard Search" />
+            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar" />
         </p-iconField>
       </div>
 
@@ -50,10 +52,11 @@
           <th style="width: 4rem">
               <p-tableHeaderCheckbox />
           </th>
-          <th pSortableColumn="numeradoR_DOCUMENTO_ID" style="min-width: 14rem">
+          <th pSortableColumn="numeradoR_DOCUMENTO_ID" style="width: 4rem">
             <div class="flex justify-between items-center">
                   ID
                   <p-sortIcon field="numeradoR_DOCUMENTO_ID" />
+                  <p-columnFilter type="text" field="numeradoR_DOCUMENTO_ID" display="menu" />
 
                 <!-- <p-sortIcon field="clientNumber" />
                 <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
@@ -63,6 +66,7 @@
             <div class="flex justify-between items-center">
                 Prefijo
                 <p-sortIcon field="prefijo" />
+                <p-columnFilter type="text" field="prefijo" display="menu" />
                 <!-- <p-sortIcon field="names" />
                 <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
             </div>
@@ -71,6 +75,7 @@
             <div class="flex justify-between items-center">
               Número
               <p-sortIcon field="numero" />
+              <p-columnFilter type="text" field="numero" display="menu" />
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
@@ -79,22 +84,17 @@
               <div class="flex justify-between items-center">
                   Nombre Módulo
                   <p-sortIcon field="nombrE_MODULO" />
+                  <p-columnFilter type="text" field="nombrE_MODULO" display="menu" />
                   <!-- <p-sortIcon field="date" />
                   <p-columnFilter type="date" field="date" display="menu" class="ml-auto" /> -->
               </div>
           </th>
-          <th pSortableColumn="fechA_CREACION" style="min-width: 10rem">
-              <div class="flex justify-between items-center">
-                  Fecha Creación
-                  <p-sortIcon field="fechA_CREACION" />
-                  <!-- <p-sortIcon field="balance" />
-                  <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" /> -->
-              </div>
-          </th>
+
           <th pSortableColumn="active" style="min-width: 10rem">
             <div class="flex justify-between items-center">
               Activo
               <p-sortIcon field="active" />
+              <p-columnFilter type="text" field="active" display="menu" />
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
@@ -105,58 +105,6 @@
 
       </tr>
 
-      <tr>
-        <th>
-
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="numeradoR_DOCUMENTO_ID"
-                    placeholder="Id "
-                    ariaLabel="Filter numeradoR_DOCUMENTO_ID"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="prefijo"
-                    placeholder="Buscar por prefijo"
-                    ariaLabel="Filter prefijo"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="numero"
-                    placeholder="Buscar por Numero"
-                    ariaLabel="Filter numero"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="nombrE_MODULO"
-                    placeholder="Buscar por Nombre Módulo"
-                    ariaLabel="Filter nombrE_MODULO"
-                ></p-columnFilter>
-        </th>
-
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="fechA_CREACION"
-                    placeholder="Buscar por fecha de Creación"
-                    ariaLabel="Filter fechA_CREACION"
-                ></p-columnFilter>
-        </th>
-
-        <th>
-          <p-columnFilter type="boolean" field="active"></p-columnFilter>
-
-        </th>
-
-      </tr>
     </ng-template>
 
     <ng-template #body let-document>
@@ -168,7 +116,6 @@
             <td>{{ document.prefijo }}</td>
             <td>{{ document.numero }}</td>
             <td>{{ document.nombrE_MODULO }}</td>
-            <td>{{ document.fechA_CREACION  | date: 'dd/MM/yyyy'}}</td>
             <td>
 
               <i

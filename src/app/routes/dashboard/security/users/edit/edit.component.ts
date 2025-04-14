@@ -23,6 +23,7 @@ export class EditComponent implements OnInit{
   users = [];
   id: string;
   user: any;
+  profiles: any;
 
   constructor(
     private fb:FormBuilder,
@@ -35,7 +36,7 @@ export class EditComponent implements OnInit{
 
   ngOnInit(): void {
 
-    this.index();
+    this.getProfiles();
 
     this.userForm = this.fb.group({
       active: [null],
@@ -44,11 +45,13 @@ export class EditComponent implements OnInit{
       password: [''],
       lastName: [''],
       names: [''],
+      username: [''],
       email: [''],
       create_user: [''],
       creation_date: [''],
       user_update: [''],
       update_date: [''],
+      profile:[null]
     });
 
   }
@@ -57,7 +60,8 @@ export class EditComponent implements OnInit{
     this.apiService.getAllUsers().subscribe((res:any) => {
       this.users = res.data;
       this.user = this.users.filter((user:any) => user.usuario_Id == this.id)[0];
-
+      console.log(this.profiles);
+      const profile = this.profiles.filter((pro:any) => pro.perfiL_ID == this.user.perfil_Id)[0];
       console.log(this.user);
       this.userForm.patchValue({
         active: this.user.activo == "1" ? ["true"] : null,
@@ -70,7 +74,9 @@ export class EditComponent implements OnInit{
         create_user: this.user.usuario_Creacion,
         creation_date: this.user.fecha_Creacion,
         user_update: this.user.usuario_Actualizacion,
-        update_date: this.user.fecha_Actualizacion
+        username: this.user.username,
+        update_date: this.user.fecha_Actualizacion,
+        profile
       })
 
     },
@@ -95,8 +101,10 @@ export class EditComponent implements OnInit{
       user,
       password,
       lastName,
+      username,
       names,
-      email
+      email,
+      profile
     } = this.userForm.value;
 
     const userLS = JSON.parse(localStorage.getItem('user')|| '{}');
@@ -104,11 +112,11 @@ export class EditComponent implements OnInit{
     const body = {
       idUsuario: this.id,
       idEmpresa: userLS.empresa_Id,
-      userName: names,
+      userName: username,
       email: email,
       clave: password,
       activo: active ? active.length > 0 ? "1" : "0" : "0",
-      idPerfil: userLS.perfil_Id,
+      idPerfil: profile.perfiL_ID,
       nombreUsuario: names,
       apellidosUsuario: lastName,
       usuario: user,
@@ -116,14 +124,31 @@ export class EditComponent implements OnInit{
       fecha: new Date().toISOString()
     }
 
+
     console.log(body);
 
+    return;
     this.apiService.updateUser(body).subscribe({
       next: (_) => {
         this.router.navigate(['/dashboard/security/users'])
       }
     })
 
+  }
+
+
+  getProfiles(){
+    this.apiService.getAllProfile().subscribe({
+      next: (data:any) => {
+        console.log('data',data);
+        this.profiles = data.data;
+        this.index();
+      },
+      error: (error) => {
+        console.log('error',error);
+
+      }
+    })
   }
 
 }

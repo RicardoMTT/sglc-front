@@ -11,12 +11,15 @@ import { SelectModule } from 'primeng/select';
 import { ApiService } from '../../../../../core/services/api.service';
 
 import { TextareaModule } from 'primeng/textarea';
+import { EditorModule } from 'primeng/editor';
 
 @Component({
   selector: 'app-create',
   standalone: true,
   templateUrl: './create.component.html',
-  imports: [CommonModule,ButtonModule,ReactiveFormsModule,FormsModule,DropdownModule,InputTextModule,CheckboxModule,SelectModule,TextareaModule]
+  imports: [CommonModule,ButtonModule,ReactiveFormsModule,FormsModule,DropdownModule,InputTextModule,CheckboxModule,SelectModule,TextareaModule,
+    EditorModule
+  ]
 })
 export class CreateComponent implements OnInit{
 

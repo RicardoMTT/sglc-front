@@ -1,19 +1,19 @@
 <div class="card">
 
   <!-- Header Section -->
-  <div class="flex justify-between align-items-center mb-3">
+  <!-- <div class="flex justify-between align-items-center mb-3">
     <h2 class="m-0">Módulos</h2>
-  </div>
+  </div> -->
 
-  <div class="flex justify-end align-items-center">
+  <!-- <div class="flex justify-end align-items-center"> -->
     <!-- <div class="">
       <p-menu #menu [model]="items" [popup]="true" />
       <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedModules || !selectedModules.length"/>
     </div> -->
 
-    <p-button label="Agregar" icon="pi pi-plus" (onClick)="createUser()" styleClass="black"></p-button>
+    <!-- <p-button label="Agregar" icon="pi pi-plus" (onClick)="createUser()" styleClass="black"></p-button>
 
-  </div>
+  </div> -->
 
   <!-- <p-confirmDialog></p-confirmDialog> -->
 
@@ -34,13 +34,17 @@
     <ng-template #caption>
 
 
-      <div class="flex justify-end">
+      <div class="flex justify-between items-center">
+        <h2 class="m-0">Módulos</h2>
+
         <p-iconField iconPosition="left">
             <p-inputIcon>
                 <i class="pi pi-search"></i>
             </p-inputIcon>
-            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Keyboard Search" />
+            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar" />
         </p-iconField>
+        <p-button label="Agregar" icon="pi pi-plus" (onClick)="createUser()" styleClass="black"></p-button>
+
       </div>
 
     </ng-template>
@@ -50,10 +54,11 @@
           <th style="width: 4rem">
               <p-tableHeaderCheckbox />
           </th>
-          <th pSortableColumn="modulo_id" style="min-width: 4rem">
+          <th pSortableColumn="modulo_id" style="width: 3rem">
             <div class="flex justify-between items-center">
-                Código
+                Id
                   <p-sortIcon field="modulo_id" />
+                  <p-columnFilter type="text" field="modulo_id" display="menu" />
 
                 <!-- <p-sortIcon field="clientNumber" />
                 <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
@@ -63,6 +68,7 @@
             <div class="flex justify-between items-center">
                 Nombre Módulo
                 <p-sortIcon field="nombre_Modulo" />
+                <p-columnFilter type="text" field="nombre_Modulo" display="menu" />
                 <!-- <p-sortIcon field="names" />
                 <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
             </div>
@@ -71,6 +77,7 @@
             <div class="flex justify-between items-center">
               Módulo Principal
               <p-sortIcon field="is_main" />
+              <p-columnFilter type="text" field="is_main" display="menu" />
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
@@ -79,6 +86,8 @@
             <div class="flex justify-between items-center">
               Módulo Padre
               <p-sortIcon field="nombre_Modulo_Padre" />
+              <p-columnFilter type="text" field="nombre_Modulo_Padre" display="menu" />
+
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
@@ -87,14 +96,16 @@
             <div class="flex justify-between items-center">
               Fecha Creación
               <p-sortIcon field="fechaCreacion" />
+              <p-columnFilter type="text" field="fechaCreacion" display="menu" />
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
           </th>
-          <th pSortableColumn="activo" style="min-width: 10rem">
+          <th pSortableColumn="activo" style="width: 3rem">
             <div class="flex justify-between items-center">
               Activo
               <p-sortIcon field="activo" />
+              <p-columnFilter type="text" field="activo" display="menu" />
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
@@ -105,55 +116,6 @@
 
       </tr>
 
-      <tr>
-        <th>
-
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="modulo_id"
-                    placeholder="Código"
-                    ariaLabel="Filter modulo_id"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="nombre_Modulo"
-                    placeholder="Buscar por Nombre Módulo"
-                    ariaLabel="Filter nombre_Modulo"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter type="boolean" field="is_main"></p-columnFilter>
-        </th>
-
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="nombre_Modulo_Padre"
-                    placeholder="Buscar por Módulo Padre"
-                    ariaLabel="Filter nombre_Modulo_Padre"
-                ></p-columnFilter>
-        </th>
-
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="create_date"
-                    placeholder="Buscar por Fecha Creación"
-                    ariaLabel="Filter create_date"
-                ></p-columnFilter>
-        </th>
-
-
-        <th>
-          <p-columnFilter type="boolean" field="activo"></p-columnFilter>
-
-        </th>
-
-      </tr>
     </ng-template>
 
     <ng-template #body let-module>

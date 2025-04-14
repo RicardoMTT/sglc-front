@@ -55,7 +55,8 @@ export class EditComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getAllModules();
+    this.getParentModules();
+
     this.moduleForm = this.fb.group({
       active:[true],
       module_name:[''],
@@ -67,7 +68,6 @@ export class EditComponent implements OnInit{
       icon_module:[''],
     });
 
-    this.getParentModules();
 
      // Escuchar cambios en el control "main_module"
      this.moduleForm.get('main_module')?.valueChanges.subscribe((value) => {
@@ -89,6 +89,8 @@ export class EditComponent implements OnInit{
         this.modules = data.data;
         this.module = this.modules.filter((item:any) => item.modulo_id == this.id)[0];
 
+        console.log(this.parentModules);
+
         const parentModule = this.parentModules.find((module:any) => module.modulo_Id == this.module.modulo_Padre_Id);
 
         this.moduleForm.patchValue({
@@ -109,6 +111,8 @@ export class EditComponent implements OnInit{
     this.apiService.getParentModules().subscribe({
       next:(data:any) => {
         this.parentModules = data.data;
+        this.getAllModules();
+
       },
       error:(error) => {
         console.log('error',error);
@@ -152,6 +156,8 @@ export class EditComponent implements OnInit{
       }
 
 
+      console.log(body);
+      return;
       this.apiService.updateModule(body).subscribe({
         next:(_) => {
           this.router.navigate(['dashboard/security/modules'])

@@ -1,19 +1,19 @@
 <div class="card">
 
   <!-- Header Section -->
-  <div class="flex justify-between align-items-center mb-3">
+  <!-- <div class="flex justify-between align-items-center mb-3">
     <h2 class="m-0">Perfil Módulos</h2>
-  </div>
+  </div> -->
 
-  <div class="flex justify-end align-items-center">
+  <!-- <div class="flex justify-end align-items-center"> -->
     <!-- <div class="">
       <p-menu #menu [model]="items" [popup]="true" />
       <p-button label="Acciones" styleClass="black" (click)="menu.toggle($event)" icon="pi pi-angle-down" [disabled]="!selectedProfilesModule || !selectedProfilesModule.length"/>
     </div> -->
 
-    <p-button label="Agregar" icon="pi pi-plus" (onClick)="createUser()" styleClass="black"></p-button>
+    <!-- <p-button label="Agregar" icon="pi pi-plus" (onClick)="createUser()" styleClass="black"></p-button>
 
-  </div>
+  </div> -->
 
   <!-- <p-confirmDialog></p-confirmDialog> -->
 
@@ -34,13 +34,18 @@
     <ng-template #caption>
 
 
-      <div class="flex justify-end">
+      <div class="flex justify-between items-center">
+        <h2 class="m-0">Perfil Módulos</h2>
+
         <p-iconField iconPosition="left">
             <p-inputIcon>
                 <i class="pi pi-search"></i>
             </p-inputIcon>
-            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Keyboard Search" />
+            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar" />
         </p-iconField>
+
+        <p-button label="Agregar" icon="pi pi-plus" (onClick)="createUser()" styleClass="black"></p-button>
+
       </div>
 
     </ng-template>
@@ -50,19 +55,32 @@
           <th style="width: 4rem">
               <p-tableHeaderCheckbox />
           </th>
-          <th pSortableColumn="perfil_Id" style="min-width: 14rem">
+          <th pSortableColumn="perfil_Id" style="width: 3rem">
             <div class="flex justify-between items-center">
                 Id
                   <p-sortIcon field="perfil_Id" />
+                  <p-columnFilter type="text" field="perfil_Id" display="menu" />
 
                 <!-- <p-sortIcon field="clientNumber" />
                 <p-columnFilter type="text" field="clientNumber" display="menu" class="ml-auto" /> -->
             </div>
           </th>
+          <th pSortableColumn="descripcion" style="min-width: 14rem">
+            <div class="flex justify-between items-center">
+              Perfil
+              <p-sortIcon field="descripcion" />
+              <p-columnFilter type="text" field="descripcion" display="menu" />
+              <!-- <p-sortIcon field="names" />
+              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
+          </div>
+          </th>
+
           <th pSortableColumn="usuario_Creacion" style="min-width: 14rem">
             <div class="flex justify-between items-center">
               Usuario Creación
                 <p-sortIcon field="usuario_Creacion" />
+                <p-columnFilter type="text" field="usuario_Creacion" display="menu" />
+
                 <!-- <p-sortIcon field="names" />
                 <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
             </div>
@@ -71,14 +89,8 @@
             <div class="flex justify-between items-center">
               Fecha Creación
               <p-sortIcon field="fecha_Creacion" />
-              <!-- <p-sortIcon field="names" />
-              <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
-          </div>
-          </th>
-          <th pSortableColumn="descripcion" style="min-width: 14rem">
-            <div class="flex justify-between items-center">
-              Descripción
-              <p-sortIcon field="descripcion" />
+              <p-columnFilter type="text" field="fecha_Creacion" display="menu" />
+
               <!-- <p-sortIcon field="names" />
               <p-columnFilter type="text" field="names" display="menu" class="ml-auto" /> -->
           </div>
@@ -89,46 +101,6 @@
           </th>
 
       </tr>
-
-      <tr>
-        <th>
-
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="perfil_Id"
-                    placeholder="Código"
-                    ariaLabel="Filter perfil_Id"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="usuario_Creacion"
-                    placeholder="Buscar por perfil"
-                    ariaLabel="Filter usuario_Creacion"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="fecha_Creacion"
-                    placeholder="Buscar por Módulo"
-                    ariaLabel="Filter fecha_Creacion"
-                ></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-                    type="text"
-                    field="descripcion"
-                    placeholder="Buscar por descripcion"
-                    ariaLabel="Filter descripcion"
-                ></p-columnFilter>
-        </th>
-
-
-      </tr>
     </ng-template>
 
     <ng-template #body let-profile>
@@ -137,13 +109,13 @@
               <p-tableCheckbox [value]="profile" />
             </td>
             <td>{{ profile.perfil_Id }}</td>
+            <td>{{ profile.descripcion }}</td>
             <td>{{ profile.usuario_Creacion }}</td>
             <td>{{ profile.fecha_Creacion  | date:'dd/MM/yyyy' }}</td>
-            <td>{{ profile.descripcion }}</td>
             <td>
               <div class="flex">
                 <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editProfile(profile)" />
-                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteProfile(profile)" />
+                <!-- <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteProfile(profile)" /> -->
 
               </div>
             </td>

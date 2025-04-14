@@ -15,6 +15,7 @@ export class RegisterComponent {
 
   loading:boolean = false;
   showPassword:boolean = false;
+  showPasswordConfirm:boolean = false;
   registroForm: FormGroup;
   mostrarPassword = false;
   mostrarRepetirPassword = false;
@@ -49,7 +50,14 @@ export class RegisterComponent {
   }
 
 
-  togglePasswordVisibility(){}
+  togglePasswordVisibility(){
+    this.showPassword = !this.showPassword;
+  }
+
+
+  togglePasswordVisibilityConfirm(){
+    this.showPasswordConfirm = !this.showPasswordConfirm;
+  }
 
   onSubmit(){
     this.loading = true;

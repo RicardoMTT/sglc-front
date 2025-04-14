@@ -29,6 +29,7 @@ export class EditComponent implements OnInit{
   id: string;
   document: any;
   newModules: any = [];
+  currentModule: any;
   constructor(private fb:FormBuilder,private router:Router,private apiService:ApiService,
     private route:ActivatedRoute
   ){
@@ -46,7 +47,6 @@ export class EditComponent implements OnInit{
       next: ((data:any) => {
         this.modules = data.data;
         this.newModules = this.modules.filter((item :any)=> item.modulo_Principal == "0");
-        console.log(this.newModules);
         this.index();
 
 
@@ -59,6 +59,8 @@ export class EditComponent implements OnInit{
       module_name: [''],
       number: ['']
     });
+
+    this.documentForm.get('module_name')?.disable();
   }
 
 
@@ -66,19 +68,16 @@ export class EditComponent implements OnInit{
     this.apiService.getAllNumerator().subscribe({
       next: (data:any) => {
         this.documents = data.data;
-        console.log(this.documents);
-        console.log(this.id);
 
         this.document = this.documents.find((doc:any) => doc.numeradoR_DOCUMENTO_ID == this.id);
-        console.log(this.document);
 
-        const currentModule = this.newModules.filter((item:any) => item.nombre_Modulo == this.document.nombrE_MODULO)[0];
-        console.log(currentModule);
+
+        this.currentModule = this.newModules.filter((item:any) => item.nombre_Modulo == this.document.nombrE_MODULO)[0];
 
 
         this.documentForm.patchValue({
           prefix:this.document.prefijo,
-          module_name:currentModule,
+          module_name:this.currentModule,
           number:this.document.numero
         })
 
@@ -100,24 +99,20 @@ export class EditComponent implements OnInit{
 
   save(){
 
-    console.log(this.documentForm.value);
 
     const {
       prefix,
-      module_name,
       number
     } = this.documentForm.value;
-
 
     const user = JSON.parse(localStorage.getItem('user')|| '{}');
 
     const body = {
-      id_Modulo : module_name.modulo_id,
+      id_Modulo : this.currentModule.modulo_id,
       prefijo:prefix,
       numerador:number,
       empresa_Id:user.empresa_Id
     }
-
 
     this.apiService.updateNumerator(body).subscribe({
       next:(_) => {

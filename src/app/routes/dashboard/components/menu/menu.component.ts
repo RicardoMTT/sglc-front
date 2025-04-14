@@ -34,10 +34,25 @@ export class AppMenu {
                   routerLink: ['/dashboard/operations/packages']
                 },
                 {
-                    label: 'Clientes',
-                    icon: 'pi pi-fw pi-user',
-                    routerLink: ['/dashboard/operations/clients']
+                  label: 'Clientes',
+                  icon: 'pi pi-fw pi-user',
+                  routerLink: ['/dashboard/operations/clients']
                 },
+                {
+                  label: 'Warehouse',
+                  icon: 'pi pi-fw pi-warehouse',
+                  routerLink: ['/dashboard/operations/warehouse']
+                },
+                {
+                  label: 'Guías',
+                  icon: 'pi pi-fw pi-file',
+                  routerLink: ['/dashboard/operations/guides']
+                },
+                {
+                  label: 'Consolidados',
+                  icon: 'pi pi-fw pi-folder',
+                  routerLink: ['/dashboard/operations/consolidates']
+                }
               ]
             },
             {
@@ -115,15 +130,35 @@ export class AppMenu {
                 },
                 {
                   label: 'Configuración Servidor SMTP',
-                  icon: 'pi pi-fw pi-search',
+                  icon: 'pi pi-fw pi-server',
                   routerLink: ['/dashboard/settings/smtp-server']
                 },
                 {
                   label: 'Notificaciónes',
-                  icon: 'pi pi-fw pi-search',
+                  icon: 'pi pi-fw pi-bell',
                   routerLink: ['/dashboard/settings/notifications']
                 },
 
+              ]
+            },
+            {
+              label: 'Mi perfil',
+              items: [
+                {
+                  label: 'Solicitar embarque / paquetes',
+                  icon: 'pi pi-fw pi-envelope',
+                  routerLink: ['/dashboard/settings/email-configuration']
+                },
+                {
+                  label: 'Consultar tracking',
+                  icon: 'pi pi-fw pi-search',
+                  routerLink: ['/dashboard/settings/activities-calendar']
+                },
+                {
+                  label: 'Consultar Guía de embarque',
+                  icon: 'pi pi-fw pi-file',
+                  routerLink: ['/dashboard/settings/audits']
+                },
               ]
             },
         ];

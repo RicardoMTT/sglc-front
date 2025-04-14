@@ -33,19 +33,33 @@
 
 
     <div class="flex flex-col gap-2">
-      <label class="text-sm font-medium">Contraseña (*)</label>
-      <input pInputText formControlName="password" pSize="large"  type="password" class="w-full" />
+      <label class="text-sm font-medium">Username</label>
+      <input pInputText  formControlName="username" pSize="large"  class="w-full" />
     </div>
 
+
     <div class="flex flex-col gap-2">
-      <label class="text-sm font-medium">Apellidos</label>
-      <input pInputText formControlName="lastName"   pSize="large" class="w-full" />
+      <label class="text-sm font-medium">Contraseña (*)</label>
+      <input pInputText formControlName="password" pSize="large"  type="password" class="w-full" />
     </div>
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Nombres (*) </label>
       <input pInputText formControlName="names"   pSize="large" class="w-full" />
     </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Apellidos</label>
+      <input pInputText formControlName="lastName"   pSize="large" class="w-full" />
+    </div>
+
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium">Perfil </label>
+      <p-select formControlName="profile" size="large"  [options]="profiles"  placeholder="Perfil" optionLabel="descripcion" class="w-full"></p-select>
+    </div>
+
 
 
     <div class="flex flex-col gap-2">
@@ -63,23 +77,23 @@
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Usuario creación</label>
-      <input pInputText formControlName="create_user"  pSize="large"class="w-full" />
+      <input pInputText formControlName="create_user"  [disabled]="true" pSize="large"class="w-full disabled-field" />
     </div>
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Fecha creación</label>
-      <input pInputText formControlName="creation_date"  pSize="large"class="w-full" />
+      <input pInputText formControlName="creation_date" [disabled]="true" pSize="large"class="w-full disabled-field" />
 
     </div>
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Usuario actualización</label>
-      <input pInputText formControlName="user_update" pSize="large" class="w-full" />
+      <input pInputText formControlName="user_update" [disabled]="true" pSize="large" class="w-full disabled-field" />
     </div>
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium">Fecha actualización</label>
-      <input pInputText formControlName="update_date"  pSize="large" class="w-full" />
+      <input pInputText formControlName="update_date" [disabled]="true" pSize="large" class="w-full disabled-field" />
     </div>
 
   </form>
